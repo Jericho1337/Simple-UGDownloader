@@ -2,11 +2,10 @@
 Ultimate Guitar Downloader is a simple downloader for UG Songs
 
 # USAGE
+Place yourself in the project directory
 ```
 python3 main.py
-
 OR
-
 python3 main.py -i <PATH_TO_INPUT_FILE>
 ```
 

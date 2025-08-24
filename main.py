@@ -1,10 +1,9 @@
-import SongsFileReader
-import WebNavigator
-import SongsFileWriter
-import ConfigFileReader
-import ChordTransposer
+from src import SongsFileReader
+from src import WebNavigator
+from src import SongsFileWriter
+from src import ConfigFileReader
+from src import ChordTransposer
 import sys, getopt
-import tkinter as tk
 
 config_file = "./input/config.yaml"
 
@@ -51,7 +50,7 @@ if __name__ == "__main__":
         print("Extracting text and chords for "+ text_title +" from webpage...")
         text_with_chords = webnavigator.get_song_text_and_chords()
 
-        text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, -12)
+        text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, 0)
         
         #GENERATE CHORDS PDF and TXT
         print("Generating chords PDFs and TXT for "+ text_title +"...")
