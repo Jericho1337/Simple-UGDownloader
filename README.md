@@ -1,5 +1,10 @@
 # UGDownloader
 Ultimate Guitar Downloader is a simple downloader for UG Songs
+![alt text](images/execution.png)
+![alt text](images/output2.png)
+![alt text](images/output0.png)
+![alt text](images/output1.png)
+![alt text](images/input.png)
 
 ### USAGE
 Place yourself in the project directory
