@@ -1,7 +1,7 @@
 # UGDownloader
 Ultimate Guitar Downloader is a simple downloader for UG Songs
 
-# USAGE
+## USAGE
 Place yourself in the project directory
 ```
 python3 main.py
@@ -14,9 +14,9 @@ The script will produce 3 outputs in the output folder:
 * PDF without bold
 * PDF with bold chords (experimental)
 
-# NEXT STEPS
+## NEXT STEPS
 * CHORD TRANSPOSING
 * TXT To PDF Converter
 * GUI
 
-# REQUIREMENTS
+## REQUIREMENTS
