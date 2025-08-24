@@ -27,9 +27,9 @@ pip3 install -r requirements.txt
 Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver?form=MA13LH
 
 ### NEXT STEPS
-* [] CHORD TRANSPOSING
-* [] TXT To PDF Converter
-* [] GUI
-* [] ADD OTHER WEBDRIVERS
+* [ ] CHORD TRANSPOSING
+* [ ] TXT To PDF Converter
+* [ ] GUI
+* [ ] ADD OTHER WEBDRIVERS
 
 
