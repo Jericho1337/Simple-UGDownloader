@@ -46,7 +46,7 @@ Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/mic
 **NOTE**: If you are using Visual Studio Code, Edge driver is already installed
 
 ### NEXT STEPS
-* [ ] Chord transposer
+* [X] Chord transposer
 * [ ] TXT To PDF converter
 * [ ] GUI
 * [ ] add other webdrivers
