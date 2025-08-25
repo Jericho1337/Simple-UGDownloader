@@ -7,6 +7,8 @@ Ultimate Guitar Downloader is a simple downloader for UG Songs
 ![alt text](images/input.png)
 
 ### USAGE
+
+#### BASIC USAGE
 Place yourself in the project directory
 ```
 python3 main.py
@@ -18,6 +20,21 @@ The script will produce 3 outputs in the output folder:
 * TXT file containing the tab
 * PDF without bold
 * PDF with bold chords (experimental)
+
+#### CHORD TRANSPOSITION
+You can pass a transposing offset (positive or negative)
+
+At the moment, transposing offset will be applied to all song listed in input file
+
+```
+python3 main.py -t <POSITIVE_OR_NEGATIVE_OFFSET>
+```
+
+In this example we transpose down of 3 semitones
+```
+python3 main.py -t -3
+```
+
 
 ### INSTALLATION
 
