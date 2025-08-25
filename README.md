@@ -48,7 +48,7 @@ python3 main.py -t -3
 ```
 
 #### TXT TO PDF
-You can convert a TXT of to normal and bold PDF
+You can convert a TXT of a song to normal and bold PDF
 
 ```
 python3 main.py -p <PATH_TO_TXTFILE>
