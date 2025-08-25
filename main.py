@@ -16,14 +16,17 @@ if __name__ == "__main__":
     normal_font_path = config_parameters["normal_font_path"]
     bold_font_path = config_parameters["bold_font_path"]
     chord_charcount_exclusion = config_parameters["chord_charcount_exclusion"]
+    chord_transpose_offset = 0
 
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="i:")
+            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="it:")
             for argument, value in arguments:
                 if(argument == "-i"):
                     songs_to_download_file = value #OVERWRITE DEFAULT INPUT VALUE
+                if(argument == "-t"):
+                    chord_transpose_offset = int(value) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET 
                 
         except getopt.error as err:
             print("[ERROR] Unrecognized arguments " + str(err))      
@@ -50,7 +53,8 @@ if __name__ == "__main__":
         print("Extracting text and chords for "+ text_title +" from webpage...")
         text_with_chords = webnavigator.get_song_text_and_chords()
 
-        text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, 0)
+        #TRANSPOSE TEXT
+        text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
         
         #GENERATE CHORDS PDF and TXT
         print("Generating chords PDFs and TXT for "+ text_title +"...")
