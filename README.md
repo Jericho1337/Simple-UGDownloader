@@ -26,10 +26,12 @@ pip3 install -r requirements.txt
 ```
 Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver?form=MA13LH
 
+**NOTE**: If you are using Visual Studio Code, Edge driver is already installed
+
 ### NEXT STEPS
-* [ ] CHORD TRANSPOSING
-* [ ] TXT To PDF Converter
+* [ ] Chord transposer
+* [ ] TXT To PDF converter
 * [ ] GUI
-* [ ] ADD OTHER WEBDRIVERS
+* [ ] add other webdrivers
 
 
