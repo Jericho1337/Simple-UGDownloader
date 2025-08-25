@@ -6,6 +6,15 @@ Ultimate Guitar Downloader is a simple downloader for UG Songs
 ![alt text](images/output1.png)
 ![alt text](images/input.png)
 
+### INSTALLATION
+
+```
+pip3 install -r requirements.txt
+```
+Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver?form=MA13LH
+
+**NOTE**: If you are using Visual Studio Code, Edge driver is already installed
+
 ### USAGE
 
 #### BASIC USAGE
@@ -37,16 +46,6 @@ In this example we transpose down of 3 semitones
 ```
 python3 main.py -t -3
 ```
-
-
-### INSTALLATION
-
-```
-pip3 install -r requirements.txt
-```
-Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver?form=MA13LH
-
-**NOTE**: If you are using Visual Studio Code, Edge driver is already installed
 
 ### NEXT STEPS
 * [X] Chord transposer
