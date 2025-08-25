@@ -3,12 +3,14 @@ from src import WebNavigator
 from src import SongsFileWriter
 from src import ConfigFileReader
 from src import ChordTransposer
+from src import TxtSongFileReader
 import sys, getopt
 
 config_file = "./input/config.yaml"
 
 if __name__ == "__main__":
 
+    #LOAD DEFAULT CONFIGURATION PARAMETERS
     config_reader = ConfigFileReader.ConfigFileReader(config_file)
     config_parameters = config_reader.get_configuration_params()
     songs_to_download_file = config_parameters["songs_to_download_file"]
@@ -21,12 +23,20 @@ if __name__ == "__main__":
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="it:")
+            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="itp:")
             for argument, value in arguments:
                 if(argument == "-i"):
                     songs_to_download_file = value #OVERWRITE DEFAULT INPUT VALUE
                 if(argument == "-t"):
                     chord_transpose_offset = int(value) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET 
+                if(argument == "-p"):
+                    txtsongreader = TxtSongFileReader.TxtSongFileReader(value)
+                    songwriter = SongsFileWriter.SongsFileWriter()
+                    songwriter.add_font(font_name, normal_font_path, bold_font_path)
+                    songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
+                    songwriter.generate_bold_pdf(txtsongreader.get_text_title(), txtsongreader.get_text_with_chords())
+                    songwriter.generate_normal_pdf(txtsongreader.get_text_title(), txtsongreader.get_text_with_chords())
+                    sys.exit()
                 
         except getopt.error as err:
             print("[ERROR] Unrecognized arguments " + str(err))      
@@ -58,7 +68,6 @@ if __name__ == "__main__":
         
         #GENERATE CHORDS PDF and TXT
         print("Generating chords PDFs and TXT for "+ text_title +"...")
-
         songwriter = SongsFileWriter.SongsFileWriter()
         songwriter.add_font(font_name, normal_font_path, bold_font_path)
         songwriter.set_chordline_char_threshold(chord_charcount_exclusion)

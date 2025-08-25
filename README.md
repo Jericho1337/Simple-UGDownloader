@@ -47,9 +47,19 @@ In this example we transpose down of 3 semitones
 python3 main.py -t -3
 ```
 
+#### TXT TO PDF
+You can convert a TXT of to normal and bold PDF
+
+```
+python3 main.py -p <PATH_TO_TXTFILE>
+```
+
+**NOTE**: transposition is not supported and "-t" argument will be ignored in this mode
+
+
 ### NEXT STEPS
 * [X] Chord transposer
-* [ ] TXT To PDF converter
+* [X] TXT To PDF converter
 * [ ] GUI
 * [ ] add other webdrivers
 
