@@ -10,6 +10,7 @@ Ultimate Guitar Downloader is a simple downloader for UG Songs
 
 #### BASIC USAGE
 Place yourself in the project directory
+If no input file is specified, standard path "./input/songstodownload.txt" will be used
 ```
 python3 main.py
 OR
