@@ -9,7 +9,6 @@ class SongsFileWriter:
     CHORD_REGEX_TRUEMODE = "(?<=\\\CHORD\[)(.*?)(?=\])"# USES POSITIVE AND NEGATIVE REGEX LOOKAHEAD TO RETRIEVE ONLY CHARACTERS INSIDE
     CHORD_REGEX_TRUEMODE_WITHGARBAGE = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
 
-
     def __init__(self):
 
         self.font_name = ""
@@ -17,11 +16,14 @@ class SongsFileWriter:
         self.bold_font_path = ""
         self.chord_charcount_threshold = 15
 
-        self.pdf_bold = self.pdf_bold = FPDF(orientation="P", unit="mm", format="A4")
+        self.pdf_bold = FPDF(orientation="P", unit="mm", format="A4")
         self.pdf_bold.add_page()
 
-        self.pdf_normal = self.pdf_normal = FPDF(orientation="P", unit="mm", format="A4")
+        self.pdf_normal = FPDF(orientation="P", unit="mm", format="A4")
         self.pdf_normal.add_page()
+
+        self.pdf_true_bold = FPDF(orientation="P", unit="mm", format="A4")
+        self.pdf_true_bold.add_page()
 
     def add_font(self, font_name, normal_font_path, bold_font_path):
     
@@ -34,6 +36,9 @@ class SongsFileWriter:
 
         self.pdf_normal.add_font(font_name, '', normal_font_path, uni=True)
         self.pdf_normal.add_font(font_name,'B',bold_font_path, uni=True)
+
+        self.pdf_true_bold.add_font(font_name, '', normal_font_path, uni=True)
+        self.pdf_true_bold.add_font(font_name,'B',bold_font_path, uni=True)
 
     def set_chordline_char_threshold(self, chord_charcount_threshold):
         self.chord_charcount_threshold = chord_charcount_threshold
@@ -71,9 +76,9 @@ class SongsFileWriter:
             text_song.write(text_with_chords)
     
     def generate_true_bold_pdf(self,text_title, true_text_with_chords):
-        self.pdf_bold.set_font(self.font_name, size = 18, style = "B")
-        self.pdf_bold.cell(0,10,text_title,"B",align="C")
-        self.pdf_bold.write(5,"\n\n\n")
+        self.pdf_true_bold.set_font(self.font_name, size = 18, style = "B")
+        self.pdf_true_bold.cell(0,10,text_title,"B",align="C")
+        self.pdf_true_bold.write(5,"\n\n\n")
 
         for line in true_text_with_chords.split("\n"):
             line = line + "\n"
@@ -85,9 +90,9 @@ class SongsFileWriter:
                 match_offset = 0 # USED TO ADJUST MATCH REFERENCES AFTER REMOVAL
                 #WE GET MATCH RANGES
                 for match in matches:
-                    match_offset += 1 #MATCHES ARE IN INCREASING ORDER (STRING IS INSPECTED FROM LEFT TO RIGHT)
+                    match_offset += 1 #MATCHES ARE IN INCREASING ORDER (STRING IS READ FROM LEFT TO RIGHT)
                     #EVERY CHORD MUST BE SHIFTED ACCORDING TO THIS RULE: 
-                    # -> SUBTRACT 7 CURRENT AND EVERY PRECEDENT CHORD FOR THE "\CHORD["" STRING 
+                    # -> SUBTRACT 7 FOR CURRENT AND EVERY PRECEDENT CHORD FOR THE "\CHORD[" STRING 
                     # -> SUBTRACT 1 FOR EACH PRECEDENT CHORD EXCLUDING CURRENT FOR "]" STRING
                     total_line_offset = 7*match_offset+1*(match_offset-1)
                     #EVERY REFERENCE SHOULD BE ADJUSTED BY THIS TOTAL OFFSET
@@ -101,16 +106,19 @@ class SongsFileWriter:
                     #WE INSPECT IF INDEX IS IN EVERY MATCH RANGE
                     found = False
                     for position in list_of_chord_positions_in_line:
+                        #IF INDEX IS IN RANGE IT IS A CHORD CHARACTER AND MUST BE BOLD
                         if i in range(position[0], position[1]):
-                            self.pdf_bold.set_font(self.font_name, size = 10, style="B")
-                            self.pdf_bold.write(5,line[i])
+                            self.pdf_true_bold.set_font(self.font_name, size = 10, style="B")
+                            self.pdf_true_bold.write(5,line[i])
                             found = True
                             break
+                    #IF INDEX WAS NOT FOUND IN CHORD CHARATER RANGES IT WILL BE A NORMAR CHARACTER
                     if(not found):
-                        self.pdf_bold.set_font(self.font_name, size = 10, style="")
-                        self.pdf_bold.write(5,line[i])
+                        self.pdf_true_bold.set_font(self.font_name, size = 10, style="")
+                        self.pdf_true_bold.write(5,line[i])
+            #NORMAL LINE WITHOUT CHORDS
             else:
-                self.pdf_bold.set_font(self.font_name, size = 10, style="")
-                self.pdf_bold.write(5,line) 
+                self.pdf_true_bold.set_font(self.font_name, size = 10, style="")
+                self.pdf_true_bold.write(5,line) 
 
-        self.pdf_bold.output("./output/true_boldchords/" + text_title + ".pdf")
+        self.pdf_true_bold.output("./output/true_boldchords/" + text_title + ".pdf")

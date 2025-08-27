@@ -24,7 +24,7 @@ if __name__ == "__main__":
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="itp:")
+            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:")
             for argument, value in arguments:
                 if(argument == "-i"):
                     songs_to_download_file = value #OVERWRITE DEFAULT INPUT VALUE
@@ -65,10 +65,16 @@ if __name__ == "__main__":
         print("Extracting TRUE text and chords for "+ text_title +" from webpage...")
         true_text_with_chords = webnavigator.get_true_song_text_and_chords()
 
-        print("Generating chords PDFs and TXT for "+ text_title +"...")
+        #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
+        print("Transposing song by "+ str(chord_transpose_offset) +" offset...")
+        text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
+        true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
+
         songwriter = SongsFileWriter.SongsFileWriter()
         songwriter.add_font(font_name, normal_font_path, bold_font_path)
         songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
+
+        print("Generating chords PDFs and TXT for "+ text_title +"...")
         songwriter.generate_bold_pdf(text_title, text_with_chords)
         songwriter.generate_normal_pdf(text_title, text_with_chords)
         songwriter.generate_normal_text(text_title, text_with_chords)
@@ -76,8 +82,7 @@ if __name__ == "__main__":
         print("Generating TRUE chords PDFs and TXT for "+ text_title +"...")
         songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
 
-        #TRANSPOSE TEXT
-        #text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
+        
 
         #GENERATE CHORDS PDF and TXT
            

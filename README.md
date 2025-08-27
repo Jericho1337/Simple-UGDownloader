@@ -59,7 +59,6 @@ python3 main.py -p <PATH_TO_TXTFILE>
 
 **NOTE**: TRUE mode isn't yet supported in TXT to PDF
 
-
 ### NEXT STEPS
 * [X] Chord transposer
 * [X] TXT To PDF converter
