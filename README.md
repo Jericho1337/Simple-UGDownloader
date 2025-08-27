@@ -28,10 +28,11 @@ OR
 python3 main.py -i <PATH_TO_INPUT_FILE>
 ```
 
-The script will produce 3 outputs in the output folder:
+The script will produce 4 outputs in the output folder:
 * TXT file containing the tab
 * PDF without bold
-* PDF with bold chords (experimental)
+* PDF with bold chords (uses heuristics to determine chords and make them bold)
+* TRUE PDF with bold chords (uses real website parsing to bold chords)
 
 #### CHORD TRANSPOSITION
 You can pass a transposing offset (positive or negative)
