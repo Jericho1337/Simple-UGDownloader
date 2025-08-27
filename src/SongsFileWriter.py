@@ -5,8 +5,10 @@ import re as regex
 
 class SongsFileWriter:
 
-    #CHORD_REGEX = "([CDEFGAB](#|##|b|bb)?)((M|maj|m|aug|dim|sus|add)?(6|7|9|11|13|-5|\+5)?)"
     CHORD_REGEX = "([CDEFGAB](#|##|b|bb)?)((M|maj|m|aug|dim|sus|add)?(6|7|9|11|13|-5|\+5)?[^cefghilnopqrtuvxyz])"
+    CHORD_REGEX_TRUEMODE = "(?<=\\\CHORD\[)(.*?)(?=\])"# USES POSITIVE AND NEGATIVE REGEX LOOKAHEAD TO RETRIEVE ONLY CHARACTERS INSIDE
+    CHORD_REGEX_TRUEMODE_WITHGARBAGE = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
+
 
     def __init__(self):
 
@@ -32,7 +34,6 @@ class SongsFileWriter:
 
         self.pdf_normal.add_font(font_name, '', normal_font_path, uni=True)
         self.pdf_normal.add_font(font_name,'B',bold_font_path, uni=True)
-
 
     def set_chordline_char_threshold(self, chord_charcount_threshold):
         self.chord_charcount_threshold = chord_charcount_threshold
@@ -68,3 +69,48 @@ class SongsFileWriter:
             text_song.write(text_title)
             text_song.write("\n\n")
             text_song.write(text_with_chords)
+    
+    def generate_true_bold_pdf(self,text_title, true_text_with_chords):
+        self.pdf_bold.set_font(self.font_name, size = 18, style = "B")
+        self.pdf_bold.cell(0,10,text_title,"B",align="C")
+        self.pdf_bold.write(5,"\n\n\n")
+
+        for line in true_text_with_chords.split("\n"):
+            line = line + "\n"
+            
+            #CHECK IF THERE IS AT LEAST ONE MATCH
+            if regex.search(SongsFileWriter.CHORD_REGEX_TRUEMODE, line) != None:
+                matches = regex.finditer(SongsFileWriter.CHORD_REGEX_TRUEMODE,line)
+                list_of_chord_positions_in_line = []
+                match_offset = 0 # USED TO ADJUST MATCH REFERENCES AFTER REMOVAL
+                #WE GET MATCH RANGES
+                for match in matches:
+                    match_offset += 1 #MATCHES ARE IN INCREASING ORDER (STRING IS INSPECTED FROM LEFT TO RIGHT)
+                    #EVERY CHORD MUST BE SHIFTED ACCORDING TO THIS RULE: 
+                    # -> SUBTRACT 7 CURRENT AND EVERY PRECEDENT CHORD FOR THE "\CHORD["" STRING 
+                    # -> SUBTRACT 1 FOR EACH PRECEDENT CHORD EXCLUDING CURRENT FOR "]" STRING
+                    total_line_offset = 7*match_offset+1*(match_offset-1)
+                    #EVERY REFERENCE SHOULD BE ADJUSTED BY THIS TOTAL OFFSET
+                    list_of_chord_positions_in_line.append([match.start()-total_line_offset,match.end()-total_line_offset])
+
+                #REMOVE \CHORD[] BEFORE BOLDING
+                line = regex.sub(SongsFileWriter.CHORD_REGEX_TRUEMODE_WITHGARBAGE,r"\2",line)
+                
+                #ITERATE EACH CHARATER (the indexes) OF THE LINE
+                for i in range(0, len(line)):
+                    #WE INSPECT IF INDEX IS IN EVERY MATCH RANGE
+                    found = False
+                    for position in list_of_chord_positions_in_line:
+                        if i in range(position[0], position[1]):
+                            self.pdf_bold.set_font(self.font_name, size = 10, style="B")
+                            self.pdf_bold.write(5,line[i])
+                            found = True
+                            break
+                    if(not found):
+                        self.pdf_bold.set_font(self.font_name, size = 10, style="")
+                        self.pdf_bold.write(5,line[i])
+            else:
+                self.pdf_bold.set_font(self.font_name, size = 10, style="")
+                self.pdf_bold.write(5,line) 
+
+        self.pdf_bold.output("./output/true_boldchords/" + text_title + ".pdf")
