@@ -56,6 +56,7 @@ python3 main.py -p <PATH_TO_TXTFILE>
 ```
 
 **NOTE**: transposition is not supported and "-t" argument will be ignored in this mode
+
 **NOTE**: TRUE mode isn't yet supported in TXT to PDF
 
 
