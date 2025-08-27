@@ -56,11 +56,15 @@ python3 main.py -p <PATH_TO_TXTFILE>
 ```
 
 **NOTE**: transposition is not supported and "-t" argument will be ignored in this mode
+**NOTE**: TRUE mode isn't yet supported in TXT to PDF
 
 
 ### NEXT STEPS
 * [X] Chord transposer
 * [X] TXT To PDF converter
+* [ ] TRUE Mode for TXT TO PDF
+* [ ] TRUE Mode transposing
+* [ ] Normal transposing for TXT to PDF normal mode
 * [ ] GUI
 * [ ] add other webdrivers
 
