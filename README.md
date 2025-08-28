@@ -20,51 +20,57 @@ Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/mic
 #### BASIC USAGE
 Place yourself in the project directory
 
-**NOTE**: If no input file is specified, standard path "./input/songstodownload.txt" will be used
+**INPUT**: "./input/songstodownload.txt" URL list will be used
 
 ```
 python3 main.py
-OR
-python3 main.py -i <PATH_TO_INPUT_FILE>
 ```
+![alt text](images/output_folders.png)
 
-The script will produce 4 outputs in the output folder:
-* TXT file containing the tab
-* PDF without bold
-* PDF with bold chords (uses heuristics to determine chords and make them bold)
-* TRUE PDF with bold chords (uses real website parsing to bold chords)
+The script will produce 5 outputs in the output folders:
+* TXT (text folder)
+* PDF without bold chords (normalchords folder)
+* PDF with bold chords (boldchords folder) (uses heuristics to determine chords and make them bold)
+* TRUE PDF with bold chords (true_boldchords folder) (uses real website parsing to bold chords)
+* TRUE TXT (true_text folder)
 
 #### CHORD TRANSPOSITION
 You can pass a transposing offset (positive or negative)
 
-At the moment, transposing offset will be applied to all song listed in input file
+At the moment, **transposing offset will be applied to all song listed in input file**
 
 ```
-python3 main.py -t <POSITIVE_OR_NEGATIVE_OFFSET>
+python3 main.py --transpose <POSITIVE_OR_NEGATIVE_OFFSET>
 ```
 
 In this example we transpose down of 3 semitones
 ```
-python3 main.py -t -3
+python3 main.py --transpose -3
 ```
 
 #### TXT TO PDF
-You can convert a TXT of a song to normal and bold PDF
+
+You can input TXT of TRUE TXT to generate PDFs.
+
+You can choose between 2 modes:
+* Normal mode: using ```--txt2pdf <TXT_FILE>```
+* True mode: using ```--truetxt2pdf <TRUE_TXT_FILE>```
+
+TRUE TXT uses ```\CHORD[<CHORD_HERE>]``` formatting to process text in a precise way, instead normal mode is based on heuristics
 
 ```
-python3 main.py -p <PATH_TO_TXTFILE>
+python3 main.py --txt2pdf <TXT_FILE>
+python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
 ```
 
-**NOTE**: transposition is not supported and "-t" argument will be ignored in this mode
-
-**NOTE**: TRUE mode isn't yet supported in TXT to PDF
+**NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
 
 ### NEXT STEPS
-* [X] Chord transposer
-* [X] TXT To PDF converter
-* [ ] TRUE Mode for TRUE TXT TO TRUE PDF
-* [X] TRUE Mode transposing
-* [X] Normal transposing for TXT to PDF normal mode
+* [X] TXT To PDF converter (normal mode)
+* [X] TXT to PDF converter (true mode)
+* [X] Transposing (normal mode)
+* [X] Transposing (true mode)
+* [ ] Flat or Sharp preferences
 * [ ] GUI
 * [ ] Add other webdrivers
 
