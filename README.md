@@ -17,10 +17,11 @@ Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/mic
 ### USAGE
 
 #### BASIC USAGE
-Place yourself in the project directory
 
 **INPUT**: "./input/songstodownload.txt" URL list will be used
 ![alt text](images/input.png)
+
+Place yourself in the project directory
 
 ```
 python3 main.py
