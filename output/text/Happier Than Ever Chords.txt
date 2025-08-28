@@ -1,9 +1,9 @@
 Happier Than Ever Chords
 
-***Please Note: If you find Dadd9 difficult to play, feel free to use a regular D (X32010).***
+***Please Note: If you find Cadd9 difficult to play, feel free to use a regular C (X32010).***
  
 [Intro - Rhythm Guitar]
-     A                    A6       A7
+     G                    G6       G7
 e|-------3---3----3---3---0----|---1-------------|
 B|-------0---0----0---0---0----|---0-------------|
 G|-------0---0----0---0---0----|---0-------------|
@@ -17,28 +17,28 @@ E|---3-------------------------|-----------------|
  
 [Verse 1 - Full Picking Pattern (With Optional Slash Chords)]
  
-     D         D/A             D          D/A
+     C         C/G             C          C/G
 e|-------0--0-------0--0---|-------0--0--------0--0---|
 B|-------1--1-------1--1---|-------1--1--------1--1---|
 G|-------0--0-------0--0---|-------0--0--------0--0---|
 D|-------2--2-------2--2---|-------2--2--------2--2---|
 A|---3---------------------|---3----------------------|
 E|---------------3---------|---------------3----------|
-    F#7
+    E7
 e|-------0--0-------0--0---|-------0--0--------0--0---|
 B|-------0--0-------0--0---|-------0--0--------0--0---|
 G|-------1--1-------1--1---|-------1--1--------1--1---|
 D|-------0--0-------0--0---|-------0--0--------0--0---|
 A|---2---------------------|---2----------------------|
 E|---------------0---------|---------------0----------|
-    Bm         Bm/F#           Bm         Bm/F#
+    Am         Am/E           Am         Am/E
 e|-------0--0-------0--0---|-------0--0--------0--0---|
 B|-------1--1-------1--1---|-------1--1--------1--1---|
 G|-------2--2-------2--2---|-------2--2--------2--2---|
 D|-------2--2-------2--2---|-------2--2--------2--2---|
 A|---0---------------------|---0----------------------|
 E|---------------0---------|---------------0----------|
-    Em7b5
+    Dm7b5
 e|-------1--1-------1--1---|-------1--1--------1--1---|
 B|-------1--1-------1--1---|-------1--1--------1--1---|
 G|-------1--1-------1--1---|-------1--1--------1--1---|
@@ -50,118 +50,118 @@ E|-------------------------|--------------------------|
  
  
 [Chorus]
-N.C.     Dadd9
+N.C.     Cadd9
 When I'm away from you
-                 F#7
+                 E7
 I'm happier than ever
-                         Bm
+                         Am
 Wish I could explain it better
-                 Em7    A
+                 Dm7    G
 I wish it wasn't true, mmm
  
-         Dadd9
+         Cadd9
 Give me a day or two
-                       F#7
+                       E7
 To think of something clever
-                 Bm
+                 Am
 To write myself a letter
-                  Em7  A
+                  Dm7  G
 To tell me what to do,  mm-mm
  
  
 [Verse 1]
-D
+C
   Do you read my interviews?
-   F#7
+   E7
 Or do you skip my avenue?
-     Bm
+     Am
 When you said you were passin' through
-      Em7b5
+      Dm7b5
 Was I even on your way?
-   D
+   C
 I knew when I asked you to (When I asked you to)
-    F#7
+    E7
 Be cool about what I was tellin' you
-      Bm
+      Am
 You'd do the opposite of what you said you'd do (What you said you'd do)
-       Em7b5
+       Dm7b5
 And I'd end up more afraid
-               F#7
+               E7
 Don't say it isn't fair
-                                   Bm      Bm/A   E/G#
+                                   Am      Am/G   D/F#
 You clearly weren't aware that you made me miserable, ooh
-           Em7          A7
+           Dm7          G7
 So if you really wanna know
  
  
 [Chorus]
-         Dadd9
+         Cadd9
 When I'm away from you (When I'm away from you)
-                  F#7
+                  E7
 I'm happier than ever (I'm happier than ever)
-                         Bm
+                         Am
 Wish I could explain it better (Wish I could explain it better)
-                 Em7    A      D
+                 Dm7    G      C
 I wish it wasn't true, mmm
  
  
 [Instrumental Break]
  
-D  F#7  Bm  G  Gm
+C  E7  Am  F  Fm
  
 [Verse 2]
-D              F#7                   Bm
+C              E7                   Am
 You called me again, drunk in your Benz
-               G          Gm
+               F          Fm
 Drivin' home under the influence
-D                 F#7                       Bm
+C                 E7                       Am
 You scared me to death but I'm wastin' my breath
-                  G             Gm
-'Dause you only listen to your fuckin' friends
-D                    F#7
+                  F             Fm
+'Cause you only listen to your fuckin' friends
+C                    E7
 I don't relate to you
-Bm                     G
+Am                     F
 I don't relate to you, no
-                  D               F#7
-'Dause I'd never treat me this shitty
-            Bm            G
+                  C               E7
+'Cause I'd never treat me this shitty
+            Am            F
 You made me hate this city
  
  
 [Bridge]
-                  D                      F#7
+                  C                      E7
 And I don't talk shit about you on the internet
-            Bm              G
+            Am              F
 Never told anyone anything bad
-                     D                        F#7
-'Dause that shit's embarrassing, you were my everything
-                 Bm                       G
+                     C                        E7
+'Cause that shit's embarrassing, you were my everything
+                 Am                       F
 And all that you did was make me fuckin' sad
-   D                             F#7
+   C                             E7
 So don't waste the time I don't have
-    Bm                         G
+    Am                         F
 And don't try to make me feel bad
-                    D                         F#7
+                    C                         E7
 I could talk about every time that you showed up on time
-                 Bm                          G
+                 Am                          F
 But I'd have an empty line 'cause you never did
-               D                     F#7
+               C                     E7
 Never paid any mind to my mother or friends, so I
-              Bm                          G
+              Am                          F
 Shut them all out for you 'cause I was a kid
  
  
 [Outro]
-D                      F#7
+C                      E7
 You ruined everything good
-        Bm                     G
+        Am                     F
 Always said you were misunderstood
-D                        F#7
+C                        E7
 Made all my moments your own
-Bm                     G
+Am                     F
 Just fuckin' leave me alone
  
  
-D  F#7  Bm  G  X3
+C  E7  Am  F  X3
  
-D  F#7  Bm  G  Gm  D  X1
+C  E7  Am  F  Fm  C  X1

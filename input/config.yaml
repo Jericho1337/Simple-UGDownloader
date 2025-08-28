@@ -1,5 +1,5 @@
-songs_to_download_file: "./input/songstodownload.txt"
+songs_to_download_file: "input/songstodownload.txt"
 font_name: "CourierNew"
-normal_font_path: "./fonts/couriernew.ttf"
-bold_font_path: "./fonts/couriernewbold.ttf"
+normal_font_path: "fonts/couriernew.ttf"
+bold_font_path: "fonts/couriernewbold.ttf"
 chord_charcount_exclusion: 21

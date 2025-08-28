@@ -6,7 +6,7 @@ from src import ChordTransposer
 from src import TxtSongFileReader
 import sys, getopt
 
-config_file = "./input/config.yaml"
+config_file = "input/config.yaml"
 
 if __name__ == "__main__":
 
@@ -83,21 +83,21 @@ if __name__ == "__main__":
     for url_line in songs_to_download_urllist:
         
         #GET WEBPAGE
-        print("Getting webpage...")
+        print("[=         ] 10% Getting webpage...                                     ", end="\r")
         webnavigator.navigate_webpage(url_line)
 
         #GET SONG TITLE
-        print("Getting song title...")
+        print("[==        ] 20% Getting song title...                                     ", end="\r")
         text_title = webnavigator.get_song_title() 
 
         #GET TEXT AND TRUE TEXT
-        print("Extracting text and chords for "+ text_title +" from webpage...")
+        print("[===       ] 30% Extracting text and chords for "+ text_title +" from webpage...                                     ", end="\r")
         text_with_chords = webnavigator.get_song_text_and_chords()
-        print("Extracting TRUE text and chords for "+ text_title +" from webpage...")
+        print("[====      ] 40% Extracting TRUE text and chords for "+ text_title +" from webpage...                                     ", end="\r")
         true_text_with_chords = webnavigator.get_true_song_text_and_chords()
 
         #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
-        print("Transposing song by "+ str(chord_transpose_offset) +" offset...")
+        print("[=====     ] 50% Transposing song by "+ str(chord_transpose_offset) +" offset...                                     ", end="\r")
         text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
         true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
 
@@ -107,12 +107,14 @@ if __name__ == "__main__":
         songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
 
         #NORMAL MODE OUTPUTS
-        print("Generating chords PDFs and TXT for "+ text_title +"...")
+        print("[=======   ] 70% Generating chords PDFs and TXT for "+ text_title +"...                                     ", end="\r")
         songwriter.generate_bold_pdf(text_title, text_with_chords)
         songwriter.generate_normal_pdf(text_title, text_with_chords)
         songwriter.generate_normal_text(text_title, text_with_chords)
 
         #TRUE MODE OUTPUTS
-        print("Generating TRUE chords PDFs and TXT for "+ text_title +"...")
+        print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"...                                     ", end="\r")
         songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
         songwriter.generate_true_text(text_title, true_text_with_chords)
+
+        print("[==========] 100% Completed song " + text_title + " download                                     ")
