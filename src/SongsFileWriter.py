@@ -28,6 +28,10 @@ class SongsFileWriter:
         self.pdf_true_bold = FPDF(orientation="P", unit="mm", format="A4")
         self.pdf_true_bold.add_page()
 
+        #TRUE NORMAL PDF OBJECT
+        self.pdf_true_normal = FPDF(orientation="P", unit="mm", format="A4")
+        self.pdf_true_normal.add_page()
+
     def add_font(self, font_name, normal_font_path, bold_font_path):
     
         self.font_name = font_name
@@ -45,6 +49,10 @@ class SongsFileWriter:
         #TRUE BOLD PDF OBJECT
         self.pdf_true_bold.add_font(font_name, '', normal_font_path, uni=True)
         self.pdf_true_bold.add_font(font_name,'B',bold_font_path, uni=True)
+
+        #TRUE NORMAL PDF OBJECT
+        self.pdf_true_normal.add_font(font_name, '', normal_font_path, uni=True)
+        self.pdf_true_normal.add_font(font_name,'B',bold_font_path, uni=True)
 
     def set_chordline_char_threshold(self, chord_charcount_threshold):
         self.chord_charcount_threshold = chord_charcount_threshold
@@ -135,3 +143,22 @@ class SongsFileWriter:
                 self.pdf_true_bold.write(5,line) 
 
         self.pdf_true_bold.output("./output/true_boldchords/" + text_title + ".pdf")
+
+    def generate_true_normal_pdf(self,text_title, true_text_with_chords):
+        self.pdf_true_normal.set_font(self.font_name, size = 18, style = "B")
+        self.pdf_true_normal.cell(0,10,text_title,"B",align="C")
+        self.pdf_true_normal.write(5,"\n\n\n")
+
+        self.pdf_true_normal.set_font(self.font_name, size = 10, style="") #SET NORMAL FONT FOR TEXT
+        for line in true_text_with_chords.split("\n"):
+            line = line + "\n"
+            
+            #CHECK IF THERE IS AT LEAST ONE CHORD
+            if regex.search(SongsFileWriter.TRUEMODE_CHORD_REGEX, line) != None:
+                
+                #REMOVE \CHORD[] BEFORE WRITING ON PDF
+                line = regex.sub(SongsFileWriter.UNCLEAN_TRUEMODE_CHORD_REGEX,r"\2",line)
+                
+            self.pdf_true_normal.write(5,line) 
+
+        self.pdf_true_normal.output("./output/true_normalchords/" + text_title + ".pdf")

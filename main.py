@@ -32,8 +32,10 @@ if __name__ == "__main__":
             #WE DON'T ITERATE ON INPUT ARGUMENTS TO AVOID A PRIORITY BASED ON DIFFERENT INPUT COMBINATION, WE IMPOSE PRIORITY WITH IFs
             if("--inputfile" in arguments):
                 songs_to_download_file = values[arguments.index("--inputfile")] #OVERWRITE DEFAULT INPUT VALUE
+
             if("--transpose" in arguments):
                 chord_transpose_offset = int(values[arguments.index("--transpose")]) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET
+            
             if("--txt2pdf" in arguments):
                 #READ NORMAL TXT
                 txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--txt2pdf")])
@@ -52,6 +54,7 @@ if __name__ == "__main__":
                 songwriter.generate_bold_pdf(text_title, text_with_chords)
                 songwriter.generate_normal_pdf(text_title, text_with_chords)
                 sys.exit()
+
             if("--truetxt2pdf" in arguments):
                 txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--truetxt2pdf")])
 
@@ -67,6 +70,7 @@ if __name__ == "__main__":
                 songwriter.add_font(font_name, normal_font_path, bold_font_path)
                 songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
                 songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
+                songwriter.generate_true_normal_pdf(text_title, true_text_with_chords)
                 sys.exit()
 
         except getopt.error as err:
@@ -116,6 +120,7 @@ if __name__ == "__main__":
             #TRUE MODE OUTPUTS
             print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"...                                     ", end="\r")
             songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
+            songwriter.generate_true_normal_pdf(text_title, true_text_with_chords)
             songwriter.generate_true_text(text_title, true_text_with_chords)
 
             print("[==========] 100% Completed song " + text_title + " download                                     ")
