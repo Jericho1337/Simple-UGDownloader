@@ -23,19 +23,29 @@ if __name__ == "__main__":
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:")
+            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf="])
             for argument, value in arguments:
-                if(argument == "-i"):
+                if(argument == "-i" or argument == "--inputfile"):
                     songs_to_download_file = value #OVERWRITE DEFAULT INPUT VALUE
-                if(argument == "-t"):
+                if(argument == "-t" or argument == "--transpose"):
                     chord_transpose_offset = int(value) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET
-                if(argument == "-p"):
+                if(argument == "-p" or argument == "--txt2pdf"):
+                    #READ NORMAL TXT
                     txtsongreader = TxtSongFileReader.TxtSongFileReader(value)
+                    
+                    #GET SONG INFORMATION FROM NORMAL TXT FILE
+                    text_title = txtsongreader.get_text_title()
+                    text_with_chords = txtsongreader.get_text_with_chords()
+
+                    #TRANSPOSE TEXT
+                    text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
+
+                    #WRITE NORMAL AND BOLD PDF
                     songwriter = SongsFileWriter.SongsFileWriter()
                     songwriter.add_font(font_name, normal_font_path, bold_font_path)
                     songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-                    songwriter.generate_bold_pdf(txtsongreader.get_text_title(), txtsongreader.get_text_with_chords())
-                    songwriter.generate_normal_pdf(txtsongreader.get_text_title(), txtsongreader.get_text_with_chords())
+                    songwriter.generate_bold_pdf(text_title, text_with_chords)
+                    songwriter.generate_normal_pdf(text_title, text_with_chords)
                     sys.exit()
                 
         except getopt.error as err:
@@ -75,10 +85,13 @@ if __name__ == "__main__":
         songwriter.add_font(font_name, normal_font_path, bold_font_path)
         songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
 
+        #NORMAL MODE OUTPUTS
         print("Generating chords PDFs and TXT for "+ text_title +"...")
         songwriter.generate_bold_pdf(text_title, text_with_chords)
         songwriter.generate_normal_pdf(text_title, text_with_chords)
         songwriter.generate_normal_text(text_title, text_with_chords)
 
+        #TRUE MODE OUTPUTS
         print("Generating TRUE chords PDFs and TXT for "+ text_title +"...")
         songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
+        songwriter.generate_true_text(text_title, true_text_with_chords)

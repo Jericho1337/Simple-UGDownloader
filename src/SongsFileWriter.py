@@ -82,6 +82,12 @@ class SongsFileWriter:
             text_song.write(text_title)
             text_song.write("\n\n")
             text_song.write(text_with_chords)
+
+    def generate_true_text(self, text_title, true_text_with_chords):
+        with open("./output/true_text/" + text_title + ".txt", "w") as text_song:
+            text_song.write(text_title)
+            text_song.write("\n\n")
+            text_song.write(true_text_with_chords)
     
     def generate_true_bold_pdf(self,text_title, true_text_with_chords):
         self.pdf_true_bold.set_font(self.font_name, size = 18, style = "B")
