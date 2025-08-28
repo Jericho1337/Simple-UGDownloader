@@ -27,6 +27,13 @@ Place yourself in the project directory
 python3 main.py
 ```
 
+OR you can specify your input file
+
+```
+python3 main.py --inputfile <INPUT_FILE>
+```
+
+
 The script will produce 5 outputs in the output folders:
 * TXT (text folder)
 * PDF without bold chords (normalchords folder)
