@@ -66,6 +66,6 @@ python3 main.py -p <PATH_TO_TXTFILE>
 * [X] TRUE Mode transposing
 * [X] Normal transposing for TXT to PDF normal mode
 * [ ] GUI
-* [ ] add other webdrivers
+* [ ] Add other webdrivers
 
 
