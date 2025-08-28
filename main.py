@@ -23,31 +23,52 @@ if __name__ == "__main__":
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf="])
-            for argument, value in arguments:
-                if(argument == "-i" or argument == "--inputfile"):
-                    songs_to_download_file = value #OVERWRITE DEFAULT INPUT VALUE
-                if(argument == "-t" or argument == "--transpose"):
-                    chord_transpose_offset = int(value) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET
-                if(argument == "-p" or argument == "--txt2pdf"):
-                    #READ NORMAL TXT
-                    txtsongreader = TxtSongFileReader.TxtSongFileReader(value)
-                    
-                    #GET SONG INFORMATION FROM NORMAL TXT FILE
-                    text_title = txtsongreader.get_text_title()
-                    text_with_chords = txtsongreader.get_text_with_chords()
-
-                    #TRANSPOSE TEXT
-                    text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
-
-                    #WRITE NORMAL AND BOLD PDF
-                    songwriter = SongsFileWriter.SongsFileWriter()
-                    songwriter.add_font(font_name, normal_font_path, bold_font_path)
-                    songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-                    songwriter.generate_bold_pdf(text_title, text_with_chords)
-                    songwriter.generate_normal_pdf(text_title, text_with_chords)
-                    sys.exit()
+            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf="])
+            arguments = []
+            values = []
+            for argument_value in arguments_values:
+                arguments.append(argument_value[0])
+                values.append(argument_value[1])
+            #WE DON'T ITERATE ON INPUT ARGUMENTS TO AVOID A PRIORITY BASED ON DIFFERENT INPUT COMBINATION, WE IMPOSE PRIORITY WITH IFs
+            if("--inputfile" in arguments):
+                songs_to_download_file = values[arguments.index("--inputfile")] #OVERWRITE DEFAULT INPUT VALUE
+            if("--transpose" in arguments):
+                chord_transpose_offset = int(values[arguments.index("--transpose")]) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET
+            if("--txt2pdf" in arguments):
+                #READ NORMAL TXT
+                txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--txt2pdf")])
                 
+                #GET SONG INFORMATION FROM NORMAL TXT FILE
+                text_title = txtsongreader.get_text_title()
+                text_with_chords = txtsongreader.get_text_with_chords()
+
+                #TRANSPOSE TEXT
+                text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
+
+                #WRITE NORMAL AND BOLD PDF
+                songwriter = SongsFileWriter.SongsFileWriter()
+                songwriter.add_font(font_name, normal_font_path, bold_font_path)
+                songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
+                songwriter.generate_bold_pdf(text_title, text_with_chords)
+                songwriter.generate_normal_pdf(text_title, text_with_chords)
+                sys.exit()
+            if("--truetxt2pdf" in arguments):
+                txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--truetxt2pdf")])
+
+                #GET SONG INFORMATION FROM TRUE TXT FILE
+                text_title = txtsongreader.get_text_title()
+                true_text_with_chords = txtsongreader.get_text_with_chords()
+
+                #TRANSPOSE TEXT
+                true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
+
+                #WRITE TRUE BOLD PDF
+                songwriter = SongsFileWriter.SongsFileWriter()
+                songwriter.add_font(font_name, normal_font_path, bold_font_path)
+                songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
+                songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
+                sys.exit()
+
         except getopt.error as err:
             print("[ERROR] Unrecognized arguments " + str(err))      
 

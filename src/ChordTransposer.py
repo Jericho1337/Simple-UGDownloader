@@ -63,7 +63,8 @@ class ChordTransposer:
                     transposing_index = chord_index
                 else:
                     transposing_index = 12 - chord_index - abs(offset)%12
-            return ChordTransposer.CHORD_LIST_SHARP[transposing_index]
+            chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[transposing_index], chord)
+            return chord
 
     def transpose(text_with_chords, offset):
         transposed_text_with_chords = ""
