@@ -4,7 +4,6 @@ Simple-UGDownloader is a simple downloader for UG Songs
 ![alt text](images/output2.png)
 ![alt text](images/output0.png)
 ![alt text](images/output1.png)
-![alt text](images/input.png)
 
 ### INSTALLATION
 
@@ -21,6 +20,7 @@ Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/mic
 Place yourself in the project directory
 
 **INPUT**: "./input/songstodownload.txt" URL list will be used
+![alt text](images/input.png)
 
 ```
 python3 main.py
