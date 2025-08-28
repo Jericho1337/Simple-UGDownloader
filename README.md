@@ -34,7 +34,7 @@ python3 main.py --inputfile <INPUT_FILE>
 ```
 
 
-The script will produce 5 outputs in the output folders:
+The script will produce 5 outputs for each song in the output folders:
 * TXT (text folder)
 * PDF without bold chords (normalchords folder)
 * PDF with bold chords (boldchords folder) (uses heuristics to determine chords and make them bold)
