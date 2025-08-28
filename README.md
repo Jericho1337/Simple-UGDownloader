@@ -53,7 +53,7 @@ python3 main.py --transpose -3
 
 #### TXT TO PDF
 
-You can input TXT of TRUE TXT to generate PDFs.
+You can input TXT of TRUE TXT to generate PDFs. This mode is useful if you want to adjust tabs that contain some errors after download.
 
 You can choose between 2 modes:
 * Normal mode: using ```--txt2pdf <TXT_FILE>```
