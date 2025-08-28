@@ -5,9 +5,9 @@ import re as regex
 
 class SongsFileWriter:
 
-    CHORD_REGEX = "([CDEFGAB](#|##|b|bb)?)((M|maj|m|aug|dim|sus|add)?(6|7|9|11|13|-5|\+5)?[^cefghilnopqrtuvxyz])"
-    CHORD_REGEX_TRUEMODE = "(?<=\\\CHORD\[)(.*?)(?=\])"# USES POSITIVE AND NEGATIVE REGEX LOOKAHEAD TO RETRIEVE ONLY CHARACTERS INSIDE
-    CHORD_REGEX_TRUEMODE_WITHGARBAGE = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
+    NORMAL_CHORD_REGEX = "([CDEFGAB](#|##|b|bb)?)((M|maj|m|aug|dim|sus|add)?(6|7|9|11|13|-5|\+5)?[^cefghilnopqrtuvxyz])" #IDENTIFIES CHORDS IN A NORMAL TEXT
+    TRUEMODE_CHORD_REGEX = "(?<=\\\CHORD\[)(.*?)(?=\])"# IDENTIFIES CHORDS IN TRUE MODE: USES POSITIVE AND NEGATIVE REGEX LOOKAHEAD TO RETRIEVE ONLY CHARACTERS INSIDE
+    UNCLEAN_TRUEMODE_CHORD_REGEX = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 REGEX GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
 
     def __init__(self):
 
@@ -16,12 +16,15 @@ class SongsFileWriter:
         self.bold_font_path = ""
         self.chord_charcount_threshold = 15
 
+        #BOLD PDF OBJECT
         self.pdf_bold = FPDF(orientation="P", unit="mm", format="A4")
         self.pdf_bold.add_page()
 
+        #NORMAL PDF OBJECT
         self.pdf_normal = FPDF(orientation="P", unit="mm", format="A4")
         self.pdf_normal.add_page()
 
+        #TRUE BOLD PDF OBJECT
         self.pdf_true_bold = FPDF(orientation="P", unit="mm", format="A4")
         self.pdf_true_bold.add_page()
 
@@ -31,12 +34,15 @@ class SongsFileWriter:
         self.normal_font_path = normal_font_path
         self.bold_font_path = bold_font_path
 
+        #BOLD PDF OBJECT
         self.pdf_bold.add_font(font_name, '', normal_font_path, uni=True)
         self.pdf_bold.add_font(font_name,'B',bold_font_path, uni=True)
 
+        #NORMAL PDF OBJECT
         self.pdf_normal.add_font(font_name, '', normal_font_path, uni=True)
         self.pdf_normal.add_font(font_name,'B',bold_font_path, uni=True)
 
+        #TRUE BOLD PDF OBJECT
         self.pdf_true_bold.add_font(font_name, '', normal_font_path, uni=True)
         self.pdf_true_bold.add_font(font_name,'B',bold_font_path, uni=True)
 
@@ -45,15 +51,17 @@ class SongsFileWriter:
              
     def generate_bold_pdf(self, text_title, text_with_chords):    
         
+        #WRITE TITLE
         self.pdf_bold.set_font(self.font_name, size = 18, style = "B")
         self.pdf_bold.cell(0,10,text_title,"B",align="C")
         self.pdf_bold.write(5,"\n\n\n")
 
+        #WRITE TEXT BOLDING CHORD LINES
         for line in text_with_chords.split("\n"):
             line = line + "\n"
             #CONDITION TO IDENTIFY CHORD LINE: 
             #At least 1 chord is present (using regex) AND charcount excluding whitespaces is less than constant AND there aren't both chars [] 
-            if bool(regex.search(SongsFileWriter.CHORD_REGEX,line)) and (len(line) - line.count(" ") < self.chord_charcount_threshold) and not (("[" in line) and ("]" in line)):
+            if bool(regex.search(SongsFileWriter.NORMAL_CHORD_REGEX,line)) and (len(line) - line.count(" ") < self.chord_charcount_threshold) and not (("[" in line) and ("]" in line)):
                 self.pdf_bold.set_font(self.font_name, size = 10, style="B")
             else:
                 self.pdf_bold.set_font(self.font_name, size = 10, style="")
@@ -84,8 +92,8 @@ class SongsFileWriter:
             line = line + "\n"
             
             #CHECK IF THERE IS AT LEAST ONE MATCH
-            if regex.search(SongsFileWriter.CHORD_REGEX_TRUEMODE, line) != None:
-                matches = regex.finditer(SongsFileWriter.CHORD_REGEX_TRUEMODE,line)
+            if regex.search(SongsFileWriter.TRUEMODE_CHORD_REGEX, line) != None:
+                matches = regex.finditer(SongsFileWriter.TRUEMODE_CHORD_REGEX,line)
                 list_of_chord_positions_in_line = []
                 match_offset = 0 # USED TO ADJUST MATCH REFERENCES AFTER REMOVAL
                 #WE GET MATCH RANGES
@@ -94,12 +102,11 @@ class SongsFileWriter:
                     #EVERY CHORD MUST BE SHIFTED ACCORDING TO THIS RULE: 
                     # -> SUBTRACT 7 FOR CURRENT AND EVERY PRECEDENT CHORD FOR THE "\CHORD[" STRING 
                     # -> SUBTRACT 1 FOR EACH PRECEDENT CHORD EXCLUDING CURRENT FOR "]" STRING
-                    total_line_offset = 7*match_offset+1*(match_offset-1)
-                    #EVERY REFERENCE SHOULD BE ADJUSTED BY THIS TOTAL OFFSET
+                    total_line_offset = 7*match_offset+1*(match_offset-1) #EVERY REFERENCE SHOULD BE ADJUSTED BY THIS TOTAL OFFSET
                     list_of_chord_positions_in_line.append([match.start()-total_line_offset,match.end()-total_line_offset])
 
                 #REMOVE \CHORD[] BEFORE BOLDING
-                line = regex.sub(SongsFileWriter.CHORD_REGEX_TRUEMODE_WITHGARBAGE,r"\2",line)
+                line = regex.sub(SongsFileWriter.UNCLEAN_TRUEMODE_CHORD_REGEX,r"\2",line)
                 
                 #ITERATE EACH CHARATER (the indexes) OF THE LINE
                 for i in range(0, len(line)):

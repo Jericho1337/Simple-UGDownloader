@@ -44,7 +44,6 @@ class WebNavigator:
         for i in range (0,5):
             self.driver.execute_script("document.body.style.zoom = '0."+str(8-i*2)+"1'")
             ActionChains(self.driver).scroll_by_amount(0,10).perform()
-        #time.sleep(0.5) #WE GIVE JAVASCRIPT TIME TO EXECUTE
         chord_list = HTML_text.find_elements(By.CSS_SELECTOR, "span[data-name]") #in PRE tag, there are SPAN tags that use the attribute [data-name="<CHORD>""] and we use this to identify chords
         if chord_list != None:
             for chord in chord_list:

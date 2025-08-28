@@ -1,13 +1,12 @@
 import re as regex
-import time
 
-#CLASS THAT GIVEN A TEXT WITH CHORD, TRANSPOSES CHORDS
+#CLASS THAT TRANSPOSES CHORDS IN DIFFERENT MODES
 
 class ChordTransposer:
     
     #TO EXTRACT FUNDAMENTAL CHORD FROM COMPLETE CHORD
-    CHORD_REGEX= "([CDEFGAB](#|##|b|bb)?)(?![cefghilnopqrtuvxyz|.])"
-    CHORD_REGEX_WITH_SLASH = "(?<=\/)([CDEFGAB](#|##|b|bb)?)(?![cefghilnopqrtuvxyz|.])"
+    START_CHORD_REGEX= "([CDEFGAB](#|##|b|bb)?)(?![cefghilnopqrtuvxyz|.])"
+    START_CHORD_AFTER_SLASH = "(?<=\/)([CDEFGAB](#|##|b|bb)?)(?![cefghilnopqrtuvxyz|.])"
     
     #FOR TRANSPOSING
     CHORD_LIST_SHARP=["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -15,14 +14,14 @@ class ChordTransposer:
     CHORD_APPARENT_INDEX = [0, 1, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 8, 9, 10, 10, 11]
 
     #FOR TRUEMODE PARSING
-    CHORD_REGEX_TRUEMODE = "(?<=\\\CHORD\[)(.*?)(?=\])"# USES POSITIVE AND NEGATIVE REGEX LOOKAHEAD TO RETRIEVE ONLY CHARACTERS INSIDE
-    CHORD_REGEX_TRUEMODE_WITHGARBAGE = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
+    UNCLEAN_TRUEMODE_CHORD_REGEX = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
 
     def chord_transposer(chord, offset):
-        #COMPLEX CHORD
+        
+        #COMPLEX CHORD LIKE "C/G"
         if "/" in chord:
-            #TRANSPOSE FIRST CHORD
-            first_isolated_chord = regex.search(ChordTransposer.CHORD_REGEX, chord).group(0)
+            #TRANSPOSE FIRST CHORD BEFORE /
+            first_isolated_chord = regex.search(ChordTransposer.START_CHORD_REGEX, chord).group(0)
             first_chord_index = ChordTransposer.CHORD_APPARENT_INDEX[ChordTransposer.CHORD_LIST.index(first_isolated_chord)] #USING APPARENT INDEX TO TRANSLATE b and # ONLY IN SHARP MONOTONIC SCALE
             if offset >= 0: # USE MODULUS TO CIRCULAR CHORD TRANSPOSITION
                 first_transposing_index = (first_chord_index+offset)%12
@@ -34,8 +33,8 @@ class ChordTransposer:
                 else:
                     first_transposing_index = 12 - first_chord_index - abs(offset)%12
             
-            #TRANSPOSE SECOND CHORD
-            second_isolated_chord = regex.search(ChordTransposer.CHORD_REGEX_WITH_SLASH, chord).group(0)
+            #TRANSPOSE SECOND CHORD AFTER /
+            second_isolated_chord = regex.search(ChordTransposer.START_CHORD_AFTER_SLASH, chord).group(0)
             second_chord_index = ChordTransposer.CHORD_APPARENT_INDEX[ChordTransposer.CHORD_LIST.index(second_isolated_chord)] #USING APPARENT INDEX TO TRANSLATE b and # ONLY IN SHARP MONOTONIC SCALE
             if offset >= 0: # USE MODULUS TO CIRCULAR CHORD TRANSPOSITION
                 second_transposing_index = (second_chord_index+offset)%12
@@ -47,13 +46,13 @@ class ChordTransposer:
                 else:
                     second_transposing_index = 12 - second_chord_index - abs(offset)%12
     
-            chord = regex.sub(ChordTransposer.CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[first_transposing_index], chord)
-            chord = regex.sub(ChordTransposer.CHORD_REGEX_WITH_SLASH, ChordTransposer.CHORD_LIST_SHARP[second_transposing_index], chord)
+            chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[first_transposing_index], chord)
+            chord = regex.sub(ChordTransposer.START_CHORD_AFTER_SLASH, ChordTransposer.CHORD_LIST_SHARP[second_transposing_index], chord)
             return chord
             
         else:
             #SIMPLE FUNDAMENTAL CHORD
-            isolated_chord = regex.search(ChordTransposer.CHORD_REGEX, chord).group(0)
+            isolated_chord = regex.search(ChordTransposer.START_CHORD_REGEX, chord).group(0)
             chord_index = ChordTransposer.CHORD_APPARENT_INDEX[ChordTransposer.CHORD_LIST.index(isolated_chord)] #USING APPARENT INDEX TO TRANSLATE b and # ONLY IN SHARP MONOTONIC SCALE
             if offset >= 0: # USE MODULUS TO CIRCULAR CHORD TRANSPOSITION
                 transposing_index = (chord_index+offset)%12
@@ -71,7 +70,7 @@ class ChordTransposer:
         for line in text_with_chords.split("\n"):
             line = line + "\n"
             
-            matches = regex.finditer(ChordTransposer.CHORD_REGEX, line) #FIND ALL MATCHES
+            matches = regex.finditer(ChordTransposer.START_CHORD_REGEX, line) #FIND ALL MATCHES
             if matches != []:
                 chord_line = list(line) #USING A LIST INSTEAD OF A STRING BECAUSE STRINGS ARE IMMUTABLE IN PYTHON
                 shift_counter = 0 #SHIFT COUNTER IS USED TO KEEP REFERENCES OF MATCHES, MATCHES DON'T CHANGE WITH INSERT AND POPS SO THEY MUST BE UPDATED MANUALLY WITH A COUNTER
@@ -117,19 +116,19 @@ class ChordTransposer:
             line = line + "\n"
 
             #CHECK IF THERE IS AT LEAST 1 MATCH
-            if regex.search(ChordTransposer.CHORD_REGEX_TRUEMODE_WITHGARBAGE, line) != None:
+            if regex.search(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, line) != None:
 
-                matches = regex.findall(ChordTransposer.CHORD_REGEX_TRUEMODE_WITHGARBAGE, line)
+                matches = regex.findall(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, line)
                 if len(matches) == 1:
-                    match = regex.search(ChordTransposer.CHORD_REGEX_TRUEMODE_WITHGARBAGE, line)
-                    line = regex.sub(ChordTransposer.CHORD_REGEX_TRUEMODE_WITHGARBAGE, ChordTransposer.replace_chord(match,offset), line)    
+                    match = regex.search(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, line)
+                    line = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset), line)    
                 else:  
                     splits = line.split(" ")
                     line = ""
                     for split in splits:
-                        match = regex.search(ChordTransposer.CHORD_REGEX_TRUEMODE_WITHGARBAGE, split)
+                        match = regex.search(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, split)
                         if(match != None):
-                            split = regex.sub(ChordTransposer.CHORD_REGEX_TRUEMODE_WITHGARBAGE, ChordTransposer.replace_chord(match,offset), split)
+                            split = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset), split)
                         if(len(split) == 0): 
                             line = line + split + " "
                         elif(split[-1] == "\n"):

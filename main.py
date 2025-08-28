@@ -19,7 +19,6 @@ if __name__ == "__main__":
     bold_font_path = config_parameters["bold_font_path"]
     chord_charcount_exclusion = config_parameters["chord_charcount_exclusion"]
     chord_transpose_offset = 0
-    true_mode = False
 
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
@@ -60,6 +59,7 @@ if __name__ == "__main__":
         print("Getting song title...")
         text_title = webnavigator.get_song_title() 
 
+        #GET TEXT AND TRUE TEXT
         print("Extracting text and chords for "+ text_title +" from webpage...")
         text_with_chords = webnavigator.get_song_text_and_chords()
         print("Extracting TRUE text and chords for "+ text_title +" from webpage...")
@@ -70,6 +70,7 @@ if __name__ == "__main__":
         text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
         true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
 
+        #GENERATE OUTPUTS
         songwriter = SongsFileWriter.SongsFileWriter()
         songwriter.add_font(font_name, normal_font_path, bold_font_path)
         songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
@@ -81,8 +82,3 @@ if __name__ == "__main__":
 
         print("Generating TRUE chords PDFs and TXT for "+ text_title +"...")
         songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
-
-        
-
-        #GENERATE CHORDS PDF and TXT
-           
