@@ -26,7 +26,6 @@ Place yourself in the project directory
 ```
 python3 main.py
 ```
-![alt text](images/output_folders.png)
 
 The script will produce 5 outputs in the output folders:
 * TXT (text folder)
@@ -34,6 +33,9 @@ The script will produce 5 outputs in the output folders:
 * PDF with bold chords (boldchords folder) (uses heuristics to determine chords and make them bold)
 * TRUE PDF with bold chords (true_boldchords folder) (uses real website parsing to bold chords)
 * TRUE TXT (true_text folder)
+
+![alt text](images/output_folders.png)
+
 
 #### CHORD TRANSPOSITION
 You can pass a transposing offset (positive or negative)
