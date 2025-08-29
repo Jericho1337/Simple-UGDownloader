@@ -1,11 +1,11 @@
-# Simple-UGDownloader
+# 🎸⬇️ Simple-UGDownloader 🎸⬇️
 Simple-UGDownloader is a simple downloader for UG Songs and PDF converter
 ![alt text](images/execution.png)
 ![alt text](images/output2.png)
 ![alt text](images/output0.png)
 ![alt text](images/output1.png)
 
-### INSTALLATION
+### ⚙️ INSTALLATION ⚙️
 
 ```
 pip3 install -r requirements.txt
@@ -16,7 +16,7 @@ Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/mic
 
 ### USAGE
 
-#### BASIC USAGE
+#### 💎 BASIC USAGE 💎
 
 **INPUT**: "./input/songstodownload.txt" URL list will be used
 ![alt text](images/input.png)
@@ -44,7 +44,7 @@ The script will produce 5 outputs for each song in the output folders:
 ![alt text](images/output_folders.png)
 
 
-#### CHORD TRANSPOSITION
+#### ➕➖🎵 CHORD TRANSPOSITION 🎵➖➕
 You can pass a transposing offset (positive or negative)
 
 At the moment, **transposing offset will be applied to all song listed in input file**
@@ -58,7 +58,7 @@ In this example we transpose down of 3 semitones
 python3 main.py --transpose -3
 ```
 
-#### TXT TO PDF
+#### 📄➡️📜 TXT TO PDF 📄➡️📜
 
 You can input TXT of TRUE TXT to generate PDFs. This mode is useful if you want to adjust tabs that contain some errors after download.
 
