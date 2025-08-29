@@ -42,10 +42,10 @@ The script will produce 6 outputs for each song in the output folders:
 * TRUE PDF with bold chords (true_boldchords folder) (uses real website parsing to bold chords)
 * TRUE TXT (true_text folder)
 
-![alt text](images/output_folders.png)
+![alt text](images/outputfolders.png)
 
 
-#### ➕➖🎵 CHORD TRANSPOSITION 🎵➖➕
+#### ➕🎵➖ CHORD TRANSPOSITION ➖🎵➕
 You can pass a transposing offset (positive or negative)
 
 At the moment, **transposing offset will be applied to all song listed in input file**
