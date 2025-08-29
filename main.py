@@ -20,17 +20,19 @@ if __name__ == "__main__":
     bold_font_path = config_parameters["bold_font_path"]
     chord_charcount_exclusion = config_parameters["chord_charcount_exclusion"]
     browser = config_parameters["default_browser"]
+    accidental = config_parameters["default_accidental"] 
     chord_transpose_offset = 0
 
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser="])
+            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser=", "accidental="])
             arguments = []
             values = []
             for argument_value in arguments_values:
                 arguments.append(argument_value[0])
                 values.append(argument_value[1])
+            
             #WE DON'T ITERATE ON INPUT ARGUMENTS TO AVOID A PRIORITY BASED ON DIFFERENT INPUT COMBINATION, WE IMPOSE PRIORITY WITH IFs
             if("--inputfile" in arguments):
                 songs_to_download_file = values[arguments.index("--inputfile")] #OVERWRITE DEFAULT INPUT VALUE
@@ -40,6 +42,9 @@ if __name__ == "__main__":
             
             if("--browser" in arguments):
                 browser = values[arguments.index("--browser")]
+
+            if("--accidental" in arguments):
+                accidental = values[arguments.index("--accidental")]           
             
             if("--txt2pdf" in arguments):
                 #READ NORMAL TXT
@@ -50,7 +55,7 @@ if __name__ == "__main__":
                 text_with_chords = txtsongreader.get_text_with_chords()
 
                 #TRANSPOSE TEXT
-                text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
+                text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset, accidental)
 
                 #WRITE NORMAL AND BOLD PDF
                 songwriter = SongsFileWriter.SongsFileWriter()
@@ -68,7 +73,7 @@ if __name__ == "__main__":
                 true_text_with_chords = txtsongreader.get_text_with_chords()
 
                 #TRANSPOSE TEXT
-                true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
+                true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset, accidental)
 
                 #WRITE TRUE BOLD PDF
                 songwriter = SongsFileWriter.SongsFileWriter()
@@ -108,8 +113,8 @@ if __name__ == "__main__":
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
             print("[=====     ] 50% Transposing song by "+ str(chord_transpose_offset) +" offset...")
-            text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
-            true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
+            text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset, accidental)
+            true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset, accidental)
 
             #GENERATE OUTPUTS
             songwriter = SongsFileWriter.SongsFileWriter()

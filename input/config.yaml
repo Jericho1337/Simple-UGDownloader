@@ -3,4 +3,5 @@ font_name: "CourierNew"
 normal_font_path: "fonts/couriernew.ttf"
 bold_font_path: "fonts/couriernewbold.ttf"
 default_browser: "Edge" #CAN BE Edge, Chrome, Firefox
+default_accidental: "o" #KEEPS ORIGINAL, CAN BE "#" or "b" TO FORCE A SPECIFIC ACCIDENTAL
 chord_charcount_exclusion: 21

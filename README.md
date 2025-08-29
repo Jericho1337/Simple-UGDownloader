@@ -77,6 +77,22 @@ python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
 
 **NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
 
+#### 🎹 FORCE SHARPs (#) OR FLATs (b) 🎹
+
+You can force a specific accidental between "#" and "b"
+
+The default behaviour is:
+* Not transposed songs will keep their original accidental (sharps will stay sharps, flats will stay flats)
+* Transposed songs will use sharp by default
+
+To change this behaviour you can force the use of "#" or "b" by passing a parameter ```--accidental <ACCIDENTAL>```
+
+Example
+```
+python3 main.py --accidental "#"
+python3 main.py --accidental "b"
+```
+
 #### 🌎 USE ANOTHER WEBDRIVER 🌎
 
 Default used webdriver: **Edge**
@@ -85,7 +101,7 @@ You can force the use of another webdriver passing the parameter ```--browser <B
 
 Example if we want to use Chrome instead:
 ```
-python3 main.py --browser Chrome
+python3 main.py --browser "Chrome"
 ```
 
 Available Browsers = Edge, Chrome, Firefox
@@ -96,7 +112,7 @@ Available Browsers = Edge, Chrome, Firefox
 * [X] Transposing (normal mode)
 * [X] Transposing (true mode)
 * [X] Add other webdrivers
-* [ ] Flat or Sharp preferences
+* [X] Flat or Sharp preferences
 * [ ] GUI
 
 

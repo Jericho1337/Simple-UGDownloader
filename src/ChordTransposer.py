@@ -10,14 +10,22 @@ class ChordTransposer:
     
     #FOR TRANSPOSING
     CHORD_LIST_SHARP=["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    CHORD_LIST_FLAT=["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
     CHORD_LIST=["C", "C#","Db", "D", "D#","Eb", "E", "F", "F#","Gb", "G", "G#","Ab", "A", "A#","Bb", "B"]
     CHORD_APPARENT_INDEX = [0, 1, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 8, 9, 10, 10, 11]
 
     #FOR TRUEMODE PARSING
     UNCLEAN_TRUEMODE_CHORD_REGEX = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
 
-    def chord_transposer(chord, offset):
+    #GIVEN A CHORD, RETURNS TRANSPOSED CHORD BY OFFSET
+    def chord_transposer(chord, offset, accidental):
         
+        if offset == 0 and accidental == "o": #KEEPS ORIGINAL CHORD BECAUSE NO TRANSPOSITION AND ACCIDENTAL ISN'T FORCED BY USER
+            return chord
+        
+        if offset != 0 and accidental == "o": #A TRANSPOSAL NEEDS A SPECIFIED ALTERATION, ACCIDENTAL MUST BE SPECIFIED SO WE USE SHARPS AS DEFAULT
+            accidental = "#"
+
         #COMPLEX CHORD LIKE "C/G"
         if "/" in chord:
             #TRANSPOSE FIRST CHORD BEFORE /
@@ -46,8 +54,14 @@ class ChordTransposer:
                 else:
                     second_transposing_index = 12 - second_chord_index - abs(offset)%12
     
-            chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[first_transposing_index], chord)
-            chord = regex.sub(ChordTransposer.START_CHORD_AFTER_SLASH, ChordTransposer.CHORD_LIST_SHARP[second_transposing_index], chord)
+            if accidental == "b":
+                chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_FLAT[first_transposing_index], chord)
+                chord = regex.sub(ChordTransposer.START_CHORD_AFTER_SLASH, ChordTransposer.CHORD_LIST_FLAT[second_transposing_index], chord)
+            elif accidental == "#":
+                chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[first_transposing_index], chord)
+                chord = regex.sub(ChordTransposer.START_CHORD_AFTER_SLASH, ChordTransposer.CHORD_LIST_SHARP[second_transposing_index], chord)
+            else:
+                raise Exception ("Invalid accidental: " + accidental)
             return chord
             
         else:
@@ -63,10 +77,17 @@ class ChordTransposer:
                     transposing_index = chord_index
                 else:
                     transposing_index = 12 - chord_index - abs(offset)%12
-            chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[transposing_index], chord)
+
+            if accidental == "b":
+                chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_FLAT[transposing_index], chord)
+            elif accidental == "#":
+                chord = regex.sub(ChordTransposer.START_CHORD_REGEX, ChordTransposer.CHORD_LIST_SHARP[transposing_index], chord)
+            else:
+                raise Exception ("Invalid accidental: " + accidental)
             return chord
 
-    def transpose(text_with_chords, offset):
+    #TRANSPOSES A TEXT
+    def transpose(text_with_chords, offset, accidental):
         transposed_text_with_chords = ""
         for line in text_with_chords.split("\n"):
             line = line + "\n"
@@ -76,7 +97,7 @@ class ChordTransposer:
                 chord_line = list(line) #USING A LIST INSTEAD OF A STRING BECAUSE STRINGS ARE IMMUTABLE IN PYTHON
                 shift_counter = 0 #SHIFT COUNTER IS USED TO KEEP REFERENCES OF MATCHES, MATCHES DON'T CHANGE WITH INSERT AND POPS SO THEY MUST BE UPDATED MANUALLY WITH A COUNTER
                 for match in matches:
-                    transposed_chord = ChordTransposer.chord_transposer(match.string[match.start():match.end()], offset)
+                    transposed_chord = ChordTransposer.chord_transposer(match.string[match.start():match.end()], offset, accidental)
 
                     #MODIFY STRING
                     if len(transposed_chord) == 2 and len(line[match.start():match.end()]) == 2:
@@ -106,11 +127,12 @@ class ChordTransposer:
         return transposed_text_with_chords
 
     #HELPER FUNCTION TO REPLACE CHORD IN TRUE TRANSPOSE
-    def replace_chord(match,offset):
+    def replace_chord(match,offset,accidental):
         chord = match.group(2)
-        return "\\\CHORD["+ChordTransposer.chord_transposer(chord,offset)+"]"
+        return "\\\CHORD["+ChordTransposer.chord_transposer(chord,offset, accidental)+"]"
     
-    def true_transpose(true_text_with_chords, offset):
+    #TRANSPOSES A TRUE TEXT
+    def true_transpose(true_text_with_chords, offset, accidental):
         transposed_true_text_with_chords = ""
 
         for line in true_text_with_chords.split("\n"):
@@ -122,14 +144,14 @@ class ChordTransposer:
                 matches = regex.findall(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, line)
                 if len(matches) == 1:
                     match = regex.search(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, line)
-                    line = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset), line)    
+                    line = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset, accidental), line)    
                 else:  
                     splits = line.split(" ")
                     line = ""
                     for split in splits:
                         match = regex.search(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, split)
                         if(match != None):
-                            split = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset), split)
+                            split = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset, accidental), split)
                         if(len(split) == 0): 
                             line = line + split + " " #SPLIT REMOVES WHITESPACES SO WE ADD THEM AFTER
                         elif(split[-1] == "\n"):
