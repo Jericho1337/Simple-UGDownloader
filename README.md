@@ -75,7 +75,7 @@ python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
 
 **NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
 
-### NEXT STEPS
+### 🔮 NEXT STEPS 🔮
 * [X] TXT To PDF converter (normal mode)
 * [X] TXT to PDF converter (true mode)
 * [X] Transposing (normal mode)
