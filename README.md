@@ -60,6 +60,22 @@ In this example we transpose down of 3 semitones
 python3 main.py --transpose -3
 ```
 
+#### 🎹 FORCE SHARPS (#) OR FLATS (b) 🎹
+
+You can force a specific accidental between "#" and "b"
+
+The default behaviour is:
+* Not transposed songs will keep their original accidental (sharps will stay sharps, flats will stay flats)
+* Transposed songs will use sharp by default
+
+To change this behaviour you can force the use of "#" or "b" by passing a parameter ```--accidental <ACCIDENTAL>```
+
+Example
+```
+python3 main.py --accidental "#"
+python3 main.py --accidental "b"
+```
+
 #### 📄➡️📜 TXT TO PDF 📄➡️📜
 
 You can input TXT of TRUE TXT to generate PDFs. This mode is useful if you want to adjust tabs that contain some errors after download.
@@ -76,22 +92,6 @@ python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
 ```
 
 **NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
-
-#### 🎹 FORCE SHARPs (#) OR FLATs (b) 🎹
-
-You can force a specific accidental between "#" and "b"
-
-The default behaviour is:
-* Not transposed songs will keep their original accidental (sharps will stay sharps, flats will stay flats)
-* Transposed songs will use sharp by default
-
-To change this behaviour you can force the use of "#" or "b" by passing a parameter ```--accidental <ACCIDENTAL>```
-
-Example
-```
-python3 main.py --accidental "#"
-python3 main.py --accidental "b"
-```
 
 #### 🌎 USE ANOTHER WEBDRIVER 🌎
 
