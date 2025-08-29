@@ -113,6 +113,7 @@ Available Browsers = Edge, Chrome, Firefox
 * [X] Transposing (true mode)
 * [X] Add other webdrivers
 * [X] Flat or Sharp preferences
+* [ ] Apply different transposition in same execution
 * [ ] GUI
 
 
