@@ -1,5 +1,5 @@
 # Simple-UGDownloader
-Simple-UGDownloader is a simple downloader for UG Songs
+Simple-UGDownloader is a simple downloader for UG Songs and PDF converter
 ![alt text](images/execution.png)
 ![alt text](images/output2.png)
 ![alt text](images/output0.png)

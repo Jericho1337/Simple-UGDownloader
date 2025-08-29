@@ -131,10 +131,10 @@ class ChordTransposer:
                         if(match != None):
                             split = regex.sub(ChordTransposer.UNCLEAN_TRUEMODE_CHORD_REGEX, ChordTransposer.replace_chord(match,offset), split)
                         if(len(split) == 0): 
-                            line = line + split + " "
+                            line = line + split + " " #SPLIT REMOVES WHITESPACES SO WE ADD THEM AFTER
                         elif(split[-1] == "\n"):
-                            line = line + split
+                            line = line + split #WE MUSN'T ADD WHITESPACE AFTER NEWLINE
                         else:
-                            line = line + split + " "
+                            line = line + split + " " #SPLIT REMOVES WHITESPACES SO WE ADD THEM AFTER
             transposed_true_text_with_chords = transposed_true_text_with_chords + line
         return transposed_true_text_with_chords
