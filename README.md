@@ -1,4 +1,4 @@
-# 🎸⬇️ Simple-UGDownloader 🎸⬇️
+# 🎸⬇️ Simple-UGDownloader ⬇️🎸
 Simple-UGDownloader is a simple downloader for UG Songs and PDF converter
 ![alt text](images/execution.png)
 ![alt text](images/output2.png)
@@ -14,9 +14,9 @@ Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/mic
 
 **NOTE**: If you are using Visual Studio Code, Edge driver is already installed
 
-### USAGE
+### 💎 USAGE 💎
 
-#### 💎 BASIC USAGE 💎
+#### 🎶 BASIC USAGE 🎶
 
 **INPUT**: "./input/songstodownload.txt" URL list will be used
 ![alt text](images/input.png)
