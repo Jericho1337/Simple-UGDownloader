@@ -19,12 +19,13 @@ if __name__ == "__main__":
     normal_font_path = config_parameters["normal_font_path"]
     bold_font_path = config_parameters["bold_font_path"]
     chord_charcount_exclusion = config_parameters["chord_charcount_exclusion"]
+    browser = config_parameters["default_browser"]
     chord_transpose_offset = 0
 
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf="])
+            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser="])
             arguments = []
             values = []
             for argument_value in arguments_values:
@@ -36,6 +37,9 @@ if __name__ == "__main__":
 
             if("--transpose" in arguments):
                 chord_transpose_offset = int(values[arguments.index("--transpose")]) #OVERWRITE DEFAULT 0 TRANSPOSE OFFSET
+            
+            if("--browser" in arguments):
+                browser = values[arguments.index("--browser")]
             
             if("--txt2pdf" in arguments):
                 #READ NORMAL TXT
@@ -82,7 +86,7 @@ if __name__ == "__main__":
     songs_to_download_urllist = songreader.get_url_list()
 
     #START WEBDRIVER
-    webnavigator = WebNavigator.WebNavigator()
+    webnavigator = WebNavigator.WebNavigator(browser)
 
     #DOWNLOAD EACH SONG
     for url_line in songs_to_download_urllist:

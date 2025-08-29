@@ -2,4 +2,5 @@ songs_to_download_file: "input/songstodownload.txt"
 font_name: "CourierNew"
 normal_font_path: "fonts/couriernew.ttf"
 bold_font_path: "fonts/couriernewbold.ttf"
+default_browser: "Edge" #CAN BE Edge, Chrome, Firefox
 chord_charcount_exclusion: 21

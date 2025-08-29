@@ -10,9 +10,8 @@ Simple-UGDownloader is a simple downloader for UG Songs and PDF converter
 ```
 pip3 install -r requirements.txt
 ```
-Also Edge Webdriver must be installed: https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver?form=MA13LH
 
-**NOTE**: If you are using Visual Studio Code, Edge driver is already installed
+AT LEAST one of the following webdrivers must be installed: Edge, Chrome, Firefox
 
 ### 💎 USAGE 💎
 
@@ -76,13 +75,26 @@ python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
 
 **NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
 
+#### 🌎 USE ANOTHER WEBDRIVER 🌎
+
+Default used webdriver: **Edge**
+
+You can force the use of another webdriver passing the parameter ```--browser <BROWSER>```
+
+Example if we want to use Chrome instead:
+```
+python3 main.py --browser Chrome
+```
+
+Available Browsers = Edge, Chrome, Firefox
+
 ### 🔮 NEXT STEPS 🔮
 * [X] TXT To PDF converter (normal mode)
 * [X] TXT to PDF converter (true mode)
 * [X] Transposing (normal mode)
 * [X] Transposing (true mode)
+* [X] Add other webdrivers
 * [ ] Flat or Sharp preferences
 * [ ] GUI
-* [ ] Add other webdrivers
 
 

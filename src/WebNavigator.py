@@ -1,5 +1,7 @@
 from selenium import webdriver
-from selenium.webdriver.edge.options import Options
+from selenium.webdriver.edge.options import Options as EdgeOptions
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -7,20 +9,58 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 class WebNavigator:
 
-    def __init__(self):
-        self.edge_options = Options()
-        self.edge_options.add_argument("--headless=new")
-        self.edge_options.add_argument("disable-infobars")
-        self.edge_options.add_argument("--disable-extensions")
-        self.edge_options.add_argument('--no-sandbox')
-        self.edge_options.add_argument('--disable-application-cache')
-        self.edge_options.add_argument('--disable-gpu')
-        self.edge_options.add_argument("--disable-dev-shm-usage")
-        self.edge_options.add_argument("--start-maximized")
-        self.edge_options.add_argument('log-level=3')
-        self.edge_options.add_experimental_option("detach", True)
-        self.driver = webdriver.Edge(self.edge_options)
-        self.driver.implicitly_wait(10) 
+    SUPPORTED_BROWSER = ["Edge","Chrome","Firefox"] 
+
+    def __init__(self,browser):
+        
+        #INIT BROWSER ACCORDING TO CHOSEN ONE
+        if(browser == "Edge"):
+            self.edge_options = EdgeOptions()
+            self.edge_options.add_argument("--headless=new")
+            self.edge_options.add_argument("--disable-infobars")
+            self.edge_options.add_argument("--disable-extensions")
+            self.edge_options.add_argument('--no-sandbox')
+            self.edge_options.add_argument('--disable-application-cache')
+            self.edge_options.add_argument('--disable-gpu')
+            self.edge_options.add_argument("--disable-dev-shm-usage")
+            self.edge_options.add_argument("--start-maximized")
+            self.edge_options.add_argument('--log-level=3')
+            self.edge_options.add_experimental_option("detach", True)
+            self.driver = webdriver.Edge(self.edge_options)
+            self.driver.implicitly_wait(10)
+
+        elif(browser == "Chrome"):
+            self.chrome_options = ChromeOptions()
+            self.chrome_options.add_argument("--headless=new")
+            self.chrome_options.add_argument("--disable-infobars")
+            self.chrome_options.add_argument("--disable-extensions")
+            self.chrome_options.add_argument('--no-sandbox')
+            self.chrome_options.add_argument('--disable-application-cache')
+            self.chrome_options.add_argument('--disable-gpu')
+            self.chrome_options.add_argument("--disable-dev-shm-usage")
+            self.chrome_options.add_argument("--start-maximized")
+            self.chrome_options.add_argument('--log-level=3')
+            self.chrome_options.add_experimental_option("detach", True)
+            self.driver = webdriver.Chrome(self.chrome_options)
+            self.driver.implicitly_wait(10)
+        
+        elif(browser == "Firefox"):
+            self.firefox_options = FirefoxOptions()
+            self.firefox_options.add_argument("--headless")
+            self.firefox_options.add_argument("--disable-infobars")
+            self.firefox_options.add_argument("--disable-extensions")
+            self.firefox_options.add_argument('--no-sandbox')
+            self.firefox_options.add_argument('--disable-application-cache')
+            self.firefox_options.add_argument('--disable-gpu')
+            self.firefox_options.add_argument("--disable-dev-shm-usage")
+            self.firefox_options.add_argument("--start-maximized")
+            self.firefox_options.add_argument('--log-level=3')
+            self.driver = webdriver.Firefox(self.firefox_options)
+            self.driver.implicitly_wait(10)
+
+        else:
+            raise Exception("Cannot find browser " + browser)
+
     
     def navigate_webpage(self, url):
         
