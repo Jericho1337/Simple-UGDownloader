@@ -127,5 +127,5 @@ if __name__ == "__main__":
 
             print(Colour.Colour.OKGREEN + "[==========] 100% Completed " + text_title + " download" + whitespaces + Colour.Colour.ENDC)
         except Exception as exception:
-            print("Song: " + url_line + " failed to download" + whitespaces)
+            print(Colour.Colour.FAIL + "Song: " + url_line + " failed to download" + whitespaces + Colour.Colour.ENDC)
             print(exception)
