@@ -4,6 +4,7 @@ from src import SongsFileWriter
 from src import ConfigFileReader
 from src import ChordTransposer
 from src import TxtSongFileReader
+from src import Colour
 import sys, getopt
 
 config_file = "input/config.yaml"
@@ -89,7 +90,7 @@ if __name__ == "__main__":
         
         try:
             #GET WEBPAGE
-            print("[=         ] 10% Getting webpage..." + whitespaces, end="\r")
+            print(Colour.Colour.OKCYAN + "[=         ] 10% Getting webpage..." + whitespaces, end="\r")
             webnavigator.navigate_webpage(url_line)
 
             #GET SONG TITLE
@@ -119,12 +120,12 @@ if __name__ == "__main__":
             songwriter.generate_normal_text(text_title, text_with_chords)
 
             #TRUE MODE OUTPUTS
-            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"..." + whitespaces, end="\r")
+            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"..." + whitespaces + Colour.Colour.ENDC, end="\r")
             songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
             songwriter.generate_true_normal_pdf(text_title, true_text_with_chords)
             songwriter.generate_true_text(text_title, true_text_with_chords)
 
-            print("[==========] 100% Completed " + text_title + " download" + whitespaces)
+            print(Colour.Colour.OKGREEN + "[==========] 100% Completed " + text_title + " download" + whitespaces + Colour.Colour.ENDC)
         except Exception as exception:
             print("Song: " + url_line + " failed to download" + whitespaces)
             print(exception)
