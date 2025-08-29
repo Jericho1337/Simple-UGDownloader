@@ -26,7 +26,7 @@ if __name__ == "__main__":
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="i:t:p:", longopts=["inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser=", "accidental="])
+            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="", longopts=["help","inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser=", "accidental="])
             arguments = []
             values = []
             for argument_value in arguments_values:
@@ -34,6 +34,16 @@ if __name__ == "__main__":
                 values.append(argument_value[1])
             
             #WE DON'T ITERATE ON INPUT ARGUMENTS TO AVOID A PRIORITY BASED ON DIFFERENT INPUT COMBINATION, WE IMPOSE PRIORITY WITH IFs
+            if("--help" in arguments):
+                print("")
+                print("\t--inputfile <STRING> \t\t Specify a path different from default path for input file")
+                print("\t--txt2pdf <STRING> \t\t Specify a path to a TXT file (normal mode) to convert in PDF")
+                print("\t--truetxt2pdf <STRING> \t\t Specify a path to a TRUE TXT file (true mode) to convert in PDF")
+                print("\t--browser <STRING> \t\t Specify a path to a TRUE TXT file (true mode) to convert in PDF \t\t Possible values \"Edge\",\"Chrome\",\"Firefox\"")
+                print("\t--transpose <INT> \t\t Specify a offset (positive or negative) to apply for the transposal \t\t ")
+                print("\t--accidental <STRING> \t\t Specify an accidental to force in transposition or original song \t\t Possible values \"#\",\"b\"")
+                print("")
+                sys.exit()
             if("--inputfile" in arguments):
                 songs_to_download_file = values[arguments.index("--inputfile")] #OVERWRITE DEFAULT INPUT VALUE
 
