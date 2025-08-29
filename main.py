@@ -7,6 +7,7 @@ from src import TxtSongFileReader
 import sys, getopt
 
 config_file = "input/config.yaml"
+whitespaces = "                                          "
 
 if __name__ == "__main__":
 
@@ -88,21 +89,21 @@ if __name__ == "__main__":
         
         try:
             #GET WEBPAGE
-            print("[=         ] 10% Getting webpage...                                     ", end="\r")
+            print("[=         ] 10% Getting webpage..." + whitespaces, end="\r")
             webnavigator.navigate_webpage(url_line)
 
             #GET SONG TITLE
-            print("[==        ] 20% Getting song title...                                     ", end="\r")
+            print("[==        ] 20% Getting song title..." + whitespaces, end="\r")
             text_title = webnavigator.get_song_title() 
 
             #GET TEXT AND TRUE TEXT
-            print("[===       ] 30% Extracting text and chords for "+ text_title +" from webpage...                                     ", end="\r")
+            print("[===       ] 30% Extracting text and chords for "+ text_title +" from webpage..." + whitespaces, end="\r")
             text_with_chords = webnavigator.get_song_text_and_chords()
-            print("[====      ] 40% Extracting TRUE text and chords for "+ text_title +" from webpage...                                     ", end="\r")
+            print("[====      ] 40% Extracting TRUE text and chords for "+ text_title +" from webpage..." + whitespaces, end="\r")
             true_text_with_chords = webnavigator.get_true_song_text_and_chords()
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
-            print("[=====     ] 50% Transposing song by "+ str(chord_transpose_offset) +" offset...                                     ", end="\r")
+            print("[=====     ] 50% Transposing song by "+ str(chord_transpose_offset) +" offset..." + whitespaces, end="\r")
             text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset)
             true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset)
 
@@ -112,18 +113,18 @@ if __name__ == "__main__":
             songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
 
             #NORMAL MODE OUTPUTS
-            print("[=======   ] 70% Generating chords PDFs and TXT for "+ text_title +"...                                     ", end="\r")
+            print("[=======   ] 70% Generating chords PDFs and TXT for "+ text_title +"..." + whitespaces, end="\r")
             songwriter.generate_bold_pdf(text_title, text_with_chords)
             songwriter.generate_normal_pdf(text_title, text_with_chords)
             songwriter.generate_normal_text(text_title, text_with_chords)
 
             #TRUE MODE OUTPUTS
-            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"...                                     ", end="\r")
+            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"..." + whitespaces, end="\r")
             songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
             songwriter.generate_true_normal_pdf(text_title, true_text_with_chords)
             songwriter.generate_true_text(text_title, true_text_with_chords)
 
-            print("[==========] 100% Completed song " + text_title + " download                                     ")
+            print("[==========] 100% Completed " + text_title + " download" + whitespaces)
         except Exception as exception:
-            print("Song: " + url_line + " failed to download                                     ")
+            print("Song: " + url_line + " failed to download" + whitespaces)
             print(exception)
