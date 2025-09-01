@@ -105,13 +105,13 @@ python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
 
 #### 🌎 USE ANOTHER WEBDRIVER 🌎
 
-Default used webdriver: **Edge**
+Default used webdriver: **Chrome**
 
 You can force the use of another webdriver passing the parameter ```--browser <BROWSER>```
 
-Example if we want to use Chrome instead:
+Example if we want to use Edge instead:
 ```
-python3 main.py --browser "Chrome"
+python3 main.py --browser "Edge"
 ```
 
 Available Browsers = Edge, Chrome, Firefox
@@ -126,5 +126,3 @@ Available Browsers = Edge, Chrome, Firefox
 * [X] Apply different transposition in same execution
 * [ ] Option to add chords and Intro (tuning, capo, ...) to songs
 * [ ] GUI
-
-
