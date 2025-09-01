@@ -7,7 +7,7 @@ from src import TxtSongFileReader
 from src import Colour
 import sys, getopt
 
-config_file = "input/config.yaml"
+config_file = "config/config.yaml"
 
 if __name__ == "__main__":
 
