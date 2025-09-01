@@ -99,12 +99,13 @@ if __name__ == "__main__":
     #OPEN INPUT URL SONG LIST FILE
     songreader = SongsFileReader.SongsFileReader(songs_to_download_file)
     songs_to_download_urllist = songreader.get_url_list()
+    songs_to_download_transposelist = songreader.get_transpose_list()
 
     #START WEBDRIVER
     webnavigator = WebNavigator.WebNavigator(browser)
 
     #DOWNLOAD EACH SONG
-    for url_line in songs_to_download_urllist:
+    for song_index, url_line in enumerate(songs_to_download_urllist):
         
         try:
             #GET WEBPAGE
@@ -122,9 +123,10 @@ if __name__ == "__main__":
             true_text_with_chords = webnavigator.get_true_song_text_and_chords()
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
-            print("[=====     ] 50% Transposing song by "+ str(chord_transpose_offset) +" offset...")
-            text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset, accidental)
-            true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset, accidental)
+            total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE
+            print("[=====     ] 50% Transposing song by "+ str(total_chord_transpose_offset) +" offset...")
+            text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, total_chord_transpose_offset, accidental)
+            true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, total_chord_transpose_offset, accidental)
 
             #GENERATE OUTPUTS
             songwriter = SongsFileWriter.SongsFileWriter()

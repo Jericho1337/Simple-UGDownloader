@@ -47,9 +47,12 @@ The script will produce 6 outputs for each song in the output folders:
 
 
 #### ➕🎵➖ CHORD TRANSPOSITION ➖🎵➕
-You can pass a transposing offset (positive or negative)
+You can pass a transposing offset (positive or negative) or specify single transposing offsets for each song
 
-At the moment, **transposing offset will be applied to all song listed in input file**
+The behaviour is:
+* Transposing offset specified as cmd-line argument **will be applied to all songs listed in input file**
+* Single offset specified in file will be applied only to the related song
+* total effective transposing offset is calculated summing single song offset and cmd-line global offset
 
 ```
 python3 main.py --transpose <POSITIVE_OR_NEGATIVE_OFFSET>
@@ -59,6 +62,13 @@ In this example we transpose down of 3 semitones
 ```
 python3 main.py --transpose -3
 ```
+
+OR
+
+![alt text](images/input2.png)
+
+OR BOTH!
+
 
 #### 🎹 FORCE SHARPS (#) OR FLATS (b) 🎹
 
@@ -113,7 +123,7 @@ Available Browsers = Edge, Chrome, Firefox
 * [X] Transposing (true mode)
 * [X] Add other webdrivers
 * [X] Flat or Sharp preferences
-* [ ] Apply different transposition in same execution
+* [X] Apply different transposition in same execution
 * [ ] GUI
 
 
