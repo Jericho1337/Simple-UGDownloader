@@ -13,16 +13,16 @@ config_file_path = "config/config.yaml"
 
 if __name__ == "__main__":
 
-    project_dir = os.path.join(os.path.dirname(__file__))
-    config_file = os.path.join(project_dir, config_file_path) #CONVERT RELATIVE PATH TO ABSOLUTE
+    project_dir = os.path.join(os.path.dirname(__file__)).replace("\\","/")
+    config_file = os.path.join(project_dir, config_file_path).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
 
     #LOAD DEFAULT CONFIGURATION PARAMETERS
     config_reader = ConfigFileReader.ConfigFileReader(config_file)
     config_parameters = config_reader.get_configuration_params()
-    songs_to_download_file = os.path.join(project_dir,config_parameters["songs_to_download_file"]) #CONVERT RELATIVE PATH TO ABSOLUTE
+    songs_to_download_file = os.path.join(project_dir,config_parameters["songs_to_download_file"]).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
     font_name = config_parameters["font_name"]
-    normal_font_path = os.path.join(project_dir,config_parameters["normal_font_path"]) #CONVERT RELATIVE PATH TO ABSOLUTE
-    bold_font_path = os.path.join(project_dir,config_parameters["bold_font_path"]) #CONVERT RELATIVE PATH TO ABSOLUTE
+    normal_font_path = os.path.join(project_dir,config_parameters["normal_font_path"]).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
+    bold_font_path = os.path.join(project_dir,config_parameters["bold_font_path"]).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
     chord_charcount_exclusion = config_parameters["chord_charcount_exclusion"]
     browser = config_parameters["default_browser"]
     accidental = config_parameters["default_accidental"] 

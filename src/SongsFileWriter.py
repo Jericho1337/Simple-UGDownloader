@@ -2,12 +2,14 @@
 
 from fpdf import FPDF
 import re as regex
+import os
 
 class SongsFileWriter:
 
     NORMAL_CHORD_REGEX = "([CDEFGAB](#|##|b|bb)?)((M|maj|m|aug|dim|sus|add)?(6|7|9|11|13|-5|\+5)?[^cefghilnopqrtuvxyz])" #IDENTIFIES CHORDS IN A NORMAL TEXT
     TRUEMODE_CHORD_REGEX = "(?<=\\\CHORD\[)(.*?)(?=\])"# IDENTIFIES CHORDS IN TRUE MODE: USES POSITIVE AND NEGATIVE REGEX LOOKAHEAD TO RETRIEVE ONLY CHARACTERS INSIDE
     UNCLEAN_TRUEMODE_CHORD_REGEX = "(\\\CHORD\[)(.*?)(\])" #\CHORD[] GARBAGE PRESENT IN THIS REGEX, IT IS STRUCTURED In 3 REGEX GROUPS -> USE 2nd GROUP TO TAKE THE CHORD ONLY
+    OUTPUT_PATH = os.path.abspath((os.path.join(os.path.dirname(__file__),"..", "output").replace("\\","/")))
 
     def __init__(self):
 
@@ -74,7 +76,7 @@ class SongsFileWriter:
             else:
                 self.pdf_bold.set_font(self.font_name, size = 10, style="")
             self.pdf_bold.write(5,line)
-        self.pdf_bold.output("./output/boldchords/" + text_title + ".pdf")
+        self.pdf_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "boldchords/").replace("\\","/") + text_title + ".pdf")
 
     def generate_normal_pdf(self,text_title, text_with_chords):
 
@@ -83,16 +85,16 @@ class SongsFileWriter:
         self.pdf_normal.write(5,"\n\n\n")
         self.pdf_normal.set_font(self.font_name, size = 10, style="")
         self.pdf_normal.write(5,text_with_chords)
-        self.pdf_normal.output("./output/normalchords/" + text_title + ".pdf")
+        self.pdf_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "normalchords/").replace("\\","/") + text_title + ".pdf")
 
     def generate_normal_text(self, text_title, text_with_chords):
-        with open("./output/text/" + text_title + ".txt", "w") as text_song:
+        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "text/").replace("\\","/") + text_title + ".txt", "w") as text_song:
             text_song.write(text_title)
             text_song.write("\n\n")
             text_song.write(text_with_chords)
 
     def generate_true_text(self, text_title, true_text_with_chords):
-        with open("./output/true_text/" + text_title + ".txt", "w") as text_song:
+        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_text/").replace("\\","/") + text_title + ".txt", "w") as text_song:
             text_song.write(text_title)
             text_song.write("\n\n")
             text_song.write(true_text_with_chords)
@@ -142,7 +144,7 @@ class SongsFileWriter:
                 self.pdf_true_bold.set_font(self.font_name, size = 10, style="")
                 self.pdf_true_bold.write(5,line) 
 
-        self.pdf_true_bold.output("./output/true_boldchords/" + text_title + ".pdf")
+        self.pdf_true_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_boldchords/").replace("\\","/") + text_title + ".pdf")
 
     def generate_true_normal_pdf(self,text_title, true_text_with_chords):
         self.pdf_true_normal.set_font(self.font_name, size = 18, style = "B")
@@ -161,4 +163,4 @@ class SongsFileWriter:
                 
             self.pdf_true_normal.write(5,line) 
 
-        self.pdf_true_normal.output("./output/true_normalchords/" + text_title + ".pdf")
+        self.pdf_true_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_normalchords/").replace("\\","/") + text_title + ".pdf")
