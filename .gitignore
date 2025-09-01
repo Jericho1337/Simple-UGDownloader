@@ -1,5 +1,6 @@
 src/__pycache__
 build
 dist
+output/*/*
 main.exe
 main.spec
