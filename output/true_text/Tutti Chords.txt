@@ -1,0 +1,98 @@
+Tutti Chords
+
+\CHORD[Amaj7]  3x443x
+A13    x02022  o  575675
+Dmaj7  xx0222  o  x57675
+D7     xx0212  o  x57575
+ 
+ 
+[Strofa]
+             \CHORD[Amaj7]                       \CHORD[B13]
+Ho messo le scarpe nuove per i giorni di fango
+                       \CHORD[Emaj7]                          \CHORD[C#m]
+Forse i leghisti lì in riva al Po non hanno più un capobranco
+            \CHORD[Amaj7]                      \CHORD[B13]
+Fuori la rivoluzione ed io mi vesto di bianco
+                  \CHORD[Emaj7]
+Vorrei tenerti la mano un po'
+               \CHORD[C#m]
+Scusa, ma sono stanco
+ 
+ 
+[Ritornello 1]
+         \CHORD[F#m]
+Tanto lo so che lo sai che non so
+     \CHORD[B13]
+Che cosa ne pensa la gente
+\CHORD[Emaj7]
+Per una volta che non
+\CHORD[C#m]
+Non ce ne fregava niente
+\CHORD[F#m]
+Dormire nudi sui tetti
+             \CHORD[B13]
+L'eclissi su Roma e la tua Coca Light
+                \CHORD[Emaj7]              \CHORD[E7]
+Non ti ho detto mai quello che mi fai
+                \CHORD[F#m]           \CHORD[B13]
+E gli altri si perdono come niente
+           \CHORD[Emaj7]                  \CHORD[E7]
+E poi si ritrovano in un'altra città
+                                    \CHORD[Amaj7]
+Sembra un'eternità, sembra una vita fa
+          \CHORD[G#m7]           \CHORD[C#m]
+E tu come stai? Che cosa fai?
+                 \CHORD[E7]
+Io coi piedi nel mare e soltanto a pensare
+              \CHORD[Amaj7]             \CHORD[B13]
+Che sembriamo tutti falliti, tutti falliti
+ 
+ 
+[Bridge]
+            \CHORD[Amaj7]                               \CHORD[B13]
+Non giocare col mio cuore, che poi devasto una spiaggia
+                        \CHORD[Emaj7]                     \CHORD[C#m]
+Che ci organizzo un bel festival e poi mi lavo la faccia
+ 
+ 
+[Ritornello 2]
+         \CHORD[F#m]
+Tanto lo so che lo sai che non so
+     \CHORD[B13]
+Che cosa si scorda la gente
+\CHORD[Emaj7]
+Triste pensare che noi
+\CHORD[C#m]
+Noi due non saremo niente
+\CHORD[F#m]
+Quanto silenzio sui tetti
+             \CHORD[B13]
+Fra mille discorsi e la tua Coca Light
+                \CHORD[Emaj7]             \CHORD[E7]
+Non ti ho detto mai quello che mi fai
+                \CHORD[F#m]           \CHORD[B13]
+E gli altri si perdono come niente
+           \CHORD[Emaj7]                \CHORD[E7]
+E poi si ritrovano in un'altra città
+                                   \CHORD[Amaj7]
+Sembra un'eternità, sembra una vita fa
+          \CHORD[G#m7]           \CHORD[C#m]
+E tu come stai? Che cosa fai?
+                 \CHORD[E7]
+Io coi piedi nel mare e soltanto a pensare
+              \CHORD[Amaj7]           \CHORD[Emaj7]
+Che sembriamo tutti falliti, tutti falliti
+ 
+ 
+[Outro]
+              \CHORD[F#m]             \CHORD[B13]
+Che sembriamo tutti falliti, tutti falli'
+              \CHORD[Emaj7]           \CHORD[E7]
+Che sembriamo tutti esauriti, tutti falli'
+              \CHORD[F#m]              \CHORD[B13]             \CHORD[Emaj7]
+Che sembriamo tutti impauriti, tutti bolliti, tutti falli'
+              \CHORD[E7]
+Che sembriamo tutti falliti
+ 
+\CHORD[F#m]  \CHORD[B13]  \CHORD[Emaj7]  \CHORD[E7]  x2
+\CHORD[Amaj7]  \CHORD[Emaj7]
