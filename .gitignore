@@ -1,2 +1,5 @@
 src/__pycache__
-output/*
+build
+dist
+main.exe
+main.spec
