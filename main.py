@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
                 #CLEANUP BEFORE EXIT
                 cleanup()
-                
+
                 sys.exit()
 
         except getopt.error as err:
@@ -160,21 +160,9 @@ if __name__ == "__main__":
 
         try:
 
-            song = Song.Song()
-
-            #GET WEBPAGE
+            #GET SONG FROM WEBPAGE
             print(Colour.Colour.YELLOW + "[=         ] 10% Getting webpage...")
-            webnavigator.navigate_webpage(url_line)
-
-            #GET SONG TITLE
-            print("[==        ] 20% Getting song title...")
-            song.set_title(webnavigator.get_song_title()) 
-
-            #GET TEXT AND TRUE TEXT
-            print("[===       ] 30% Extracting text and chords for "+ song.get_title() +" from webpage...")
-            song.set_text(webnavigator.get_song_text_and_chords())
-            print("[====      ] 40% Extracting TRUE text and chords for "+ song.get_title() +" from webpage...")
-            song.set_true_text(webnavigator.get_true_song_text_and_chords())
+            song = webnavigator.get_song_from_webpage(url_line)
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
             total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE

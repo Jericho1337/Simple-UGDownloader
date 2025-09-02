@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-import time
+from . import Song
 
 #CLASS THAT NAVIGATES WEBPAGES USING SELENIUM AND RETURNS SONG INFORMATIONS (text with chords, title, ...)
 
@@ -61,11 +61,18 @@ class WebNavigator:
 
         else:
             raise Exception("Cannot find browser " + browser)
-
     
-    def navigate_webpage(self, url):   
+    def get_song_from_webpage(self, url):
+        song = Song.Song()
         self.driver.get(url)
-        
+
+        song.set_title(self.get_song_title())
+        song.set_author(self.get_song_author())
+        song.set_text(self.get_song_text_and_chords())
+        song.set_true_text(self.get_true_song_text_and_chords())
+
+        return song
+
     def get_song_title(self):
         HTML_title = self.driver.find_element(By.TAG_NAME, "h1")
         return HTML_title.text
