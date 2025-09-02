@@ -103,6 +103,15 @@ python main.py --truetxt2pdf <TRUE_TXT_FILE>
 
 **NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
 
+#### 🧹 CLEANUP ALL OUTPUT FILES 🧹
+If you want to remove all files in output subdirectories you can use the ```--cleanoutput``` argument
+
+Usage:
+
+```
+python main.py --cleanoutput
+```
+
 #### 🌎 USE ANOTHER WEBDRIVER 🌎
 
 Default used webdriver: **Chrome**
