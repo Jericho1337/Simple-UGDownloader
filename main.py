@@ -80,13 +80,9 @@ if __name__ == "__main__":
                 output_dir_path = os.path.join(os.path.dirname(__file__), "output").replace("\\","/")
                 specific_output_dirs = os.listdir(output_dir_path)
 
-                print(specific_output_dirs)
-
                 for dir in specific_output_dirs:
                     specific_output_dir_path = os.path.join(output_dir_path, dir).replace("\\","/")
                     specific_output_dir_files = os.listdir(specific_output_dir_path)
-                    print(specific_output_dir_files)
-                    print(specific_output_dir_path)
                     for f in specific_output_dir_files:
                         os.remove(os.path.join(specific_output_dir_path, f).replace("\\","/"))
 
@@ -102,6 +98,7 @@ if __name__ == "__main__":
                 #GET SONG INFORMATION FROM NORMAL TXT FILE
                 song.set_title(txtsongreader.get_text_title())
                 song.set_text(txtsongreader.get_text_with_chords())
+                song.set_author([txtsongreader.get_author()])
 
                 #TRANSPOSE TEXT
                 song.set_text(ChordTransposer.ChordTransposer.transpose(song.get_text(), chord_transpose_offset, accidental))
@@ -128,6 +125,7 @@ if __name__ == "__main__":
                 #GET SONG INFORMATION FROM TRUE TXT FILE
                 song.set_title(txtsongreader.get_text_title())
                 song.set_true_text(txtsongreader.get_text_with_chords())
+                song.set_author([txtsongreader.get_author()])
 
                 #TRANSPOSE TEXT
                 song.set_true_text(ChordTransposer.ChordTransposer.true_transpose(song.get_true_text(), chord_transpose_offset, accidental))

@@ -62,6 +62,9 @@ class WebNavigator:
         else:
             raise Exception("Cannot find browser " + browser)
     
+    def navigate_url(self, url):
+        self.driver.get(url)
+
     def get_song_from_webpage(self, url):
         song = Song.Song()
         self.driver.get(url)
@@ -86,7 +89,15 @@ class WebNavigator:
                 authors_text.append(HTML_author.text)
             return authors_text
         except:
-            return []
+            return [""]
+        
+    def get_song_tuning(self):
+        #try:
+        HTML_title_parent = self.driver.find_element(By.XPATH, "//pre/../../../../../..")
+        print(HTML_title_parent.get_attribute("innerHTML"))
+        #HTML_authors = HTML_title_parent.find_elements(By.TAG_NAME, "a")
+        #except:
+        #   return ""
     
     def get_song_text_and_chords(self):
         HTML_text = self.driver.find_element(By.TAG_NAME, "pre")
@@ -111,3 +122,7 @@ class WebNavigator:
   
     def __del__(self):
         self.driver.quit()
+
+"""webnavigator = WebNavigator("Edge")
+webnavigator.navigate_url("https://tabs.ultimate-guitar.com/tab/billie-eilish/happier-than-ever-chords-3592094")
+print(webnavigator.get_song_tuning())"""
