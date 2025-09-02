@@ -8,10 +8,22 @@ from src import Colour
 import sys
 import getopt
 import os
+import re
 
 config_file_path = "config/config.yaml"
 
+#Cleans .pkl files in fonts folder because .pkl files cache paths and can cause problems
+def cleanup():
+    font_dir = os.path.join(os.path.dirname(__file__), "fonts").replace("\\","/")
+    font_files = os.listdir(font_dir)
+
+    for f in font_files:
+        if re.search(r"(.*?).pkl", f):
+            os.remove(os.path.join(font_dir, f).replace("\\","/"))
+
 if __name__ == "__main__":
+
+    cleanup() #REMOVES TEMPORARY FILES BEFORE EXECUTION
 
     project_dir = os.path.join(os.path.dirname(__file__)).replace("\\","/")
     config_file = os.path.join(project_dir, config_file_path).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
@@ -31,7 +43,7 @@ if __name__ == "__main__":
     #READ CMD LINE ARGS
     if len(sys.argv) > 1:
         try:
-            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="", longopts=["help","inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser=", "accidental="])
+            arguments_values, values = getopt.getopt(args=sys.argv[1:], shortopts="", longopts=["help","inputfile=", "transpose=", "txt2pdf=", "truetxt2pdf=", "browser=", "accidental=", "cleanoutput"])
             arguments = []
             values = []
             for argument_value in arguments_values:
@@ -47,6 +59,7 @@ if __name__ == "__main__":
                 print("\t--browser <STRING> \t\t Specify a path to a TRUE TXT file (true mode) to convert in PDF \t\t Possible values \"Edge\",\"Chrome\",\"Firefox\"")
                 print("\t--transpose <INT> \t\t Specify a offset (positive or negative) to apply for the transposal \t\t ")
                 print("\t--accidental <STRING> \t\t Specify an accidental to force in transposition or original song \t\t Possible values \"#\",\"b\"")
+                print("\t--cleanoutput \t\t\t Cleans all output files in the subdirectories of output folder")
                 print("")
                 sys.exit()
             if("--inputfile" in arguments):
@@ -59,7 +72,23 @@ if __name__ == "__main__":
                 browser = values[arguments.index("--browser")]
 
             if("--accidental" in arguments):
-                accidental = values[arguments.index("--accidental")]           
+                accidental = values[arguments.index("--accidental")]
+
+            if("--cleanoutput" in arguments):
+                output_dir_path = os.path.join(os.path.dirname(__file__), "output").replace("\\","/")
+                specific_output_dirs = os.listdir(output_dir_path)
+
+                print(specific_output_dirs)
+
+                for dir in specific_output_dirs:
+                    specific_output_dir_path = os.path.join(output_dir_path, dir).replace("\\","/")
+                    specific_output_dir_files = os.listdir(specific_output_dir_path)
+                    print(specific_output_dir_files)
+                    print(specific_output_dir_path)
+                    for f in specific_output_dir_files:
+                        os.remove(os.path.join(specific_output_dir_path, f).replace("\\","/"))
+
+                sys.exit()            
             
             if("--txt2pdf" in arguments):
                 #READ NORMAL TXT
@@ -151,6 +180,13 @@ if __name__ == "__main__":
             songwriter.generate_true_text(text_title, true_text_with_chords)
 
             print(Colour.Colour.GREEN + Colour.Colour.BOLD + "[==========] 100% Completed " + text_title + " download" + Colour.Colour.ENDC)
+
+            #DESTROY TEMP FILES
+            
+
         except Exception as exception:
             print(Colour.Colour.RED + "Song: " + url_line + " failed to download" + Colour.Colour.ENDC)
             print(exception)
+    
+    #DESTROY TEMP FILES
+    cleanup()
