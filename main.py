@@ -5,6 +5,7 @@ from src import ConfigFileReader
 from src import ChordTransposer
 from src import TxtSongFileReader
 from src import Colour
+from src import Song
 import sys
 import getopt
 import os
@@ -92,40 +93,47 @@ if __name__ == "__main__":
                 sys.exit()            
             
             if("--txt2pdf" in arguments):
+
+                song = Song.Song()
+
                 #READ NORMAL TXT
                 txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--txt2pdf")])
                 
                 #GET SONG INFORMATION FROM NORMAL TXT FILE
-                text_title = txtsongreader.get_text_title()
-                text_with_chords = txtsongreader.get_text_with_chords()
+                song.set_title(txtsongreader.get_text_title())
+                song.set_text(txtsongreader.get_text_with_chords())
 
                 #TRANSPOSE TEXT
-                text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, chord_transpose_offset, accidental)
+                song.set_text(ChordTransposer.ChordTransposer.transpose(song.get_text(), chord_transpose_offset, accidental))
 
                 #WRITE NORMAL AND BOLD PDF
                 songwriter = SongsFileWriter.SongsFileWriter()
                 songwriter.add_font(font_name, normal_font_path, bold_font_path)
                 songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-                songwriter.generate_bold_pdf(text_title, text_with_chords)
-                songwriter.generate_normal_pdf(text_title, text_with_chords)
+                songwriter.generate_bold_pdf(song.get_title(), song.get_text())
+                songwriter.generate_normal_pdf(song.get_title(), song.get_text())
                 sys.exit()
 
             if("--truetxt2pdf" in arguments):
+
+                song = Song.Song()
+
+                #READ TRUE TXT
                 txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--truetxt2pdf")])
 
                 #GET SONG INFORMATION FROM TRUE TXT FILE
-                text_title = txtsongreader.get_text_title()
-                true_text_with_chords = txtsongreader.get_text_with_chords()
+                song.set_title(txtsongreader.get_text_title())
+                song.set_true_text(txtsongreader.get_text_with_chords())
 
                 #TRANSPOSE TEXT
-                true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, chord_transpose_offset, accidental)
+                song.set_true_text(ChordTransposer.ChordTransposer.true_transpose(song.get_true_text(), chord_transpose_offset, accidental))
 
                 #WRITE TRUE BOLD PDF
                 songwriter = SongsFileWriter.SongsFileWriter()
                 songwriter.add_font(font_name, normal_font_path, bold_font_path)
                 songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-                songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
-                songwriter.generate_true_normal_pdf(text_title, true_text_with_chords)
+                songwriter.generate_true_bold_pdf(song.get_title(), song.get_true_text())
+                songwriter.generate_true_normal_pdf(song.get_title(), song.get_true_text())
                 sys.exit()
 
         except getopt.error as err:
@@ -141,27 +149,30 @@ if __name__ == "__main__":
 
     #DOWNLOAD EACH SONG
     for song_index, url_line in enumerate(songs_to_download_urllist):
-        
+
         try:
+
+            song = Song.Song()
+
             #GET WEBPAGE
             print(Colour.Colour.YELLOW + "[=         ] 10% Getting webpage...")
             webnavigator.navigate_webpage(url_line)
 
             #GET SONG TITLE
             print("[==        ] 20% Getting song title...")
-            text_title = webnavigator.get_song_title() 
+            song.set_title(webnavigator.get_song_title()) 
 
             #GET TEXT AND TRUE TEXT
-            print("[===       ] 30% Extracting text and chords for "+ text_title +" from webpage...")
-            text_with_chords = webnavigator.get_song_text_and_chords()
-            print("[====      ] 40% Extracting TRUE text and chords for "+ text_title +" from webpage...")
-            true_text_with_chords = webnavigator.get_true_song_text_and_chords()
+            print("[===       ] 30% Extracting text and chords for "+ song.get_title() +" from webpage...")
+            song.set_text(webnavigator.get_song_text_and_chords())
+            print("[====      ] 40% Extracting TRUE text and chords for "+ song.get_title() +" from webpage...")
+            song.set_true_text(webnavigator.get_true_song_text_and_chords())
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
             total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE
             print("[=====     ] 50% Transposing song by "+ str(total_chord_transpose_offset) +" offset...")
-            text_with_chords = ChordTransposer.ChordTransposer.transpose(text_with_chords, total_chord_transpose_offset, accidental)
-            true_text_with_chords = ChordTransposer.ChordTransposer.true_transpose(true_text_with_chords, total_chord_transpose_offset, accidental)
+            song.set_text(ChordTransposer.ChordTransposer.transpose(song.get_text(), total_chord_transpose_offset, accidental))
+            song.set_true_text(ChordTransposer.ChordTransposer.true_transpose(song.get_true_text(), total_chord_transpose_offset, accidental))
 
             #GENERATE OUTPUTS
             songwriter = SongsFileWriter.SongsFileWriter()
@@ -169,18 +180,18 @@ if __name__ == "__main__":
             songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
 
             #NORMAL MODE OUTPUTS
-            print("[=======   ] 70% Generating chords PDFs and TXT for "+ text_title +"...")
-            songwriter.generate_bold_pdf(text_title, text_with_chords)
-            songwriter.generate_normal_pdf(text_title, text_with_chords)
-            songwriter.generate_normal_text(text_title, text_with_chords)
+            print("[=======   ] 70% Generating chords PDFs and TXT for "+ song.get_title() +"...")
+            songwriter.generate_bold_pdf(song.get_title(), song.get_text())
+            songwriter.generate_normal_pdf(song.get_title(), song.get_text())
+            songwriter.generate_normal_text(song.get_title(), song.get_text())
 
             #TRUE MODE OUTPUTS
-            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ text_title +"..." + Colour.Colour.ENDC)
-            songwriter.generate_true_bold_pdf(text_title, true_text_with_chords)
-            songwriter.generate_true_normal_pdf(text_title, true_text_with_chords)
-            songwriter.generate_true_text(text_title, true_text_with_chords)
+            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ song.get_title() +"..." + Colour.Colour.ENDC)
+            songwriter.generate_true_bold_pdf(song.get_title(), song.get_true_text())
+            songwriter.generate_true_normal_pdf(song.get_title(), song.get_true_text())
+            songwriter.generate_true_text(song.get_title(), song.get_true_text())
 
-            print(Colour.Colour.GREEN + Colour.Colour.BOLD + "[==========] 100% Completed " + text_title + " download" + Colour.Colour.ENDC)
+            print(Colour.Colour.GREEN + Colour.Colour.BOLD + "[==========] 100% Completed " + song.get_title() + " download" + Colour.Colour.ENDC)
 
             #DESTROY TEMP FILES
             
