@@ -52,7 +52,7 @@ You can pass a transposing offset (positive or negative) or specify single trans
 The behaviour is:
 * Transposing offset specified as cmd-line argument **will be applied to all songs listed in input file**
 * Single offset specified in file will be applied only to the related song
-* total effective transposing offset is calculated summing single song offset and cmd-line global offset
+* total effective transposing offset for each song is calculated summing single song offset and cmd-line global offset
 
 ```
 python main.py --transpose <POSITIVE_OR_NEGATIVE_OFFSET>
