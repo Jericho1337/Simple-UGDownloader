@@ -62,6 +62,7 @@ if __name__ == "__main__":
                 print("\t--cleanoutput \t\t\t Cleans all output files in the subdirectories of output folder")
                 print("")
                 sys.exit()
+            
             if("--inputfile" in arguments):
                 songs_to_download_file = values[arguments.index("--inputfile")] #OVERWRITE DEFAULT INPUT VALUE
 
