@@ -58,16 +58,15 @@ class SongsFileWriter:
 
     def set_chordline_char_threshold(self, chord_charcount_threshold):
         self.chord_charcount_threshold = chord_charcount_threshold
-             
-    def generate_bold_pdf(self, text_title, text_with_chords):    
-        
+
+    def generate_bold_pdf(self, song):
         #WRITE TITLE
         self.pdf_bold.set_font(self.font_name, size = 18, style = "B")
-        self.pdf_bold.cell(0,10,text_title,"B",align="C")
+        self.pdf_bold.cell(0,10, song.get_title(),"B",align="C")
         self.pdf_bold.write(5,"\n\n\n")
 
         #WRITE TEXT BOLDING CHORD LINES
-        for line in text_with_chords.split("\n"):
+        for line in (song.get_text()).split("\n"):
             line = line + "\n"
             #CONDITION TO IDENTIFY CHORD LINE: 
             #At least 1 chord is present (using regex) AND charcount excluding whitespaces is less than constant AND there aren't both chars [] 
@@ -76,35 +75,29 @@ class SongsFileWriter:
             else:
                 self.pdf_bold.set_font(self.font_name, size = 10, style="")
             self.pdf_bold.write(5,line)
-        self.pdf_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "boldchords/").replace("\\","/") + text_title + ".pdf")
+        self.pdf_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "boldchords/").replace("\\","/") + song.get_title() + ".pdf")
 
-    def generate_normal_pdf(self,text_title, text_with_chords):
+    def generate_normal_pdf(self, song):
 
         self.pdf_normal.set_font(self.font_name, size = 18, style = "B")
-        self.pdf_normal.cell(0,10,text_title,"B",align="C")
+        self.pdf_normal.cell(0,10,song.get_title(),"B",align="C")
         self.pdf_normal.write(5,"\n\n\n")
         self.pdf_normal.set_font(self.font_name, size = 10, style="")
-        self.pdf_normal.write(5,text_with_chords)
-        self.pdf_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "normalchords/").replace("\\","/") + text_title + ".pdf")
+        self.pdf_normal.write(5,song.get_text())
+        self.pdf_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "normalchords/").replace("\\","/") + song.get_title() + ".pdf")
 
-    def generate_normal_text(self, text_title, text_with_chords):
-        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "text/").replace("\\","/") + text_title + ".txt", "w") as text_song:
-            text_song.write(text_title)
+    def generate_normal_text(self, song):
+        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "text/").replace("\\","/") + song.get_title() + ".txt", "w") as text_song:
+            text_song.write(song.get_title())
             text_song.write("\n\n")
-            text_song.write(text_with_chords)
+            text_song.write(song.get_text())
 
-    def generate_true_text(self, text_title, true_text_with_chords):
-        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_text/").replace("\\","/") + text_title + ".txt", "w") as text_song:
-            text_song.write(text_title)
-            text_song.write("\n\n")
-            text_song.write(true_text_with_chords)
-    
-    def generate_true_bold_pdf(self,text_title, true_text_with_chords):
+    def generate_true_bold_pdf(self, song):
         self.pdf_true_bold.set_font(self.font_name, size = 18, style = "B")
-        self.pdf_true_bold.cell(0,10,text_title,"B",align="C")
+        self.pdf_true_bold.cell(0,10,song.get_title(),"B",align="C")
         self.pdf_true_bold.write(5,"\n\n\n")
 
-        for line in true_text_with_chords.split("\n"):
+        for line in (song.get_true_text()).split("\n"):
             line = line + "\n"
             
             #CHECK IF THERE IS AT LEAST ONE MATCH
@@ -144,15 +137,15 @@ class SongsFileWriter:
                 self.pdf_true_bold.set_font(self.font_name, size = 10, style="")
                 self.pdf_true_bold.write(5,line) 
 
-        self.pdf_true_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_boldchords/").replace("\\","/") + text_title + ".pdf")
-
-    def generate_true_normal_pdf(self,text_title, true_text_with_chords):
+        self.pdf_true_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_boldchords/").replace("\\","/") + song.get_title() + ".pdf")
+    
+    def generate_true_normal_pdf(self, song):
         self.pdf_true_normal.set_font(self.font_name, size = 18, style = "B")
-        self.pdf_true_normal.cell(0,10,text_title,"B",align="C")
+        self.pdf_true_normal.cell(0,10,song.get_title(),"B",align="C")
         self.pdf_true_normal.write(5,"\n\n\n")
 
         self.pdf_true_normal.set_font(self.font_name, size = 10, style="") #SET NORMAL FONT FOR TEXT
-        for line in true_text_with_chords.split("\n"):
+        for line in (song.get_true_text()).split("\n"):
             line = line + "\n"
             
             #CHECK IF THERE IS AT LEAST ONE CHORD
@@ -163,4 +156,10 @@ class SongsFileWriter:
                 
             self.pdf_true_normal.write(5,line) 
 
-        self.pdf_true_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_normalchords/").replace("\\","/") + text_title + ".pdf")
+        self.pdf_true_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_normalchords/").replace("\\","/") + song.get_title() + ".pdf")
+    
+    def generate_true_text(self, song):
+        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_text/").replace("\\","/") + song.get_title() + ".txt", "w") as text_song:
+            text_song.write(song.get_title())
+            text_song.write("\n\n")
+            text_song.write(song.get_true_text())

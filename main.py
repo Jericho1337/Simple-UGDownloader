@@ -110,8 +110,12 @@ if __name__ == "__main__":
                 songwriter = SongsFileWriter.SongsFileWriter()
                 songwriter.add_font(font_name, normal_font_path, bold_font_path)
                 songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-                songwriter.generate_bold_pdf(song.get_title(), song.get_text())
-                songwriter.generate_normal_pdf(song.get_title(), song.get_text())
+                songwriter.generate_bold_pdf(song)
+                songwriter.generate_normal_pdf(song)
+
+                #CLEANUP BEFORE EXIT
+                cleanup()
+
                 sys.exit()
 
             if("--truetxt2pdf" in arguments):
@@ -132,8 +136,12 @@ if __name__ == "__main__":
                 songwriter = SongsFileWriter.SongsFileWriter()
                 songwriter.add_font(font_name, normal_font_path, bold_font_path)
                 songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-                songwriter.generate_true_bold_pdf(song.get_title(), song.get_true_text())
-                songwriter.generate_true_normal_pdf(song.get_title(), song.get_true_text())
+                songwriter.generate_true_bold_pdf(song)
+                songwriter.generate_true_normal_pdf(song)
+
+                #CLEANUP BEFORE EXIT
+                cleanup()
+                
                 sys.exit()
 
         except getopt.error as err:
@@ -181,20 +189,17 @@ if __name__ == "__main__":
 
             #NORMAL MODE OUTPUTS
             print("[=======   ] 70% Generating chords PDFs and TXT for "+ song.get_title() +"...")
-            songwriter.generate_bold_pdf(song.get_title(), song.get_text())
-            songwriter.generate_normal_pdf(song.get_title(), song.get_text())
-            songwriter.generate_normal_text(song.get_title(), song.get_text())
+            songwriter.generate_bold_pdf(song)
+            songwriter.generate_normal_pdf(song)
+            songwriter.generate_normal_text(song)
 
             #TRUE MODE OUTPUTS
             print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ song.get_title() +"..." + Colour.Colour.ENDC)
-            songwriter.generate_true_bold_pdf(song.get_title(), song.get_true_text())
-            songwriter.generate_true_normal_pdf(song.get_title(), song.get_true_text())
-            songwriter.generate_true_text(song.get_title(), song.get_true_text())
+            songwriter.generate_true_bold_pdf(song)
+            songwriter.generate_true_normal_pdf(song)
+            songwriter.generate_true_text(song)
 
             print(Colour.Colour.GREEN + Colour.Colour.BOLD + "[==========] 100% Completed " + song.get_title() + " download" + Colour.Colour.ENDC)
-
-            #DESTROY TEMP FILES
-            
 
         except Exception as exception:
             print(Colour.Colour.RED + "Song: " + url_line + " failed to download" + Colour.Colour.ENDC)
