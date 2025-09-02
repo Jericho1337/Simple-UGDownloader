@@ -10,7 +10,7 @@ Simple-UGDownloader is a simple downloader for UG Songs and PDF converter
 ### ⚙️ INSTALLATION ⚙️
 
 ```
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 AT LEAST one of the following webdrivers must be installed: Edge, Chrome, Firefox
@@ -25,13 +25,13 @@ AT LEAST one of the following webdrivers must be installed: Edge, Chrome, Firefo
 Place yourself in the project directory
 
 ```
-python3 main.py
+python main.py
 ```
 
 OR you can specify your input file
 
 ```
-python3 main.py --inputfile <INPUT_FILE>
+python main.py --inputfile <INPUT_FILE>
 ```
 
 
@@ -55,12 +55,12 @@ The behaviour is:
 * total effective transposing offset is calculated summing single song offset and cmd-line global offset
 
 ```
-python3 main.py --transpose <POSITIVE_OR_NEGATIVE_OFFSET>
+python main.py --transpose <POSITIVE_OR_NEGATIVE_OFFSET>
 ```
 
 In this example we transpose down of 3 semitones
 ```
-python3 main.py --transpose -3
+python main.py --transpose -3
 ```
 
 OR
@@ -82,8 +82,8 @@ To change this behaviour you can force the use of "#" or "b" by passing a parame
 
 Example
 ```
-python3 main.py --accidental "#"
-python3 main.py --accidental "b"
+python main.py --accidental "#"
+python main.py --accidental "b"
 ```
 
 #### 📄➡️📜 TXT TO PDF 📄➡️📜
@@ -97,8 +97,8 @@ You can choose between 2 modes:
 TRUE TXT uses ```\CHORD[<CHORD_HERE>]``` formatting to process text in a precise way, instead normal mode is based on heuristics
 
 ```
-python3 main.py --txt2pdf <TXT_FILE>
-python3 main.py --truetxt2pdf <TRUE_TXT_FILE>
+python main.py --txt2pdf <TXT_FILE>
+python main.py --truetxt2pdf <TRUE_TXT_FILE>
 ```
 
 **NOTE**: You can use transpostion in this mode adding the ```--transpose <TRANSPOSE_OFFSET>``` as argument
@@ -111,7 +111,7 @@ You can force the use of another webdriver passing the parameter ```--browser <B
 
 Example if we want to use Edge instead:
 ```
-python3 main.py --browser "Edge"
+python main.py --browser "Edge"
 ```
 
 Available Browsers = Edge, Chrome, Firefox
