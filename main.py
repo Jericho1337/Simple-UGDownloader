@@ -173,6 +173,8 @@ if __name__ == "__main__":
             songwriter.add_font(font_name, normal_font_path, bold_font_path)
             songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
 
+            print(song.get_tuning(),song.get_key(),song.get_capo())
+
             #NORMAL MODE OUTPUTS
             print("[=======   ] 70% Generating chords PDFs and TXT for "+ song.get_title() +"...")
             songwriter.generate_bold_pdf(song)

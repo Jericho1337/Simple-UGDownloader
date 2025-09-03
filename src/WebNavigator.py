@@ -10,7 +10,7 @@ from . import Song
 
 class WebNavigator:
 
-    SUPPORTED_BROWSER = ["Edge","Chrome","Firefox"] 
+    SUPPORTED_BROWSER = ["Edge","Chrome","Firefox"]
 
     def __init__(self,browser):
         
@@ -73,6 +73,9 @@ class WebNavigator:
         song.set_author(self.get_song_author())
         song.set_text(self.get_song_text_and_chords())
         song.set_true_text(self.get_true_song_text_and_chords())
+        song.set_tuning(self.get_song_tuning())
+        song.set_key(self.get_song_key())
+        song.set_capo(self.get_song_capo())
 
         return song
 

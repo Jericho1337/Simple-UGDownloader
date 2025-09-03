@@ -115,7 +115,7 @@ class SongsFileWriter:
         self.pdf_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "normalchords/").replace("\\","/") + song.get_title() + ".pdf")
 
     def generate_normal_text(self, song):
-        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "text/").replace("\\","/") + song.get_title() + ".txt", "w") as text_song:
+        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "text/").replace("\\","/") + song.get_title() + ".txt", "w", encoding="utf-8") as text_song:
             #WRITE TITLE
             text_song.write(song.get_title())
             text_song.write("\n")
@@ -217,7 +217,7 @@ class SongsFileWriter:
         self.pdf_true_normal.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_normalchords/").replace("\\","/") + song.get_title() + ".pdf")
     
     def generate_true_text(self, song):
-        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_text/").replace("\\","/") + song.get_title() + ".txt", "w") as text_song:
+        with open(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_text/").replace("\\","/") + song.get_title() + ".txt", "w", encoding="utf-8") as text_song:
             #WRITE TITLE
             text_song.write(song.get_title())
             text_song.write("\n")
