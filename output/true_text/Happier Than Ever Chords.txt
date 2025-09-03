@@ -8,7 +8,7 @@ Capo: no capo
 ***Please Note: If you find Cadd9 difficult to play, feel free to use a regular C (X32010).***
  
 [Intro - Rhythm Guitar]
-     \CHORD[G]                    \CHORD[G6]       \CHORD[G7]
+     \CHORD[A]                    \CHORD[A6]       \CHORD[A7]
 e|-------3---3----3---3---0----|---1-------------|
 B|-------0---0----0---0---0----|---0-------------|
 G|-------0---0----0---0---0----|---0-------------|
@@ -22,28 +22,28 @@ E|---3-------------------------|-----------------|
  
 [Verse 1 - Full Picking Pattern (With Optional Slash Chords)]
  
-     \CHORD[C]         \CHORD[C/G]             \CHORD[C]          \CHORD[C/G]
+     \CHORD[D]         \CHORD[D/A]             \CHORD[D]          \CHORD[D/A]
 e|-------0--0-------0--0---|-------0--0--------0--0---|
 B|-------1--1-------1--1---|-------1--1--------1--1---|
 G|-------0--0-------0--0---|-------0--0--------0--0---|
 D|-------2--2-------2--2---|-------2--2--------2--2---|
 A|---3---------------------|---3----------------------|
 E|---------------3---------|---------------3----------|
-    \CHORD[E7]
+    \CHORD[F#7]
 e|-------0--0-------0--0---|-------0--0--------0--0---|
 B|-------0--0-------0--0---|-------0--0--------0--0---|
 G|-------1--1-------1--1---|-------1--1--------1--1---|
 D|-------0--0-------0--0---|-------0--0--------0--0---|
 A|---2---------------------|---2----------------------|
 E|---------------0---------|---------------0----------|
-    \CHORD[Am]         \CHORD[Am/E]           \CHORD[Am]         \CHORD[Am/E]
+    \CHORD[Bm]         \CHORD[Bm/F#]           \CHORD[Bm]         \CHORD[Bm/F#]
 e|-------0--0-------0--0---|-------0--0--------0--0---|
 B|-------1--1-------1--1---|-------1--1--------1--1---|
 G|-------2--2-------2--2---|-------2--2--------2--2---|
 D|-------2--2-------2--2---|-------2--2--------2--2---|
 A|---0---------------------|---0----------------------|
 E|---------------0---------|---------------0----------|
-    \CHORD[Dm7b5]
+    \CHORD[Em7b5]
 e|-------1--1-------1--1---|-------1--1--------1--1---|
 B|-------1--1-------1--1---|-------1--1--------1--1---|
 G|-------1--1-------1--1---|-------1--1--------1--1---|
@@ -55,118 +55,118 @@ E|-------------------------|--------------------------|
  
  
 [Chorus]
-N.C.     \CHORD[Cadd9]
+N.C.     \CHORD[Dadd9]
 When I'm away from you
-                 \CHORD[E7]
+                 \CHORD[F#7]
 I'm happier than ever
-                         \CHORD[Am]
+                         \CHORD[Bm]
 Wish I could explain it better
-                 \CHORD[Dm7]    \CHORD[G]
+                 \CHORD[Em7]    \CHORD[A]
 I wish it wasn't true, mmm
  
-         \CHORD[Cadd9]
+         \CHORD[Dadd9]
 Give me a day or two
-                       \CHORD[E7]
+                       \CHORD[F#7]
 To think of something clever
-                 \CHORD[Am]
+                 \CHORD[Bm]
 To write myself a letter
-                  \CHORD[Dm7]  \CHORD[G]
+                  \CHORD[Em7]  \CHORD[A]
 To tell me what to do,  mm-mm
  
  
 [Verse 1]
-\CHORD[C]
+\CHORD[D]
   Do you read my interviews?
-   \CHORD[E7]
+   \CHORD[F#7]
 Or do you skip my avenue?
-     \CHORD[Am]
+     \CHORD[Bm]
 When you said you were passin' through
-      \CHORD[Dm7b5]
+      \CHORD[Em7b5]
 Was I even on your way?
-   \CHORD[C]
+   \CHORD[D]
 I knew when I asked you to (When I asked you to)
-    \CHORD[E7]
+    \CHORD[F#7]
 Be cool about what I was tellin' you
-      \CHORD[Am]
+      \CHORD[Bm]
 You'd do the opposite of what you said you'd do (What you said you'd do)
-       \CHORD[Dm7b5]
+       \CHORD[Em7b5]
 And I'd end up more afraid
-               \CHORD[E7]
+               \CHORD[F#7]
 Don't say it isn't fair
-                                   \CHORD[Am]      \CHORD[Am/G]   \CHORD[D/F#]
+                                   \CHORD[Bm]      \CHORD[Bm/A]   \CHORD[E/G#]
 You clearly weren't aware that you made me miserable, ooh
-           \CHORD[Dm7]          \CHORD[G7]
+           \CHORD[Em7]          \CHORD[A7]
 So if you really wanna know
  
  
 [Chorus]
-         \CHORD[Cadd9]
+         \CHORD[Dadd9]
 When I'm away from you (When I'm away from you)
-                  \CHORD[E7]
+                  \CHORD[F#7]
 I'm happier than ever (I'm happier than ever)
-                         \CHORD[Am]
+                         \CHORD[Bm]
 Wish I could explain it better (Wish I could explain it better)
-                 \CHORD[Dm7]    \CHORD[G]      \CHORD[C]
+                 \CHORD[Em7]    \CHORD[A]      \CHORD[D]
 I wish it wasn't true, mmm
  
  
 [Instrumental Break]
  
-\CHORD[C]  \CHORD[E7]  \CHORD[Am]  \CHORD[F]  \CHORD[Fm]
+\CHORD[D]  \CHORD[F#7]  \CHORD[Bm]  \CHORD[G]  \CHORD[Gm]
  
 [Verse 2]
-\CHORD[C]              \CHORD[E7]                   \CHORD[Am]
+\CHORD[D]              \CHORD[F#7]                   \CHORD[Bm]
 You called me again, drunk in your Benz
-               \CHORD[F]          \CHORD[Fm]
+               \CHORD[G]          \CHORD[Gm]
 Drivin' home under the influence
-\CHORD[C]                 \CHORD[E7]                       \CHORD[Am]
+\CHORD[D]                 \CHORD[F#7]                       \CHORD[Bm]
 You scared me to death but I'm wastin' my breath
-                  \CHORD[F]             \CHORD[Fm]
+                  \CHORD[G]             \CHORD[Gm]
 'Cause you only listen to your fuckin' friends
-\CHORD[C]                    \CHORD[E7]
+\CHORD[D]                    \CHORD[F#7]
 I don't relate to you
-\CHORD[Am]                     \CHORD[F]
+\CHORD[Bm]                     \CHORD[G]
 I don't relate to you, no
-                  \CHORD[C]               \CHORD[E7]
+                  \CHORD[D]               \CHORD[F#7]
 'Cause I'd never treat me this shitty
-            \CHORD[Am]            \CHORD[F]
+            \CHORD[Bm]            \CHORD[G]
 You made me hate this city
  
  
 [Bridge]
-                  \CHORD[C]                      \CHORD[E7]
+                  \CHORD[D]                      \CHORD[F#7]
 And I don't talk shit about you on the internet
-            \CHORD[Am]              \CHORD[F]
+            \CHORD[Bm]              \CHORD[G]
 Never told anyone anything bad
-                     \CHORD[C]                        \CHORD[E7]
+                     \CHORD[D]                        \CHORD[F#7]
 'Cause that shit's embarrassing, you were my everything
-                 \CHORD[Am]                       \CHORD[F]
+                 \CHORD[Bm]                       \CHORD[G]
 And all that you did was make me fuckin' sad
-   \CHORD[C]                             \CHORD[E7]
+   \CHORD[D]                             \CHORD[F#7]
 So don't waste the time I don't have
-    \CHORD[Am]                         \CHORD[F]
+    \CHORD[Bm]                         \CHORD[G]
 And don't try to make me feel bad
-                    \CHORD[C]                         \CHORD[E7]
+                    \CHORD[D]                         \CHORD[F#7]
 I could talk about every time that you showed up on time
-                 \CHORD[Am]                          \CHORD[F]
+                 \CHORD[Bm]                          \CHORD[G]
 But I'd have an empty line 'cause you never did
-               \CHORD[C]                     \CHORD[E7]
+               \CHORD[D]                     \CHORD[F#7]
 Never paid any mind to my mother or friends, so I
-              \CHORD[Am]                          \CHORD[F]
+              \CHORD[Bm]                          \CHORD[G]
 Shut them all out for you 'cause I was a kid
  
  
 [Outro]
-\CHORD[C]                      \CHORD[E7]
+\CHORD[D]                      \CHORD[F#7]
 You ruined everything good
-        \CHORD[Am]                     \CHORD[F]
+        \CHORD[Bm]                     \CHORD[G]
 Always said you were misunderstood
-\CHORD[C]                        \CHORD[E7]
+\CHORD[D]                        \CHORD[F#7]
 Made all my moments your own
-\CHORD[Am]                     \CHORD[F]
+\CHORD[Bm]                     \CHORD[G]
 Just fuckin' leave me alone
  
  
-\CHORD[C]  \CHORD[E7]  \CHORD[Am]  \CHORD[F]  X3
+\CHORD[D]  \CHORD[F#7]  \CHORD[Bm]  \CHORD[G]  X3
  
-\CHORD[C]  \CHORD[E7]  \CHORD[Am]  \CHORD[F]  \CHORD[Fm]  \CHORD[C]  X1
+\CHORD[D]  \CHORD[F#7]  \CHORD[Bm]  \CHORD[G]  \CHORD[Gm]  \CHORD[D]  X1

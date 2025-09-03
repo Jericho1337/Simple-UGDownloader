@@ -1,3 +1,4 @@
+from . import ChordTransposer
 # CLASS THAT CONTAINS ALL INFORMATIONS OF A SONG
 
 class Song:
@@ -54,3 +55,10 @@ class Song:
     
     def get_true_text(self):
         return self.true_text
+    
+    ##TRANSPOSING
+    def transpose(self, offset, accidental):
+        self.text = ChordTransposer.ChordTransposer.transpose(self.text, offset, accidental)
+
+    def true_transpose(self, offset, accidental):
+        self.true_text = ChordTransposer.ChordTransposer.true_transpose(self.true_text, offset, accidental)

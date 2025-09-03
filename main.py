@@ -2,7 +2,6 @@ from src import SongsFileReader
 from src import WebNavigator
 from src import SongsFileWriter
 from src import ConfigFileReader
-from src import ChordTransposer
 from src import TxtSongFileReader
 from src import Colour
 from src import Song
@@ -104,7 +103,7 @@ if __name__ == "__main__":
                 song.set_capo(txtsongreader.get_capo())
 
                 #TRANSPOSE TEXT
-                song.set_text(ChordTransposer.ChordTransposer.transpose(song.get_text(), chord_transpose_offset, accidental))
+                song.transpose(chord_transpose_offset, accidental)
 
                 #WRITE NORMAL AND BOLD PDF
                 songwriter = SongsFileWriter.SongsFileWriter()
@@ -134,7 +133,7 @@ if __name__ == "__main__":
                 song.set_capo(txtsongreader.get_capo())
 
                 #TRANSPOSE TEXT
-                song.set_true_text(ChordTransposer.ChordTransposer.true_transpose(song.get_true_text(), chord_transpose_offset, accidental))
+                song.true_transpose(chord_transpose_offset, accidental)
 
                 #WRITE TRUE BOLD PDF
                 songwriter = SongsFileWriter.SongsFileWriter()
@@ -171,8 +170,8 @@ if __name__ == "__main__":
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
             total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE
             print("[=====     ] 50% Transposing song by "+ str(total_chord_transpose_offset) +" offset...")
-            song.set_text(ChordTransposer.ChordTransposer.transpose(song.get_text(), total_chord_transpose_offset, accidental))
-            song.set_true_text(ChordTransposer.ChordTransposer.true_transpose(song.get_true_text(), total_chord_transpose_offset, accidental))
+            song.transpose(total_chord_transpose_offset, accidental)
+            song.true_transpose(total_chord_transpose_offset, accidental)
 
             #GENERATE OUTPUTS
             songwriter = SongsFileWriter.SongsFileWriter()
