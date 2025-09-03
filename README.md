@@ -34,16 +34,16 @@ OR you can specify your input file
 python main.py --inputfile <INPUT_FILE>
 ```
 
-
-The script will produce 6 outputs for each song in the output folders:
+The script will produce 7 outputs for each song in the output folders:
 * TXT (text folder)
 * PDF without bold chords (normalchords folder)
 * PDF with bold chords (boldchords folder) (uses heuristics to determine chords and make them bold)
 * TRUE PDF without bold chords (true_normalchords folder)
 * TRUE PDF with bold chords (true_boldchords folder) (uses real website parsing to bold chords)
 * TRUE TXT (true_text folder)
+* CHORD PRO TXT (chordpro_text folder) - **EXPERIMENTAL**
 
-![alt text](images/outputfolders.png)
+![alt text](images/new_outputfolders.png)
 
 
 #### ➕🎵➖ CHORD TRANSPOSITION ➖🎵➕
@@ -134,5 +134,5 @@ Available Browsers = Edge, Chrome, Firefox
 * [X] Flat or Sharp preferences
 * [X] Apply different transposition in same execution
 * [X] Option to add chords and Intro (tuning, capo, ...) to songs
-* [ ] Support and conversion to ChordPro official format
+* [X] Support and conversion to ChordPro official format
 * [ ] GUI
