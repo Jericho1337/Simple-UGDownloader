@@ -92,12 +92,25 @@ class WebNavigator:
             return [""]
         
     def get_song_tuning(self):
-        #try:
-        HTML_title_parent = self.driver.find_element(By.XPATH, "//pre/../../../../../..")
-        print(HTML_title_parent.get_attribute("innerHTML"))
-        #HTML_authors = HTML_title_parent.find_elements(By.TAG_NAME, "a")
-        #except:
-        #   return ""
+        try:
+            HTML_tuning = self.driver.find_element(By.XPATH, "//*[contains(text(), 'Tuning:')]/following-sibling::*")
+            return HTML_tuning.text
+        except:
+            return ""
+        
+    def get_song_key(self):
+        try:
+            HTML_key = self.driver.find_element(By.XPATH, "//*[contains(text(), 'Key:')]/following-sibling::*")
+            return HTML_key.text
+        except:
+            return ""
+    
+    def get_song_capo(self):
+        try:
+            HTML_capo = self.driver.find_element(By.XPATH, "//*[contains(text(), 'Capo:')]/following-sibling::*")
+            return HTML_capo.text
+        except:
+            return ""
     
     def get_song_text_and_chords(self):
         HTML_text = self.driver.find_element(By.TAG_NAME, "pre")
@@ -122,7 +135,3 @@ class WebNavigator:
   
     def __del__(self):
         self.driver.quit()
-
-"""webnavigator = WebNavigator("Edge")
-webnavigator.navigate_url("https://tabs.ultimate-guitar.com/tab/billie-eilish/happier-than-ever-chords-3592094")
-print(webnavigator.get_song_tuning())"""
