@@ -169,7 +169,7 @@ if __name__ == "__main__":
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
             total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE
-            print("[=====     ] 50% Transposing song by "+ str(total_chord_transpose_offset) +" offset...")
+            print("[==        ] 20% Transposing song by "+ str(total_chord_transpose_offset) +" offset...")
             song.transpose(total_chord_transpose_offset, accidental)
             song.true_transpose(total_chord_transpose_offset, accidental)
 
@@ -179,15 +179,19 @@ if __name__ == "__main__":
             songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
 
             #NORMAL MODE OUTPUTS
-            print("[=======   ] 70% Generating chords PDFs and TXT for "+ song.get_title() +"...")
+            print("[===       ] 30% Generating chords bold PDF for "+ song.get_title() +"...")
             songwriter.generate_bold_pdf(song)
+            print("[====      ] 40% Generating chords normal PDF for "+ song.get_title() +"...")
             songwriter.generate_normal_pdf(song)
+            print("[=====     ] 50% Generating chords normal TXT for "+ song.get_title() +"...")
             songwriter.generate_normal_text(song)
 
             #TRUE MODE OUTPUTS
-            print("[========= ] 90% Generating TRUE chords PDFs and TXT for "+ song.get_title() +"..." + Colour.Colour.ENDC)
+            print("[======    ] 60% Generating chords TRUE bold PDF for "+ song.get_title() +"...")
             songwriter.generate_true_bold_pdf(song)
+            print("[=======   ] 70% Generating chords TRUE bold PDF for "+ song.get_title() +"...")
             songwriter.generate_true_normal_pdf(song)
+            print("[========  ] 80% Generating chords TRUE TXT for "+ song.get_title() +"..." + Colour.Colour.ENDC)
             songwriter.generate_true_text(song)
 
             print(Colour.Colour.GREEN + Colour.Colour.BOLD + "[==========] 100% Completed " + song.get_title() + " download" + Colour.Colour.ENDC)
