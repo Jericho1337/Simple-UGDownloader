@@ -1,6 +1,7 @@
 src/__pycache__
 build
 dist
+output/*/*
 fonts/*.pkl
 main.exe
 main.spec
