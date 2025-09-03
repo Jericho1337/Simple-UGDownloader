@@ -133,5 +133,6 @@ Available Browsers = Edge, Chrome, Firefox
 * [X] Add other webdrivers
 * [X] Flat or Sharp preferences
 * [X] Apply different transposition in same execution
-* [ ] Option to add chords and Intro (tuning, capo, ...) to songs
+* [X] Option to add chords and Intro (tuning, capo, ...) to songs
+* [ ] Support and conversion to ChordPro official format
 * [ ] GUI
