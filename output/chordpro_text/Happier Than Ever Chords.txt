@@ -1,0 +1,129 @@
+{title: Happier Than Ever Chords}
+{artist: Billie Eilish}
+
+{key: C}
+{capo: no capo}
+
+***Please Note: If you find Cadd9 difficult to play, feel free to use a regular C (X32010).***
+ 
+{start_of_verse: Intro - Rhythm Guitar}
+e|---[G]----3---3----3---3---0---[G6]-|---1--------[G7]-----|
+B|-------0---0----0---0---0----|---0-------------|
+G|-------0---0----0---0---0----|---0-------------|
+D|-----------------------------|---0-------------|
+A|-----------------------------|-----------------|
+E|---3-------------------------|-----------------|
+ 
+ 
+ 
+ 
+ 
+{end_of_verse}
+{start_of_verse: Verse 1 - Full Picking Pattern (With Optional Slash Chords)}
+ 
+e|---[C]----0--0------[C/G]-0--0---|-------0--0--[C]------0--0---|[C/G]
+B|-------1--1-------1--1---|-------1--1--------1--1---|
+G|-------0--0-------0--0---|-------0--0--------0--0---|
+D|-------2--2-------2--2---|-------2--2--------2--2---|
+A|---3---------------------|---3----------------------|
+E|---------------3---------|---------------3----------|
+e|--[E7]-----0--0-------0--0---|-------0--0--------0--0---|
+B|-------0--0-------0--0---|-------0--0--------0--0---|
+G|-------1--1-------1--1---|-------1--1--------1--1---|
+D|-------0--0-------0--0---|-------0--0--------0--0---|
+A|---2---------------------|---2----------------------|
+E|---------------0---------|---------------0----------|
+e|--[Am]-----0--0-------[Am/E]0--0---|-------0--0---[Am]-----0--0---|[Am/E]
+B|-------1--1-------1--1---|-------1--1--------1--1---|
+G|-------2--2-------2--2---|-------2--2--------2--2---|
+D|-------2--2-------2--2---|-------2--2--------2--2---|
+A|---0---------------------|---0----------------------|
+E|---------------0---------|---------------0----------|
+e|--[Dm7b5]-----1--1-------1--1---|-------1--1--------1--1---|
+B|-------1--1-------1--1---|-------1--1--------1--1---|
+G|-------1--1-------1--1---|-------1--1--------1--1---|
+D|---0-----------0---------|---0-----------0----------|
+A|-------------------------|--------------------------|
+E|-------------------------|--------------------------|
+ 
+ 
+ 
+ 
+{end_of_verse}
+{start_of_chorus: Chorus}
+When I'm [Cadd9]away from you
+I'm happier than [E7]ever
+Wish I could explain it b[Am]etter
+I wish it wasn't [Dm7]true, mmm   [G]
+ 
+Give me a[Cadd9] day or two
+To think of something c[E7]lever
+To write myself a[Am] letter
+To tell me what to[Dm7] do,  mm-mm[G]
+ 
+ 
+{end_of_chorus}
+{start_of_verse: Verse 1}
+[C]  Do you read my interviews?
+Or [E7]do you skip my avenue?
+When [Am]you said you were passin' through
+Was I [Dm7b5]even on your way?
+I k[C]new when I asked you to (When I asked you to)
+Be c[E7]ool about what I was tellin' you
+You'd [Am]do the opposite of what you said you'd do (What you said you'd do)
+And I'd[Dm7b5] end up more afraid
+Don't say it is[E7]n't fair
+You clearly weren't aware that you [Am]made me miser[Am/G]able, ooh   [D/F#]
+So if you r[Dm7]eally wanna know   [G7]
+ 
+ 
+{end_of_verse}
+{start_of_chorus: Chorus}
+When I'm [Cadd9]away from you (When I'm away from you)
+I'm happier than e[E7]ver (I'm happier than ever)
+Wish I could explain it b[Am]etter (Wish I could explain it better)
+I wish it wasn't [Dm7]true, mmm    [G]        [C]
+ 
+ 
+{end_of_chorus}
+{start_of_verse: Instrumental Break}
+ 
+[C]       [E7]         [Am]         [F] [Fm]
+{end_of_verse}
+{start_of_verse: Verse 2}
+[C]You called me again[E7], drunk in your Benz     [Am]
+Drivin' home un[F]der the influen[Fm]ce
+[C]You scared me to death[E7] but I'm wastin' my breath   [Am]
+'Cause you only li[F]sten to your fucki[Fm]n' friends
+[C]I don't relate to you    [E7]  
+[Am]I don't relate to you, no   [F]
+'Cause I'd never t[C]reat me this shitty [E7]  
+You made me [Am]hate this city     [F]
+ 
+ 
+{end_of_verse}
+{start_of_bridge: Bridge}
+And I don't talk s[C]hit about you on the intern[E7]et
+Never told a[Am]nyone anything bad   [F]
+'Cause that shit's em[C]barrassing, you were my every[E7]thing
+And all that you [Am]did was make me fuckin' sad   [F]
+So [C]don't waste the time I don't have [E7]  
+And [Am]don't try to make me feel bad   [F]
+I could talk about e[C]very time that you showed up o[E7]n time
+But I'd have an e[Am]mpty line 'cause you never did   [F]
+Never paid any [C]mind to my mother or frien[E7]ds, so I
+Shut them all [Am]out for you 'cause I was a kid   [F]
+ 
+ 
+{end_of_bridge}
+{start_of_verse: Outro}
+[C]You ruined everything good [E7]  
+Always s[Am]aid you were misunderstood  [F]
+[C]Made all my moments your own [E7]  
+[Am]Just fuckin' leave me alone [F]
+ 
+ 
+[C]       [E7]         [Am]        [F]
+[C]       [E7]         [Am]         [F]       [Fm]   [C]
+{end_of_verse}
+

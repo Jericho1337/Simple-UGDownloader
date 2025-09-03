@@ -191,8 +191,11 @@ if __name__ == "__main__":
             songwriter.generate_true_bold_pdf(song)
             print("[=======   ] 70% Generating chords TRUE bold PDF for "+ song.get_title() +"...")
             songwriter.generate_true_normal_pdf(song)
-            print("[========  ] 80% Generating chords TRUE TXT for "+ song.get_title() +"..." + Colour.Colour.ENDC)
+            print("[========  ] 80% Generating chords TRUE TXT for "+ song.get_title() +"..." )
             songwriter.generate_true_text(song)
+
+            print("[========= ] 90% Generating chordpro TXT for "+ song.get_title() +"..." + Colour.Colour.ENDC)
+            songwriter.generate_chordpro_text(song)
 
             print(Colour.Colour.GREEN + Colour.Colour.BOLD + "[==========] 100% Completed " + song.get_title() + " download" + Colour.Colour.ENDC)
 
