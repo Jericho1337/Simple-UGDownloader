@@ -313,9 +313,8 @@ class SongsFileWriter:
                 if regex.search(SongsFileWriter.TRUEMODE_CHORD_REGEX, line) != None: #CHECK IF THERE IS AT LEAST ONE CHORD IN LINE
                     matches = regex.finditer(SongsFileWriter.CHORDPRO_CHORD_REGEX,line)
                     list_of_chord_positions_in_line = []
-                    list_of_chord_position_in_newline = []
                     match_offset = 0 # USED TO ADJUST MATCH REFERENCES AFTER REMOVAL
-                    total_newline_offset = 0 #USED TO MOVE CHORDS IN NEXT LINE
+                    
                     #WE GET MATCH RANGES
                     for match in matches:
                         match_offset += 1 #MATCHES ARE IN INCREASING ORDER (STRING IS READ FROM LEFT TO RIGHT)
@@ -324,8 +323,6 @@ class SongsFileWriter:
                         # -> SUBTRACT 6 FOR CURRENT AND EVERY PRECEDENT CHORD FOR THE "\CHORD" STRING 
                         total_line_offset = 6*match_offset #EVERY REFERENCE SHOULD BE ADJUSTED BY THIS TOTAL OFFSET
                         list_of_chord_positions_in_line.append([match.start()-total_line_offset,match.end()-total_line_offset]) #REFERENCES IN CURRENT LINE
-                        list_of_chord_position_in_newline.append([match.start()-total_line_offset+total_newline_offset,match.end()-total_line_offset+total_newline_offset]) #REFERENCE IN NEW LINE
-                        total_newline_offset += ((match.end()-total_line_offset) - (match.start()-total_line_offset))
 
                     #REMOVE \CHORD LEAVING ONLY [CHORD]
                     line = regex.sub(SongsFileWriter.UNCLEAN_CHORDPROMODE_CHORD_REGEX,r"\2",line)
@@ -340,60 +337,26 @@ class SongsFileWriter:
                     for position in list_of_chord_positions_in_line:
                         chords_in_line.append(line[position[0]:(position[1])])
                     
+                    adjusted_list_of_chord_positions_in_line = []
+                    #ADJUST IN LINE, WE HAVE TO SUBTRACT 2*index of cycle BECAUSE WE HAVEN'T REMOVED [] FROM \CHORD[]
+                    for i in range(0,len(list_of_chord_positions_in_line)):
+                        adjusted_list_of_chord_positions_in_line.append([list_of_chord_positions_in_line[i][0]-2*i , list_of_chord_positions_in_line[i][1]-2*i])
+                    
+                    
                     #INSERT CHORDS INTO NEXTLINE
+                    shift_offset = 0
                     nextline = list(nextline) #CONVERTING TO LIST BECAUSE STRINGS ARE IMMUTABLE
                     for chord_index, chord in enumerate(chords_in_line):
-                        nextline.insert(list_of_chord_position_in_newline[chord_index][0],chord) 
+                        #WE INSERT EACH CHARACTER STARTING FROM THE FINAL ONE SO WE CAN SHIFT THEM RIGHT WITHOUT CHANGING INSERT INDEX
+                        #EXAMPLE IF WE HAVE TO INSERT "[Am]" AT INDEX 5, WE WILL REPEATLY INSERT ']','m','A','[' AT INDEX 5
+                        flipped_chord = chord[::-1] 
+                        for char in flipped_chord:
+                            nextline.insert(adjusted_list_of_chord_positions_in_line[chord_index][0]+shift_offset,char)
+                        shift_offset += len(chord) # CHORD ALREADY INCLUDES BRACKETS 
                     nextline = "".join(nextline) #RECONVERTING TO STRING
                     skip_line = True #SKIP NEXTLINE WHEN BECOMES LINE IN NEXT CYCLE
-
+    
                     #MERGE LINES INSERTING ONLY NEXT LINE
                     text_song.write(nextline+"\n")
                 else:
                     text_song.write(line+"\n")
-
-                
-
-    """"
-        for line in (song.get_true_text()).split("\n"):
-                line = line + "\n"
-                
-                #CHECK IF THERE IS AT LEAST ONE MATCH
-                if regex.search(SongsFileWriter.TRUEMODE_CHORD_REGEX, line) != None:
-                    matches = regex.finditer(SongsFileWriter.TRUEMODE_CHORD_REGEX,line)
-                    list_of_chord_positions_in_line = []
-                    match_offset = 0 # USED TO ADJUST MATCH REFERENCES AFTER REMOVAL
-                    #WE GET MATCH RANGES
-                    for match in matches:
-                        match_offset += 1 #MATCHES ARE IN INCREASING ORDER (STRING IS READ FROM LEFT TO RIGHT)
-                        #EVERY CHORD MUST BE SHIFTED ACCORDING TO THIS RULE: 
-                        # -> SUBTRACT 7 FOR CURRENT AND EVERY PRECEDENT CHORD FOR THE "\CHORD[" STRING 
-                        # -> SUBTRACT 1 FOR EACH PRECEDENT CHORD EXCLUDING CURRENT FOR "]" STRING
-                        total_line_offset = 7*match_offset+1*(match_offset-1) #EVERY REFERENCE SHOULD BE ADJUSTED BY THIS TOTAL OFFSET
-                        list_of_chord_positions_in_line.append([match.start()-total_line_offset,match.end()-total_line_offset])
-
-                    #REMOVE \CHORD[] BEFORE BOLDING
-                    line = regex.sub(SongsFileWriter.UNCLEAN_TRUEMODE_CHORD_REGEX,r"\2",line)
-                    
-                    #ITERATE EACH CHARATER (the indexes) OF THE LINE
-                    for i in range(0, len(line)):
-                        #WE INSPECT IF INDEX IS IN EVERY MATCH RANGE
-                        found = False
-                        for position in list_of_chord_positions_in_line:
-                            #IF INDEX IS IN RANGE IT IS A CHORD CHARACTER AND MUST BE BOLD
-                            if i in range(position[0], position[1]):
-                                self.pdf_true_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style="B")
-                                self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,line[i])
-                                found = True
-                                break
-                        #IF INDEX WAS NOT FOUND IN CHORD CHARATER RANGES IT WILL BE A NORMAR CHARACTER
-                        if(not found):
-                            self.pdf_true_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style="")
-                            self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,line[i])
-                #NORMAL LINE WITHOUT CHORDS
-                else:
-                    self.pdf_true_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style="")
-                    self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,line) 
-
-            self.pdf_true_bold.output(os.path.join(SongsFileWriter.OUTPUT_PATH, "true_boldchords/").replace("\\","/") + song.get_title() + ".pdf")
-    """
