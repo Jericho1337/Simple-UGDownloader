@@ -80,7 +80,13 @@ class SongsFileWriter:
         authors = authors[:-1] 
         self.pdf_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style = "")
         self.pdf_bold.cell(0,SongsFileWriter.AUTHOR_CELL_SIZE, authors,"B",align="C")
-        self.pdf_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n\n")
+        self.pdf_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n")
+
+        #WRITE TUNING, KEY, CAPO
+        self.pdf_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE , style = "")
+        self.pdf_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Tuning: "+song.get_tuning()+"\n")
+        self.pdf_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Key: "+song.get_key()+"\n")
+        self.pdf_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Capo: "+song.get_capo()+"\n\n")
 
         #WRITE TEXT BOLDING CHORD LINES
         for line in (song.get_text()).split("\n"):
@@ -108,7 +114,14 @@ class SongsFileWriter:
         authors = authors[:-1] 
         self.pdf_normal.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style = "")
         self.pdf_normal.cell(0,SongsFileWriter.AUTHOR_CELL_SIZE, authors,"B",align="C")
-        self.pdf_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n\n")
+        self.pdf_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n")
+
+        #WRITE TUNING, KEY, CAPO
+        self.pdf_normal.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE , style = "")
+        self.pdf_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Tuning: "+song.get_tuning()+"\n")
+        self.pdf_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Key: "+song.get_key()+"\n")
+        self.pdf_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Capo: "+song.get_capo()+"\n\n")
+
 
         self.pdf_normal.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style="")
         self.pdf_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,song.get_text())
@@ -126,6 +139,10 @@ class SongsFileWriter:
             authors = authors[:-1] 
             text_song.write(authors)
             text_song.write("\n\n")
+            #WRITE TUNING, KEY, CAPO
+            text_song.write("Tuning: "+song.get_tuning()+"\n")
+            text_song.write("Key: "+song.get_key()+"\n")
+            text_song.write("Capo: "+song.get_capo()+"\n\n")
             #WRITE TEXT
             text_song.write(song.get_text())
 
@@ -142,7 +159,13 @@ class SongsFileWriter:
         authors = authors[:-1] 
         self.pdf_true_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style = "")
         self.pdf_true_bold.cell(0,SongsFileWriter.AUTHOR_CELL_SIZE, authors,"B",align="C")
-        self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n\n")
+        self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n")
+
+        #WRITE TUNING, KEY, CAPO
+        self.pdf_true_bold.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE , style = "")
+        self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Tuning: "+song.get_tuning()+"\n")
+        self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Key: "+song.get_key()+"\n")
+        self.pdf_true_bold.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Capo: "+song.get_capo()+"\n\n")
 
         for line in (song.get_true_text()).split("\n"):
             line = line + "\n"
@@ -200,7 +223,13 @@ class SongsFileWriter:
         authors = authors[:-1] 
         self.pdf_true_normal.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style = "")
         self.pdf_true_normal.cell(0,SongsFileWriter.AUTHOR_CELL_SIZE, authors,"B",align="C")
-        self.pdf_true_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n\n")
+        self.pdf_true_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"\n\n")
+
+        #WRITE TUNING, KEY, CAPO
+        self.pdf_true_normal.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE , style = "")
+        self.pdf_true_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Tuning: "+song.get_tuning()+"\n")
+        self.pdf_true_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Key: "+song.get_key()+"\n")
+        self.pdf_true_normal.write(SongsFileWriter.TEXT_HEIGHT_SIZE,"Capo: "+song.get_capo()+"\n\n")
 
         self.pdf_true_normal.set_font(self.font_name, size = SongsFileWriter.TEXT_FONT_SIZE, style="") #SET NORMAL FONT FOR TEXT
         for line in (song.get_true_text()).split("\n"):
@@ -228,5 +257,9 @@ class SongsFileWriter:
             authors = authors[:-1] 
             text_song.write(authors)
             text_song.write("\n\n")
+            #WRITE TUNING, KEY, CAPO
+            text_song.write("Tuning: "+song.get_tuning()+"\n")
+            text_song.write("Key: "+song.get_key()+"\n")
+            text_song.write("Capo: "+song.get_capo()+"\n\n")
             #WRITE TEXT
             text_song.write(song.get_true_text())

@@ -99,6 +99,9 @@ if __name__ == "__main__":
                 song.set_title(txtsongreader.get_text_title())
                 song.set_text(txtsongreader.get_text_with_chords())
                 song.set_author([txtsongreader.get_author()])
+                song.set_tuning(txtsongreader.get_tuning())
+                song.set_key(txtsongreader.get_key())
+                song.set_capo(txtsongreader.get_capo())
 
                 #TRANSPOSE TEXT
                 song.set_text(ChordTransposer.ChordTransposer.transpose(song.get_text(), chord_transpose_offset, accidental))
@@ -126,6 +129,9 @@ if __name__ == "__main__":
                 song.set_title(txtsongreader.get_text_title())
                 song.set_true_text(txtsongreader.get_text_with_chords())
                 song.set_author([txtsongreader.get_author()])
+                song.set_tuning(txtsongreader.get_tuning())
+                song.set_key(txtsongreader.get_key())
+                song.set_capo(txtsongreader.get_capo())
 
                 #TRANSPOSE TEXT
                 song.set_true_text(ChordTransposer.ChordTransposer.true_transpose(song.get_true_text(), chord_transpose_offset, accidental))
@@ -172,8 +178,6 @@ if __name__ == "__main__":
             songwriter = SongsFileWriter.SongsFileWriter()
             songwriter.add_font(font_name, normal_font_path, bold_font_path)
             songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
-
-            print(song.get_tuning(),song.get_key(),song.get_capo())
 
             #NORMAL MODE OUTPUTS
             print("[=======   ] 70% Generating chords PDFs and TXT for "+ song.get_title() +"...")
