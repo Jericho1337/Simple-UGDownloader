@@ -96,15 +96,10 @@ if __name__ == "__main__":
                 song = Song.Song()
 
                 #READ NORMAL TXT
-                txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--txt2pdf")])
+                txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--txt2pdf")], is_true_text=False)
                 
                 #GET SONG INFORMATION FROM NORMAL TXT FILE
-                song.set_title(txtsongreader.get_text_title())
-                song.set_text(txtsongreader.get_text_with_chords())
-                song.set_author([txtsongreader.get_author()])
-                song.set_tuning(txtsongreader.get_tuning())
-                song.set_key(txtsongreader.get_key())
-                song.set_capo(txtsongreader.get_capo())
+                song = txtsongreader.get_song()
 
                 #TRANSPOSE TEXT
                 song.transpose(chord_transpose_offset, accidental)
@@ -126,15 +121,10 @@ if __name__ == "__main__":
                 song = Song.Song()
 
                 #READ TRUE TXT
-                txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--truetxt2pdf")])
+                txtsongreader = TxtSongFileReader.TxtSongFileReader(values[arguments.index("--truetxt2pdf")], is_true_text=True)
 
                 #GET SONG INFORMATION FROM TRUE TXT FILE
-                song.set_title(txtsongreader.get_text_title())
-                song.set_true_text(txtsongreader.get_text_with_chords())
-                song.set_author([txtsongreader.get_author()])
-                song.set_tuning(txtsongreader.get_tuning())
-                song.set_key(txtsongreader.get_key())
-                song.set_capo(txtsongreader.get_capo())
+                song = txtsongreader.get_song()
 
                 #TRANSPOSE TEXT
                 song.true_transpose(chord_transpose_offset, accidental)

@@ -1,6 +1,7 @@
 {title: Happier Than Ever Chords}
 {artist: Billie Eilish}
 
+{comment: Tuning: E A D G B E}
 {key: C}
 {capo: no capo}
 

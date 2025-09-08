@@ -278,9 +278,9 @@ class SongsFileWriter:
                 authors = authors + author + "/"
             authors = authors[:-1] 
             text_song.write("{artist: "+authors+"}")
-            text_song.write("\n\n")
+            text_song.write("\n")
             #WRITE TUNING, KEY, CAPO (TUNING IS NOT A DEFAULT TAG IN CHORDPRO)
-            #text_song.write("Tuning: "+song.get_tuning()+"\n")
+            text_song.write("{comment: Tuning: "+song.get_tuning()+"}\n")
             text_song.write("{key: "+song.get_key()+"}\n")
             text_song.write("{capo: "+song.get_capo()+"}\n\n")
             
