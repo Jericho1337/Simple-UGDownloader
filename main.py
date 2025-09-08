@@ -21,6 +21,18 @@ def cleanup():
         if re.search(r"(.*?).pkl", f):
             os.remove(os.path.join(font_dir, f).replace("\\","/"))
 
+#Cleans subdirectories in output folder
+def cleanoutput():
+    output_dir_path = os.path.join(os.path.dirname(__file__), "output").replace("\\","/")
+    specific_output_dirs = os.listdir(output_dir_path)
+
+    for dir in specific_output_dirs:
+        specific_output_dir_path = os.path.join(output_dir_path, dir).replace("\\","/")
+        specific_output_dir_files = os.listdir(specific_output_dir_path)
+        for f in specific_output_dir_files:
+            os.remove(os.path.join(specific_output_dir_path, f).replace("\\","/"))
+
+
 if __name__ == "__main__":
 
     cleanup() #REMOVES TEMPORARY FILES BEFORE EXECUTION
@@ -76,15 +88,7 @@ if __name__ == "__main__":
                 accidental = values[arguments.index("--accidental")]
 
             if("--cleanoutput" in arguments):
-                output_dir_path = os.path.join(os.path.dirname(__file__), "output").replace("\\","/")
-                specific_output_dirs = os.listdir(output_dir_path)
-
-                for dir in specific_output_dirs:
-                    specific_output_dir_path = os.path.join(output_dir_path, dir).replace("\\","/")
-                    specific_output_dir_files = os.listdir(specific_output_dir_path)
-                    for f in specific_output_dir_files:
-                        os.remove(os.path.join(specific_output_dir_path, f).replace("\\","/"))
-
+                cleanoutput()
                 sys.exit()            
             
             if("--txt2pdf" in arguments):
