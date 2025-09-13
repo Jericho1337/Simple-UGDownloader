@@ -1,15 +1,142 @@
+from src import SongsFileReader
+from src import WebNavigator
+from src import SongsFileWriter
+from src import ConfigFileReader
+from threading import Thread
 import tkinter
 from tkinter.scrolledtext import ScrolledText
+from tkinter import ttk
+from tkinter.filedialog import FileDialog
+import os
+import re
 
-WIDTH = 670
-HEIGHT = 600
+###===================================CONFIG PARAMETERS===================================###
 
 
-def button_download_press():
+config_file_path = "config/config.yaml"
+project_dir = os.path.join(os.path.dirname(__file__)).replace("\\","/")
+config_file = os.path.join(project_dir, config_file_path).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
+
+#LOAD DEFAULT CONFIGURATION PARAMETERS
+config_reader = ConfigFileReader.ConfigFileReader(config_file)
+config_parameters = config_reader.get_configuration_params()
+songs_to_download_file = os.path.join(project_dir,config_parameters["songs_to_download_file"]).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
+font_name = config_parameters["font_name"]
+normal_font_path = os.path.join(project_dir,config_parameters["normal_font_path"]).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
+bold_font_path = os.path.join(project_dir,config_parameters["bold_font_path"]).replace("\\","/") #CONVERT RELATIVE PATH TO ABSOLUTE
+chord_charcount_exclusion = config_parameters["chord_charcount_exclusion"]
+browser = config_parameters["default_browser"]
+accidental = config_parameters["default_accidental"] 
+chord_transpose_offset = 0
+
+###===================================MAIN FUNCTION===================================###
+
+#Cleans .pkl files in fonts folder because .pkl files cache paths and can cause problems
+def cleanup():
+    font_dir = os.path.join(os.path.dirname(__file__), "fonts").replace("\\","/")
+    font_files = os.listdir(font_dir)
+
+    for f in font_files:
+        if re.search(r"(.*?).pkl", f):
+            os.remove(os.path.join(font_dir, f).replace("\\","/"))
+
+def main():
+
+    cleanup() #REMOVES TEMPORARY FILES BEFORE EXECUTION
+
+    browser=browser_combobox.get()
+    accidental=accidental_combobox.get()
+    chord_transpose_offset=int(transpose_spinbox.get())
+
+    #OPEN INPUT URL SONG LIST FILE
+    songreader = SongsFileReader.SongsFileReader(songs_to_download_file)
+    songs_to_download_urllist = songreader.get_url_list()
+    songs_to_download_transposelist = songreader.get_transpose_list()
+
+    #START WEBDRIVER
+    webnavigator = WebNavigator.WebNavigator(browser)
+
+    #DOWNLOAD EACH SONG
+    for song_index, url_line in enumerate(songs_to_download_urllist):
+
+        try:
+            reset_progressbar()
+            
+            #GET SONG FROM WEBPAGE
+            print_to_textbox("[=         ] 10% Getting webpage...\n")
+            increment_progressbar(10.0)
+            song = webnavigator.get_song_from_webpage(url_line)
+
+            #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
+            total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE
+            print_to_textbox("[==        ] 20% Transposing song by "+ str(total_chord_transpose_offset) +" offset...\n")
+            increment_progressbar(10.0)
+            song.transpose(total_chord_transpose_offset, accidental)
+            song.true_transpose(total_chord_transpose_offset, accidental)
+
+            #GENERATE OUTPUTS
+            songwriter = SongsFileWriter.SongsFileWriter()
+            songwriter.add_font(font_name, normal_font_path, bold_font_path)
+            songwriter.set_chordline_char_threshold(chord_charcount_exclusion)
+
+            #NORMAL MODE OUTPUTS
+            print_to_textbox("[===       ] 30% Generating chords bold PDF for "+ song.get_title() +"...\n")
+            increment_progressbar(10.0)
+            songwriter.generate_bold_pdf(song)
+            print_to_textbox("[====      ] 40% Generating chords normal PDF for "+ song.get_title() +"...\n")
+            increment_progressbar(10.0)
+            songwriter.generate_normal_pdf(song)
+            print_to_textbox("[=====     ] 50% Generating chords normal TXT for "+ song.get_title() +"...\n")
+            increment_progressbar(10.0)
+            songwriter.generate_normal_text(song)
+
+            #TRUE MODE OUTPUTS
+            print_to_textbox("[======    ] 60% Generating chords TRUE bold PDF for "+ song.get_title() +"...\n")
+            increment_progressbar(10.0)
+            songwriter.generate_true_bold_pdf(song)
+            print_to_textbox("[=======   ] 70% Generating chords TRUE bold PDF for "+ song.get_title() +"...\n")
+            increment_progressbar(10.0)
+            songwriter.generate_true_normal_pdf(song)
+            print_to_textbox("[========  ] 80% Generating chords TRUE TXT for "+ song.get_title() +"...\n" )
+            increment_progressbar(10.0)
+            songwriter.generate_true_text(song)
+
+            print_to_textbox("[========= ] 90% Generating chordpro TXT for "+ song.get_title() +"...\n")
+            increment_progressbar(10.0)
+            songwriter.generate_chordpro_text(song)
+
+            print_to_textbox("[==========] 100% Completed " + song.get_title() + " download\n")
+            increment_progressbar(10.0)
+
+        except Exception as exception:
+            print_to_textbox("Song: " + url_line + " failed to download\n")
+            print_to_textbox(exception)
+    
+    #DESTROY TEMP FILES
+    cleanup()
+
+###===================================WINDOW PROGRAM LOGIC===================================###
+
+def print_to_textbox(text):
     console_output.configure(state="normal")
-    console_output.insert(tkinter.END, url_textbox.get() + "\n")
+    console_output.insert(tkinter.END, text)
     console_output.see(tkinter.END)
     console_output.configure(state="disabled")
+
+def button_download_press():
+    song_downloader_thread = Thread(target=main)
+    song_downloader_thread.start()
+
+def increment_progressbar(value):
+    progress_bar['value'] += value
+
+def reset_progressbar():
+    progress_bar['value'] = 0
+
+###===================================WINDOW INTERFACE DESIGN===================================###
+
+WIDTH = 800
+HEIGHT = 600
 
 #WINDOW OPTIONS
 window = tkinter.Tk()
@@ -18,22 +145,49 @@ window.title("Simple UG Downloader")
 window.resizable(False, False)
 window.configure(background="white")
 
-#URL LABEL
-url_label = tkinter.Label(window, text = "URL: ", font=("Helvetica",15))
-url_label.configure(background="white")
-url_label.grid(row=0, column=0, sticky="WE", padx=0, pady=10)
+#BROWSER LABEL
+browser_label = tkinter.Label(window, text = "Browser: ", font=("Helvetica",12))
+browser_label.configure(background="white")
+browser_label.grid(row=0, column=0, sticky="WE", padx=10, pady=10)
+#BROWSER COMBOBOX
+browser_variable = tkinter.StringVar()
+browser_combobox = ttk.Combobox(window, textvariable= browser_variable, state="readonly")
+browser_combobox['values'] = ("Edge","Chrome","Firefox")
+browser_combobox.grid(row=0, column=1, sticky="WE",pady=10)
+browser_combobox.current(browser_combobox["values"].index(browser))
 
-#URL TEXTBOX
-url_textbox = tkinter.Entry()
-url_textbox.grid(row=1, column=0, sticky="WE", padx = 5, pady= 10)
+#ACCIDENTAL LABEL
+accidental_label = tkinter.Label(window, text = "Accidental: ", font=("Helvetica",12))
+accidental_label.configure(background="white")
+accidental_label.grid(row=1, column=0, sticky="WE", padx=10, pady=10)
+#ACCIDENTAL COMBOBOX
+accidental_variable = tkinter.StringVar()
+accidental_combobox = ttk.Combobox(window, textvariable= accidental_variable, state="readonly")
+accidental_combobox['values'] = ("o","#","b")
+accidental_combobox.grid(row=1, column=1, sticky="WE",pady=10)
+accidental_combobox.current(accidental_combobox['values'].index(accidental))
+
+#TRANSPOSE LABEL
+transpose_label = tkinter.Label(window, text = "Transpose offset: ", font=("Helvetica",12))
+transpose_label.configure(background="white")
+transpose_label.grid(row=2, column=0, sticky="WE", padx=10, pady=10)
+#TRANSPOSE SPINBOX
+transpose_spinbox = tkinter.Spinbox(window, from_=-12, to=12,width=3, relief="sunken", repeatdelay=500, font=("Arial", 12), state="readonly")
+transpose_spinbox.grid(row=2, column=1,sticky="W",pady=10)
+transpose_spinbox.delete(0,"end")
+transpose_spinbox.insert(0,0)
 
 #DOWNLOAD BUTTON OPTIONS
 download_button = tkinter.Button(text="Download", command=button_download_press)
-download_button.grid(row=2, column=0, padx=10, pady=10)
+download_button.grid(row=3, column=9, padx=10, pady=10)
+
+#PROGRESS BAR
+progress_bar = ttk.Progressbar(length=770)
+progress_bar.grid(row=4, column=0, columnspan=10)
 
 #CONSOLE OUTPUT
-console_output = ScrolledText()
-console_output.grid(row=3, column=0, sticky="WE", padx=10, pady=10)
+console_output = ScrolledText(width=95, height=20)
+console_output.grid(row=5, column=0, columnspan=10, sticky="WE", padx=10, pady=10)
 console_output.configure(state="disabled")
 
 
