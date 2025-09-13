@@ -2,10 +2,11 @@
 Simple-UGDownloader is a simple downloader for UG Songs and PDF converter
 
 ![alt text](images/new_execution.png)
-![alt text](images/execution.png)
-![alt text](images/output2.png)
-![alt text](images/output0.png)
-![alt text](images/output1.png)
+![alt text](images/new_execution2.png)
+![alt text](images/new_output2.png)
+![alt text](images/new_output1.png)
+![alt text](images/new_output0.png)
+![alt text](images/new_output4.png)
 
 ### ⚙️ INSTALLATION ⚙️
 
