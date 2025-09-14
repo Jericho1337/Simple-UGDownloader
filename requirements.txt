@@ -1,3 +1,5 @@
 fpdf==1.7.2
+PyYAML==5.4.1
 PyYAML==6.0.2
 selenium==4.35.0
+sv_ttk==2.6.1
