@@ -2,16 +2,17 @@ from src import SongsFileReader
 from src import WebNavigator
 from src import SongsFileWriter
 from src import ConfigFileReader
+import os
+import re
 from threading import Thread
 import tkinter
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk
+import sv_ttk
 from tkinter.filedialog import FileDialog
-import os
-import re
+
 
 ###===================================CONFIG PARAMETERS===================================###
-
 
 config_file_path = "config/config.yaml"
 project_dir = os.path.join(os.path.dirname(__file__)).replace("\\","/")
@@ -143,11 +144,9 @@ window = tkinter.Tk()
 window.geometry(str(WIDTH)+"x"+str(HEIGHT))
 window.title("Simple UG Downloader")
 window.resizable(False, False)
-window.configure(background="white")
 
 #BROWSER LABEL
 browser_label = tkinter.Label(window, text = "Browser: ", font=("Helvetica",12))
-browser_label.configure(background="white")
 browser_label.grid(row=0, column=0, sticky="WE", padx=10, pady=10)
 #BROWSER COMBOBOX
 browser_variable = tkinter.StringVar()
@@ -158,7 +157,6 @@ browser_combobox.current(browser_combobox["values"].index(browser))
 
 #ACCIDENTAL LABEL
 accidental_label = tkinter.Label(window, text = "Accidental: ", font=("Helvetica",12))
-accidental_label.configure(background="white")
 accidental_label.grid(row=1, column=0, sticky="WE", padx=10, pady=10)
 #ACCIDENTAL COMBOBOX
 accidental_variable = tkinter.StringVar()
@@ -169,13 +167,14 @@ accidental_combobox.current(accidental_combobox['values'].index(accidental))
 
 #TRANSPOSE LABEL
 transpose_label = tkinter.Label(window, text = "Transpose offset: ", font=("Helvetica",12))
-transpose_label.configure(background="white")
 transpose_label.grid(row=2, column=0, sticky="WE", padx=10, pady=10)
 #TRANSPOSE SPINBOX
-transpose_spinbox = tkinter.Spinbox(window, from_=-12, to=12,width=3, relief="sunken", repeatdelay=500, font=("Arial", 12), state="readonly")
+transpose_spinbox = ttk.Spinbox(window, from_=-12, to=12, width=3, font=("Helvetica", 12), state="readonly")
 transpose_spinbox.grid(row=2, column=1,sticky="W",pady=10)
-transpose_spinbox.delete(0,"end")
+transpose_spinbox.delete(0,tkinter.END)
+transpose_spinbox.configure(state="normal")
 transpose_spinbox.insert(0,0)
+transpose_spinbox.configure(state="readonly")
 
 #DOWNLOAD BUTTON OPTIONS
 download_button = tkinter.Button(text="Download", command=button_download_press)
@@ -189,6 +188,9 @@ progress_bar.grid(row=4, column=0, columnspan=10)
 console_output = ScrolledText(width=95, height=20)
 console_output.grid(row=5, column=0, columnspan=10, sticky="WE", padx=10, pady=10)
 console_output.configure(state="disabled")
+
+#SET THEME
+sv_ttk.set_theme("light")
 
 
 if __name__ == "__main__":

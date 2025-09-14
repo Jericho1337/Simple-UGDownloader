@@ -10,7 +10,7 @@ from . import Song
 
 class WebNavigator:
 
-    SUPPORTED_BROWSER = ["Edge","Chrome","Firefox"]
+    SUPPORTED_BROWSERS = ["Edge","Chrome","Firefox"]
 
     def __init__(self,browser):
         
@@ -137,4 +137,7 @@ class WebNavigator:
         return HTML_text.text
   
     def __del__(self):
-        self.driver.quit()
+        try:
+            self.driver.quit()
+        except Exception:
+            pass

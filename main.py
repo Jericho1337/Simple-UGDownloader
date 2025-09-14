@@ -149,8 +149,24 @@ if __name__ == "__main__":
     songs_to_download_urllist = songreader.get_url_list()
     songs_to_download_transposelist = songreader.get_transpose_list()
 
-    #START WEBDRIVER
-    webnavigator = WebNavigator.WebNavigator(browser)
+    #START WEBDRIVER WITH PREFERRED BROWSER
+    try:
+        print(Colour.Colour.BLUE + "[          ] 0% Starting " + browser + " browser" + Colour.Colour.ENDC)
+        webnavigator = WebNavigator.WebNavigator(browser)
+    except Exception as preferred_browser_failure:
+        #TRY REMAINING SUPPORTED WEB BROWSERS
+        print(Colour.Colour.RED + "[          ] 0% Browser "+ browser +" failed!" + Colour.Colour.ENDC)
+        supported_browsers = WebNavigator.WebNavigator.SUPPORTED_BROWSERS # GET LIST OF SUPPORTED BROWSERS
+        supported_browsers.remove(browser) #REMOVE SUPPORTED BROWSER
+        
+        for selected_browser in supported_browsers: #TRY STARTING OTHER BROWSERS
+            print(Colour.Colour.BLUE + "[          ] 0% Starting " + selected_browser + " browser..." + Colour.Colour.ENDC)
+            try:
+                webnavigator = WebNavigator.WebNavigator(selected_browser) #TRY NEXT BROWSER IN LIST  
+                break #IF BROWSER STARTED BREAK TRY FOR CYCLE
+            except Exception as browser_failure:
+                print(Colour.Colour.RED + "[          ] 0% Browser "+ selected_browser +" failed!" + Colour.Colour.ENDC)
+
 
     #DOWNLOAD EACH SONG
     for song_index, url_line in enumerate(songs_to_download_urllist):
