@@ -30,7 +30,84 @@ browser = config_parameters["default_browser"]
 accidental = config_parameters["default_accidental"] 
 chord_transpose_offset = 0
 
-###===================================MAIN FUNCTION===================================###
+###===================================WINDOW PROGRAMMING LOGIC HELP FUNCTIONS===================================###
+
+def print_to_textbox(text):
+    console_output.configure(state="normal")
+    console_output.insert(tkinter.END, text)
+    console_output.see(tkinter.END)
+    console_output.configure(state="disabled")
+    console_output.see(tkinter.END)
+
+def button_download_press():
+    song_downloader_thread = Thread(target=main)
+    song_downloader_thread.start()
+
+def increment_progressbar(value):
+    progress_bar['value'] += value
+
+def reset_progressbar():
+    progress_bar['value'] = 0
+
+###===================================WINDOW INTERFACE DESIGN===================================###
+
+WIDTH = 800
+HEIGHT = 600
+
+#WINDOW OPTIONS
+window = tkinter.Tk()
+window.geometry(str(WIDTH)+"x"+str(HEIGHT))
+window.title("Simple UG Downloader")
+window.resizable(False, False)
+
+#BROWSER LABEL
+browser_label = tkinter.Label(window, text = "Preferred Browser: ", font=("Helvetica",12))
+browser_label.grid(row=0, column=0, sticky="E", padx=10, pady=10)
+#BROWSER COMBOBOX
+browser_variable = tkinter.StringVar()
+browser_combobox = ttk.Combobox(window, textvariable= browser_variable, state="readonly")
+browser_combobox['values'] = ("Edge","Chrome","Firefox")
+browser_combobox.grid(row=0, column=1, sticky="WE",pady=10)
+browser_combobox.current(browser_combobox["values"].index(browser))
+
+#ACCIDENTAL LABEL
+accidental_label = tkinter.Label(window, text = "Accidental: ", font=("Helvetica",12))
+accidental_label.grid(row=1, column=0, sticky="E", padx=10, pady=10)
+#ACCIDENTAL COMBOBOX
+accidental_variable = tkinter.StringVar()
+accidental_combobox = ttk.Combobox(window, textvariable= accidental_variable, state="readonly")
+accidental_combobox['values'] = ("o","#","b")
+accidental_combobox.grid(row=1, column=1, sticky="WE",pady=10)
+accidental_combobox.current(accidental_combobox['values'].index(accidental))
+
+#TRANSPOSE LABEL
+transpose_label = tkinter.Label(window, text = "Transpose offset: ", font=("Helvetica",12))
+transpose_label.grid(row=2, column=0, sticky="E", padx=10, pady=10)
+#TRANSPOSE SPINBOX
+transpose_spinbox = ttk.Spinbox(window, from_=-12, to=12, width=3, font=("Helvetica", 12), state="readonly")
+transpose_spinbox.grid(row=2, column=1,sticky="W",pady=10)
+transpose_spinbox.delete(0,tkinter.END)
+transpose_spinbox.configure(state="normal")
+transpose_spinbox.insert(0,0)
+transpose_spinbox.configure(state="readonly")
+
+#DOWNLOAD BUTTON OPTIONS
+download_button = tkinter.Button(text="Download", command=button_download_press)
+download_button.grid(row=3, column=9, padx=10, pady=10)
+
+#PROGRESS BAR
+progress_bar = ttk.Progressbar(length=770)
+progress_bar.grid(row=4, column=0, columnspan=10)
+
+#CONSOLE OUTPUT
+console_output = ScrolledText(width=95, height=20)
+console_output.grid(row=5, column=0, columnspan=10, sticky="WE", padx=10, pady=10)
+console_output.configure(state="disabled")
+
+#SET THEME
+sv_ttk.set_theme("dark")
+
+###===================================WINDOW PROGRAMMING LOGIC===================================###
 
 #Cleans .pkl files in fonts folder because .pkl files cache paths and can cause problems
 def cleanup():
@@ -54,8 +131,23 @@ def main():
     songs_to_download_urllist = songreader.get_url_list()
     songs_to_download_transposelist = songreader.get_transpose_list()
 
-    #START WEBDRIVER
-    webnavigator = WebNavigator.WebNavigator(browser)
+    #START WEBDRIVER WITH PREFERRED BROWSER
+    try:
+        print_to_textbox("[          ] 0% Starting " + browser + " browser\n")
+        webnavigator = WebNavigator.WebNavigator(browser)
+    except Exception:
+        #TRY REMAINING SUPPORTED WEB BROWSERS
+        print_to_textbox("[          ] 0% Browser "+ browser +" failed!\n")
+        supported_browsers = WebNavigator.WebNavigator.SUPPORTED_BROWSERS # GET LIST OF SUPPORTED BROWSERS
+        supported_browsers.remove(browser) #REMOVE SUPPORTED BROWSER
+        
+        for selected_browser in supported_browsers: #TRY STARTING OTHER BROWSERS
+            print_to_textbox("[          ] 0% Starting " + selected_browser + " browser...\n")
+            try:
+                webnavigator = WebNavigator.WebNavigator(selected_browser) #TRY NEXT BROWSER IN LIST  
+                break #IF BROWSER STARTED BREAK TRY FOR CYCLE
+            except Exception:
+                print_to_textbox("[          ] 0% Browser "+ selected_browser +" failed!\n")
 
     #DOWNLOAD EACH SONG
     for song_index, url_line in enumerate(songs_to_download_urllist):
@@ -115,83 +207,6 @@ def main():
     
     #DESTROY TEMP FILES
     cleanup()
-
-###===================================WINDOW PROGRAM LOGIC===================================###
-
-def print_to_textbox(text):
-    console_output.configure(state="normal")
-    console_output.insert(tkinter.END, text)
-    console_output.see(tkinter.END)
-    console_output.configure(state="disabled")
-
-def button_download_press():
-    song_downloader_thread = Thread(target=main)
-    song_downloader_thread.start()
-
-def increment_progressbar(value):
-    progress_bar['value'] += value
-
-def reset_progressbar():
-    progress_bar['value'] = 0
-
-###===================================WINDOW INTERFACE DESIGN===================================###
-
-WIDTH = 800
-HEIGHT = 600
-
-#WINDOW OPTIONS
-window = tkinter.Tk()
-window.geometry(str(WIDTH)+"x"+str(HEIGHT))
-window.title("Simple UG Downloader")
-window.resizable(False, False)
-
-#BROWSER LABEL
-browser_label = tkinter.Label(window, text = "Browser: ", font=("Helvetica",12))
-browser_label.grid(row=0, column=0, sticky="WE", padx=10, pady=10)
-#BROWSER COMBOBOX
-browser_variable = tkinter.StringVar()
-browser_combobox = ttk.Combobox(window, textvariable= browser_variable, state="readonly")
-browser_combobox['values'] = ("Edge","Chrome","Firefox")
-browser_combobox.grid(row=0, column=1, sticky="WE",pady=10)
-browser_combobox.current(browser_combobox["values"].index(browser))
-
-#ACCIDENTAL LABEL
-accidental_label = tkinter.Label(window, text = "Accidental: ", font=("Helvetica",12))
-accidental_label.grid(row=1, column=0, sticky="WE", padx=10, pady=10)
-#ACCIDENTAL COMBOBOX
-accidental_variable = tkinter.StringVar()
-accidental_combobox = ttk.Combobox(window, textvariable= accidental_variable, state="readonly")
-accidental_combobox['values'] = ("o","#","b")
-accidental_combobox.grid(row=1, column=1, sticky="WE",pady=10)
-accidental_combobox.current(accidental_combobox['values'].index(accidental))
-
-#TRANSPOSE LABEL
-transpose_label = tkinter.Label(window, text = "Transpose offset: ", font=("Helvetica",12))
-transpose_label.grid(row=2, column=0, sticky="WE", padx=10, pady=10)
-#TRANSPOSE SPINBOX
-transpose_spinbox = ttk.Spinbox(window, from_=-12, to=12, width=3, font=("Helvetica", 12), state="readonly")
-transpose_spinbox.grid(row=2, column=1,sticky="W",pady=10)
-transpose_spinbox.delete(0,tkinter.END)
-transpose_spinbox.configure(state="normal")
-transpose_spinbox.insert(0,0)
-transpose_spinbox.configure(state="readonly")
-
-#DOWNLOAD BUTTON OPTIONS
-download_button = tkinter.Button(text="Download", command=button_download_press)
-download_button.grid(row=3, column=9, padx=10, pady=10)
-
-#PROGRESS BAR
-progress_bar = ttk.Progressbar(length=770)
-progress_bar.grid(row=4, column=0, columnspan=10)
-
-#CONSOLE OUTPUT
-console_output = ScrolledText(width=95, height=20)
-console_output.grid(row=5, column=0, columnspan=10, sticky="WE", padx=10, pady=10)
-console_output.configure(state="disabled")
-
-#SET THEME
-sv_ttk.set_theme("light")
-
 
 if __name__ == "__main__":
     window.mainloop()
