@@ -89,7 +89,7 @@ python main.py --accidental "b"
 
 #### 📄➡️📜 TXT TO PDF 📄➡️📜
 
-You can input TXT of TRUE TXT to generate PDFs. This mode is useful if you want to adjust tabs that contain some errors after download.
+You can input TXT or TRUE TXT to generate PDFs. This mode is useful if you want to adjust tabs that contain some errors after download.
 
 You can choose between 2 modes:
 * Normal mode: using ```--txt2pdf <TXT_FILE>```
@@ -123,6 +123,8 @@ Example if we want to use Edge instead:
 ```
 python main.py --browser "Edge"
 ```
+
+**Note**: For robustness reason, specified browser will be the first selected, in case of error other webdrivers will be tried.
 
 Available Browsers = Edge, Chrome, Firefox
 
