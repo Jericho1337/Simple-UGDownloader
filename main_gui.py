@@ -9,7 +9,7 @@ import tkinter
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk
 import sv_ttk
-from tkinter.filedialog import FileDialog
+from tkinter import filedialog
 
 
 ###===================================CONFIG PARAMETERS===================================###
@@ -48,6 +48,15 @@ def increment_progressbar(value):
 
 def set_progressbar(percentage):
     progress_bar['value'] = percentage
+
+def open_filepath():
+    filepath = filedialog.askopenfilename(title="Open URL song input file", initialdir="/", filetypes=(('text files', '*.txt'), ('All files', '*.*')))
+    filepath = filepath.replace("\\","/")
+    if(filepath != ""):
+        inputpath_text.configure(state="normal")
+        inputpath_text.delete(1.0,tkinter.END)
+        inputpath_text.insert(tkinter.END, filepath)
+        inputpath_text.configure(state="disabled")
 
 ###===================================WINDOW INTERFACE DESIGN===================================###
 
@@ -91,17 +100,29 @@ transpose_spinbox.configure(state="normal")
 transpose_spinbox.insert(0,0)
 transpose_spinbox.configure(state="readonly")
 
+#INPUT PATH LABEL
+inputpath_label = tkinter.Label(window, text = "Input file: ", font=("Helvetica",12))
+inputpath_label.grid(row=3, column=0, sticky="E", padx=10, pady=10)
+#INPUT PATH TEXTBOX
+inputpath_text = ScrolledText(width=60, height= 1)
+inputpath_text.grid(row=3, column=1, columnspan=2, sticky="W", padx=10, pady=10)
+inputpath_text.insert(tkinter.END, songs_to_download_file)
+inputpath_text.configure(state="disabled")
+#INPUT PATH BUTTON 
+inputpath_button = tkinter.Button(text="...", command=open_filepath)
+inputpath_button.grid(row=3, column=3, sticky="W", padx=10, pady=10)
+
 #DOWNLOAD BUTTON OPTIONS
 download_button = tkinter.Button(text="Download", command=button_download_press)
-download_button.grid(row=3, column=9, padx=10, pady=10)
+download_button.grid(row=4, column=7, padx=10, pady=10)
 
 #PROGRESS BAR
 progress_bar = ttk.Progressbar(length=770)
-progress_bar.grid(row=4, column=0, columnspan=10)
+progress_bar.grid(row=5, column=0, columnspan=10)
 
 #CONSOLE OUTPUT
-console_output = ScrolledText(width=95, height=20)
-console_output.grid(row=5, column=0, columnspan=10, sticky="WE", padx=10, pady=10)
+console_output = ScrolledText(width=85, height=18)
+console_output.grid(row=6, column=0, columnspan=8, sticky="WE", padx=10, pady=10)
 console_output.configure(state="disabled")
 
 #SET THEME
@@ -122,9 +143,11 @@ def main():
 
     cleanup() #REMOVES TEMPORARY FILES BEFORE EXECUTION
 
+    #RETRIEVE DATA FROM WINDOW INPUT FIELDS
     browser=browser_combobox.get()
     accidental=accidental_combobox.get()
     chord_transpose_offset=int(transpose_spinbox.get())
+    songs_to_download_file=inputpath_text.get("1.0",tkinter.END).replace("\n","")
 
     #OPEN INPUT URL SONG LIST FILE
     songreader = SongsFileReader.SongsFileReader(songs_to_download_file)
