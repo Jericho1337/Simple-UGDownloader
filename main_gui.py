@@ -46,8 +46,8 @@ def button_download_press():
 def increment_progressbar(value):
     progress_bar['value'] += value
 
-def reset_progressbar():
-    progress_bar['value'] = 0
+def set_progressbar(percentage):
+    progress_bar['value'] = percentage
 
 ###===================================WINDOW INTERFACE DESIGN===================================###
 
@@ -150,20 +150,20 @@ def main():
                 print_to_textbox("[          ] 0% Browser "+ selected_browser +" failed!\n")
 
     #DOWNLOAD EACH SONG
+    progress_bar_increment = 10.0/len(songs_to_download_urllist)
     for song_index, url_line in enumerate(songs_to_download_urllist):
 
         try:
-            reset_progressbar()
             
             #GET SONG FROM WEBPAGE
             print_to_textbox("[=         ] 10% Getting webpage...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             song = webnavigator.get_song_from_webpage(url_line)
 
             #TRANSPOSE TEXT: WE USE TRUE TRANSPOSE FOR TRUE AND NORMAL TRANSPOSE FOR NORMAL
             total_chord_transpose_offset = songs_to_download_transposelist[song_index] + chord_transpose_offset #ADDS OFFSET FROM CMD ARGUMENT TO OFFSET SPECIFIED IN INPUT FILE
             print_to_textbox("[==        ] 20% Transposing song by "+ str(total_chord_transpose_offset) +" offset...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             song.transpose(total_chord_transpose_offset, accidental)
             song.true_transpose(total_chord_transpose_offset, accidental)
 
@@ -174,37 +174,39 @@ def main():
 
             #NORMAL MODE OUTPUTS
             print_to_textbox("[===       ] 30% Generating chords bold PDF for "+ song.get_title() +"...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_bold_pdf(song)
             print_to_textbox("[====      ] 40% Generating chords normal PDF for "+ song.get_title() +"...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_normal_pdf(song)
             print_to_textbox("[=====     ] 50% Generating chords normal TXT for "+ song.get_title() +"...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_normal_text(song)
 
             #TRUE MODE OUTPUTS
             print_to_textbox("[======    ] 60% Generating chords TRUE bold PDF for "+ song.get_title() +"...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_true_bold_pdf(song)
             print_to_textbox("[=======   ] 70% Generating chords TRUE bold PDF for "+ song.get_title() +"...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_true_normal_pdf(song)
             print_to_textbox("[========  ] 80% Generating chords TRUE TXT for "+ song.get_title() +"...\n" )
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_true_text(song)
 
             print_to_textbox("[========= ] 90% Generating chordpro TXT for "+ song.get_title() +"...\n")
-            increment_progressbar(10.0)
+            increment_progressbar(progress_bar_increment)
             songwriter.generate_chordpro_text(song)
 
             print_to_textbox("[==========] 100% Completed " + song.get_title() + " download\n")
-            increment_progressbar(10.0)
-
+            increment_progressbar(progress_bar_increment)
         except Exception as exception:
             print_to_textbox("Song: " + url_line + " failed to download\n")
             print_to_textbox(exception)
-    
+
+    #SET PROGRESS BAR TO 100%
+    set_progressbar(100.0)
+
     #DESTROY TEMP FILES
     cleanup()
 
