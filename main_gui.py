@@ -60,13 +60,12 @@ def open_filepath():
 
 ###===================================WINDOW INTERFACE DESIGN===================================###
 
-WIDTH = 800
-HEIGHT = 600
 
 #WINDOW OPTIONS
 window = tkinter.Tk()
-window.geometry(str(WIDTH)+"x"+str(HEIGHT))
 window.title("Simple UG Downloader")
+window_icon = tkinter.PhotoImage("images/icon.png")
+window.iconphoto(False, window_icon)
 window.resizable(False, False)
 
 #BROWSER LABEL
