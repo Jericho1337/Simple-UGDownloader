@@ -64,8 +64,6 @@ def open_filepath():
 #WINDOW OPTIONS
 window = tkinter.Tk()
 window.title("Simple UG Downloader")
-window_icon = tkinter.PhotoImage("images/icon.png")
-window.iconphoto(False, window_icon)
 window.resizable(False, False)
 
 #BROWSER LABEL
